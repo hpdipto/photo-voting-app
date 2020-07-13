@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import 'bootswatch/dist/superhero/bootstrap.min.css';
+// import 'bootswatch/dist/superhero/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap.css';
 
 function Login({login, setLogin, register, setRegister}) {
 
