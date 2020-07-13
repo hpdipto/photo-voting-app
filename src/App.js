@@ -27,6 +27,7 @@ function App() {
 
   return (
     <div className="col-md-6 m-auto">
+      <br />
       <div className="card card-body text-center">
         <p>Welcome to My Photo Voting App</p>
         <div className="btn-group">
@@ -34,6 +35,7 @@ function App() {
           <button className="btn btn-secondary" onClick={arrangeLogin}>Arrange</button>
         </div>
       </div>
+      <br />
       {vote ? <Vote /> : null}
       {login ? <Login login={login} setLogin={setLogin} register={register} setRegister={setRegister} /> : null}
       {register ? <Register login={login} setLogin={setLogin} register={register} setRegister={setRegister} /> : null}

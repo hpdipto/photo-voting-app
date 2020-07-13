@@ -2,30 +2,7 @@ import React, { useState } from 'react';
 // import 'bootswatch/dist/superhero/bootstrap.min.css';
 import 'bootstrap/dist/css/bootstrap.css';
 
-function ErrorItem({message}) {
-
-    const [closeAlert, setCloseAlert] = useState(false);
-
-    const handleClose = () => {
-        setCloseAlert(true);
-    }
-
-    if(!closeAlert) {
-        return (
-            <div className="alert alert-warning alert-dismissible fade show" role="alert">
-                {message}
-                <button type="button" className="close" data-dismiss="alert" aria-label="Close" onClick={handleClose}>
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        );
-    }
-    else {
-        return (
-            <div></div>
-        );
-    }
-}
+import ErrorItem from "./error.component";
 
 
 function ErrorMessage({ errorMessages }) {
@@ -60,7 +37,7 @@ function Register({ login, setLogin, register, setRegister }) {
 
     const onSubmit = (e) => {
         setErrorMessages(errorMessages => []);
-        
+
 
         // tackle unique email
         // here
@@ -87,14 +64,22 @@ function Register({ login, setLogin, register, setRegister }) {
         <div className="col-md-6 m-auto">
             <div className="card card-body">
                 {/* <form onSubmit={onSubmit}> */}
-                    {errorMessages.length ? <ErrorMessage errorMessages={errorMessages} setErrorMessages={setErrorMessages}/> : null}
-                    <label htmlFor="name">Name</label>
-                    <input type="text" className="form-control" onChange={onChangeName}></input>
-                    <label htmlFor="email">Email</label>
-                    <input type="email" className="form-control" onChange={onChangeEmail}></input>
-                    <label htmlFor="password">Password</label>
-                    <input type="password" className="form-control" onChange={onChangePassword}></input>
-                    <button type="submit" className="btn btn-primary btn-block" onClick={onSubmit}>Register</button>
+                    {errorMessages.length ? <ErrorMessage errorMessages={errorMessages} /> : null}
+                    <div className="form-group">
+                        <label htmlFor="name">Name</label>
+                        <input type="text" className="form-control" onChange={onChangeName}></input>
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="email">Email</label>
+                        <input type="email" className="form-control" onChange={onChangeEmail}></input>
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="password">Password</label>
+                        <input type="password" className="form-control" onChange={onChangePassword}></input>
+                    </div>
+                    <div className="form-group">
+                        <button type="submit" className="btn btn-primary btn-block" onClick={onSubmit}>Register</button>
+                    </div>
                 {/* </form> */}
                     <p>Have an account? <button className="btn btn-link" onClick={onClickLogin}>Login</button> </p>
             </div>
