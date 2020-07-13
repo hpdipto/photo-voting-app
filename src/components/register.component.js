@@ -61,7 +61,7 @@ function Register({ login, setLogin, register, setRegister }) {
     }
 
     return (
-        <div className="col-md-6 m-auto">
+        <div className="col-xs-6 m-auto">
             <div className="card card-body">
                 {/* <form onSubmit={onSubmit}> */}
                     {errorMessages.length ? <ErrorMessage errorMessages={errorMessages} /> : null}

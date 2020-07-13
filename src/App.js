@@ -26,6 +26,7 @@ function App() {
   }
 
   return (
+    <div className="row mt-5">
     <div className="col-md-6 m-auto">
       <br />
       <div className="card card-body text-center">
@@ -39,6 +40,7 @@ function App() {
       {vote ? <Vote /> : null}
       {login ? <Login login={login} setLogin={setLogin} register={register} setRegister={setRegister} /> : null}
       {register ? <Register login={login} setLogin={setLogin} register={register} setRegister={setRegister} /> : null}
+    </div>
     </div>
   );
 }
