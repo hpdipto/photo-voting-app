@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 // import 'bootswatch/dist/superhero/bootstrap.min.css';
 import 'bootstrap/dist/css/bootstrap.css';
 
@@ -28,6 +29,8 @@ function SuccessMessages({ messages }) {
     );
 }
 
+
+
 function Login({login, setLogin, register, setRegister}) {
 
     const [loginEmail, setLoginEmail] = useState('');
@@ -51,6 +54,23 @@ function Login({login, setLogin, register, setRegister}) {
         if(loginPassword === '') {
             setErrorMessages(errorMessages => [...errorMessages, 'Please enter a password']);
         }
+
+        let user = {
+            "email": loginEmail,
+            "password": loginPassword
+        };
+
+
+        axios.post('http://localhost:5000/users/login', user)
+            .then(res => {
+                let responseData = res.data;
+                if (responseData.hasOwnProperty('message')) {
+                    setErrorMessages(errorMessages => [...errorMessages, responseData['message']]);
+                }
+                else {
+                    console.log(responseData);
+                }
+            })
     }
 
     const onClickRegister = () => {
