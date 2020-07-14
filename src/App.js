@@ -9,38 +9,40 @@ import Vote from "./components/vote.component";
 
 function App() {
 
-  const [login, setLogin] = useState(false);
+  // login state will use 3 values: 0 -> unmount, 1 -> mount, 2 -> mount after register success
+  const [login, setLogin] = useState(0);
   const [register, setRegister] = useState(false);
   const [vote, setVote] = useState(false);
 
   const arrangeVote = () => {
     setVote(!vote);
-    setLogin(false);
+    setLogin(0);
     setRegister(false);
   }
 
   const arrangeLogin = () => {
     setVote(false);
     setRegister(false);
-    setLogin(!login);
+    // conditional toggling
+    login ? setLogin(0) : setLogin(1);
   }
 
   return (
     <div className="row mt-5">
-    <div className="col-md-6 m-auto">
-      <br />
-      <div className="card card-body text-center">
-        <p>Welcome to My Photo Voting App</p>
-        <div className="btn-group">
-          <button className="btn btn-primary" onClick={arrangeVote}>Vote</button>
-          <button className="btn btn-secondary" onClick={arrangeLogin}>Arrange</button>
+      <div className="col-md-6 m-auto">
+        <br />
+        <div className="card card-body text-center">
+          <p>Welcome to My Photo Voting App</p>
+          <div className="btn-group">
+            <button className="btn btn-primary" onClick={arrangeVote}>Vote</button>
+            <button className="btn btn-secondary" onClick={arrangeLogin}>Arrange</button>
+          </div>
         </div>
+        <br />
+        {vote ? <Vote /> : null}
+        {login ? <Login login={login} setLogin={setLogin} register={register} setRegister={setRegister} /> : null}
+        {register ? <Register login={login} setLogin={setLogin} register={register} setRegister={setRegister} /> : null}
       </div>
-      <br />
-      {vote ? <Vote /> : null}
-      {login ? <Login login={login} setLogin={setLogin} register={register} setRegister={setRegister} /> : null}
-      {register ? <Register login={login} setLogin={setLogin} register={register} setRegister={setRegister} /> : null}
-    </div>
     </div>
   );
 }

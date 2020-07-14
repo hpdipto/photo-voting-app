@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 // import 'bootswatch/dist/superhero/bootstrap.min.css';
 import 'bootstrap/dist/css/bootstrap.css';
 
 import ErrorItem from "./error.component";
 
 
-function ErrorMessage({ errorMessages }) {
+function ErrorMessages({ messages }) {
 
     return(
         <div>
-            {errorMessages.map((em, index) => {
+            {messages.map((em, index) => {
                 return <ErrorItem key={index} message={em} />;
             })}
         </div>
@@ -36,11 +37,9 @@ function Register({ login, setLogin, register, setRegister }) {
     }
 
     const onSubmit = (e) => {
-        setErrorMessages(errorMessages => []);
+        setErrorMessages(errorMessages => []);       
 
-
-        // tackle unique email
-        // here
+        // Basic errors
         if(registerName === '') {
             setErrorMessages(errorMessages => [...errorMessages, 'Please enter a name']);
         }
@@ -53,18 +52,34 @@ function Register({ login, setLogin, register, setRegister }) {
         if(registerPassword.length > 0 && registerPassword.length < 6) {
             setErrorMessages(errorMessages => [...errorMessages, 'Password must be 6 characters or more']);
         }
+
+        // If no errors had, procedding
+        if(errorMessages.length === 0) {
+            let user = {
+                name: registerName,
+                email: registerEmail,
+                password: registerPassword
+            }
+
+            axios.post('http://localhost:5000/users/add', user)
+                .then(res => {
+                    console.log("User added successfully");
+                    onClickLogin(2);
+                })  
+                .catch(err => setErrorMessages(errorMessages => [...errorMessages, 'Email already used']));
+        }
     }
 
-    const onClickLogin = () => {
-        setLogin(!login);
-        setRegister(!register);
+    const onClickLogin = (registerStatus) => {
+        setLogin(registerStatus);
+        setRegister(false);
     }
 
     return (
         <div className="col-xs-6 m-auto">
             <div className="card card-body">
                 {/* <form onSubmit={onSubmit}> */}
-                    {errorMessages.length ? <ErrorMessage errorMessages={errorMessages} /> : null}
+                    {errorMessages.length ? <ErrorMessages messages={errorMessages} /> : null}
                     <div className="form-group">
                         <label htmlFor="name">Name</label>
                         <input type="text" className="form-control" onChange={onChangeName}></input>

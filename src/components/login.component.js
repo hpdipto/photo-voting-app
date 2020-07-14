@@ -3,18 +3,30 @@ import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 
 import ErrorItem from "./error.component";
+import SuccessItem from "./success.component";
 
-function ErrorMessage({ errorMessages }) {
+function ErrorMessages({ messages }) {
 
     return(
         <div>
-            {errorMessages.map((em, index) => {
+            {messages.map((em, index) => {
                 return <ErrorItem key={index} message={em} />;
             })}
         </div>
     );
 }
 
+
+function SuccessMessages({ messages }) {
+
+    return(
+        <div>
+            {messages.map((em, index) => {
+                return <SuccessItem key={index} message={em} />;
+            })}
+        </div>
+    );
+}
 
 function Login({login, setLogin, register, setRegister}) {
 
@@ -42,15 +54,16 @@ function Login({login, setLogin, register, setRegister}) {
     }
 
     const onClickRegister = () => {
-        setLogin(!login);
-        setRegister(!register);
+        setLogin(0);
+        setRegister(true);
     }
 
     return (
         <div className="col-xs-6 m-auto">
             <div className="card card-body">
                 {/* <form onSubmit={onSubmit}> */}
-                    {errorMessages.length ? <ErrorMessage errorMessages={errorMessages} /> : null}
+                    {errorMessages.length ? <ErrorMessages messages={errorMessages} /> : null}
+                    {login === 2 ? <SuccessMessages messages={["User registered successfully"]} /> : null}
                     <div className="form-group">
                         <label htmlFor="email">Email</label>
                         <input type="email" className="form-control" onChange={onChangeEmail}></input>
