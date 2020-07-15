@@ -69,6 +69,7 @@ function Login({login, setLogin, register, setRegister}) {
                 }
                 else {
                     console.log(responseData);
+                    window.location = "/dashboard";
                 }
             })
     }
