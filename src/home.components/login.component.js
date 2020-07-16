@@ -61,14 +61,14 @@ function Login({login, setLogin, register, setRegister}) {
         };
 
 
-        axios.post('http://localhost:5000/users/login', user)
+        axios.post('http://localhost:5000/users/login', user, { withCredentials: true })
             .then(res => {
                 let responseData = res.data;
                 if (responseData.hasOwnProperty('message')) {
                     setErrorMessages(errorMessages => [...errorMessages, responseData['message']]);
                 }
                 else {
-                    console.log(responseData);
+                    // console.log(responseData);
                     window.location = "/dashboard";
                 }
             })

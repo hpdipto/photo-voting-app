@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 // import 'bootswatch/dist/superhero/bootstrap.min.css';
 import 'bootstrap/dist/css/bootstrap.css';
 
-import Login from "./components/login.component";
-import Register from "./components/register.component";
-import Vote from "./components/vote.component";
+import Login from "./home.components/login.component";
+import Register from "./home.components/register.component";
+import Vote from "./home.components/vote.component";
 
 
 function Home() {
