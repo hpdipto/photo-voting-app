@@ -21,10 +21,9 @@ function Home({ loginStatus, setLoginStatus }) {
   useEffect(() => {
     // unauthorized user tried to access dashboard
     if(loginStatus === 2) {
-      setLogin(2);
-
+      setLogin(() => 2);
     }
-  }, [loginStatus]);
+  }, []);
 
 
   const arrangeVote = () => {
@@ -53,7 +52,7 @@ function Home({ loginStatus, setLoginStatus }) {
         </div>
         <br />
         {vote ? <Vote /> : null}
-        {login ? <Login login={login} setLogin={setLogin} register={register} setRegister={setRegister} /> : null}
+        {login ? <Login login={login} setLogin={setLogin} register={register} setRegister={setRegister} loginStatus={loginStatus} setLoginStatus={setLoginStatus} /> : null}
         {register ? <Register login={login} setLogin={setLogin} register={register} setRegister={setRegister} /> : null}
       </div>
     </div>

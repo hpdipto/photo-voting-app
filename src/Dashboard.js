@@ -11,13 +11,10 @@ function Dashboard({ loginStatus, setLoginStatus }) {
   const [user, setUser] = useState({});
   const history = useHistory();
 
-  if(loginStatus === 0) {
-    setLoginStatus(2);
-  }
-
   useEffect(() => {
     
-    if(loginStatus === 2) {
+    if(loginStatus === 0) {
+      setLoginStatus(2);
       // unauthorized user tried to access dashboard
       history.push("/");
     }
@@ -25,7 +22,12 @@ function Dashboard({ loginStatus, setLoginStatus }) {
     axios.get('http://localhost:5000/users/dashboard')
         .then(user => setUser(user.data));
 
-  }, [loginStatus, history]);
+    // if(Object.keys(user).length === 0) {
+    //   setLoginStatus(2);
+    //   history.push("/");
+    // }
+
+  }, [loginStatus, setLoginStatus, history]);
 
 
   const viewUser = () => {
@@ -37,8 +39,8 @@ function Dashboard({ loginStatus, setLoginStatus }) {
     setUser({});
     axios.get('http://localhost:5000/users/logout')
         .then(res => {
-          setLoginStatus(false);
-          window.location = "/";
+          setLoginStatus(() => 0);
+          history.push("/");
         })
         .catch(err => {
           console.log(err)

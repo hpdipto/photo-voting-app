@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 // import 'bootswatch/dist/superhero/bootstrap.min.css';
 import 'bootstrap/dist/css/bootstrap.css';
@@ -34,12 +35,14 @@ function SuccessMessages({ messages }) {
 
 
 
-function Login({login, setLogin, register, setRegister}) {
+function Login({login, setLogin, register, setRegister, loginStatus, setLoginStatus}) {
 
     const [loginEmail, setLoginEmail] = useState('');
     const [loginPassword, setLoginPassword] = useState('');
     const [errorMessages, setErrorMessages] = useState([]);
     const [successMessages, setSuccessMessages] = useState([]);
+
+    const history = useHistory();
 
     useEffect(() => {
         // user tried to access dashboard
@@ -50,7 +53,7 @@ function Login({login, setLogin, register, setRegister}) {
         if(login === 3) {
             setSuccessMessages(successMessages => [...successMessages, 'Registered successfully']);
         }
-    }, [login]);
+    }, []);
 
 
     const onChangeEmail = (e) => {
@@ -84,7 +87,8 @@ function Login({login, setLogin, register, setRegister}) {
                     setErrorMessages(errorMessages => [...errorMessages, responseData['message']]);
                 }
                 else {
-                    window.location = "/dashboard";
+                    setLoginStatus(1);
+                    history.push("/dashboard");
                 }
             })
     }
