@@ -4,18 +4,13 @@ let User = require('../models/user.model');
 const passport = require('passport');
 const session = require('express-session');
 
-// finally goes with local-storage option :(
-if (typeof localStorage === "undefined" || localStorage === null) {
-  var LocalStorage = require('node-localstorage').LocalStorage;
-  localStorage = new LocalStorage('./sessions');
-}
-
 
 router.route('/').get((req, res) => {
     User.find()
         .then(users => res.json(users))
         .catch(err => res.status(400).json('Error: ' + err));
 });
+
 
 router.route('/add').post((req, res) => {
     const name = req.body.name;
@@ -45,26 +40,30 @@ router.post('/login', (req, res, next) => {
         if(info) return res.send(info);
         req.logIn(user, e => {
             if(e) return next(e);
-            localStorage.setItem('userId', user._id);
             res.send(user);
         });
     })(req, res, next);
 });
 
 
+// Dashboard for Logged in User
 router.get('/dashboard', (req, res) => {
-    var userId = localStorage.getItem('userId');
+    var userId = req.session.passport.user;
     if(userId) {
         User.findById(userId, (err, user) => {
             res.json(user);
         })
+    }
+    else {
+        res.json({"message": "Unauthorized"});
     }
 })
 
 
 // Handle Lot Out
 router.route('/logout').get((req, res) => {
-    localStorage.setItem('userId', '');
+    req.logOut();
+    req.session.destroy();
     res.send('logged out');
 })
 

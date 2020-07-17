@@ -34,7 +34,7 @@ function Dashboard() {
 
   return (
     <div className="card card-body">
-      <nav className="navbar navbar-light" style={{"background-color": "#e3f2fd"}} >
+      <nav className="navbar navbar-light" style={{"backgroundColor": "#e3f2fd"}} >
         <p className="navbar-brand"> {user.name}'s Dashboard </p>
         <div className="btn-group">
           <button onClick={viewUser} className="btn btn-outline-success">Data</button>

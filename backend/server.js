@@ -21,7 +21,11 @@ require('./config/passport.config')(passport);
 const app = express();
 const port = process.env.PORT || 5000;
 
-app.use(cors({credentials: true, origin: "http://localhost:3000"}));
+app.use(cors({
+    origin:['http://localhost:3000'],
+    methods:['GET','POST'],
+    credentials: true // enable set cookie
+}));
 app.use(express.json());
 
 
@@ -31,34 +35,13 @@ mongoose.connect(uri, { useNewUrlParser: true })
         .then(() => console.log("MongoDB Connected Successfully!"))
         .catch(err => console.log(err));
 
-// EJS
-app.use(expressLayouts);
-app.set('view engine', 'ejs');
 
-// Bodyparser
-app.use(express.urlencoded({ extended:true }));
-
-
-
-// const connection = mongoose.connection;
-// connection.once('open', () => {
-//     console.log("MongoDB Connected Successfully!");
-// })
-
-
-// var store = new MongoDBStore(
-//             {
-//                 uri: 'mongodb+srv://me:me97@photovotingappv1.9rjdl.mongodb.net/',
-//                 databaseName: 'connect_mongodb_session',
-//                 collection: 'mySession'
-//             }, (err) => {console.log(err)})
 // Express session
 app.use(session({
     secret: 'keyboard cat',
     saveUninitialized: true,
-    resave: true,
-    // store: new MongoStore({ mongoConnection: connection }),
-    cookie: { secure: true }
+    resave: false,
+    cookie: { secure: false }   // anti-depressant line!!!
 }));
 
 

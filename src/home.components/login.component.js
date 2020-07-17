@@ -6,6 +6,9 @@ import 'bootstrap/dist/css/bootstrap.css';
 import ErrorItem from "./error.component";
 import SuccessItem from "./success.component";
 
+// eable axios cookies
+axios.defaults.withCredentials = true;
+
 function ErrorMessages({ messages }) {
 
     return(
@@ -61,14 +64,13 @@ function Login({login, setLogin, register, setRegister}) {
         };
 
 
-        axios.post('http://localhost:5000/users/login', user, { withCredentials: true })
+        axios.post('http://localhost:5000/users/login', user, {withCredentials: true})
             .then(res => {
                 let responseData = res.data;
                 if (responseData.hasOwnProperty('message')) {
                     setErrorMessages(errorMessages => [...errorMessages, responseData['message']]);
                 }
                 else {
-                    // console.log(responseData);
                     window.location = "/dashboard";
                 }
             })
