@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 // import 'bootswatch/dist/superhero/bootstrap.min.css';
 import 'bootstrap/dist/css/bootstrap.css';
@@ -39,6 +39,19 @@ function Login({login, setLogin, register, setRegister}) {
     const [loginEmail, setLoginEmail] = useState('');
     const [loginPassword, setLoginPassword] = useState('');
     const [errorMessages, setErrorMessages] = useState([]);
+    const [successMessages, setSuccessMessages] = useState([]);
+
+    useEffect(() => {
+        // user tried to access dashboard
+        if(login === 2) {
+            setErrorMessages(errorMessages => [...errorMessages, 'Please login first']);
+        }
+
+        if(login === 3) {
+            setSuccessMessages(successMessages => [...successMessages, 'Registered successfully']);
+        }
+    }, [login]);
+
 
     const onChangeEmail = (e) => {
         setLoginEmail(e.target.value);
@@ -86,7 +99,7 @@ function Login({login, setLogin, register, setRegister}) {
             <div className="card card-body">
                 {/* <form onSubmit={onSubmit}> */}
                     {errorMessages.length ? <ErrorMessages messages={errorMessages} /> : null}
-                    {login === 2 ? <SuccessMessages messages={["User registered successfully"]} /> : null}
+                    {successMessages.length ? <SuccessMessages messages={successMessages} /> : null}
                     <div className="form-group">
                         <label htmlFor="email">Email</label>
                         <input type="email" className="form-control" onChange={onChangeEmail}></input>

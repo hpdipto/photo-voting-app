@@ -63,8 +63,9 @@ function Register({ login, setLogin, register, setRegister }) {
 
             axios.post('http://localhost:5000/users/add', user)
                 .then(res => {
-                    console.log("User added successfully");
-                    onClickLogin(2);
+                    // console.log("User added successfully");
+                    // user registered successfully
+                    onClickLogin(3);
                 })  
                 .catch(err => setErrorMessages(errorMessages => [...errorMessages, 'Email already used']));
         }

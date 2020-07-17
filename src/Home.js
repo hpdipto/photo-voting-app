@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 // import 'bootswatch/dist/superhero/bootstrap.min.css';
 import 'bootstrap/dist/css/bootstrap.css';
 
@@ -7,12 +7,25 @@ import Register from "./home.components/register.component";
 import Vote from "./home.components/vote.component";
 
 
-function Home() {
+function Home({ loginStatus, setLoginStatus }) {
 
-  // login state will use 3 values: 0 -> unmount, 1 -> mount, 2 -> mount after register success
+  // login state will use 3 values: 
+  // 0 -> unmount
+  // 1 -> mount
+  // 2 -> mount if unauthorized user tried to access dashboard
+  // 3 -> after successfully registered
   const [login, setLogin] = useState(0);
   const [register, setRegister] = useState(false);
   const [vote, setVote] = useState(false);
+
+  useEffect(() => {
+    // unauthorized user tried to access dashboard
+    if(loginStatus === 2) {
+      setLogin(2);
+
+    }
+  }, [loginStatus]);
+
 
   const arrangeVote = () => {
     setVote(!vote);

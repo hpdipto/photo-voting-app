@@ -5,18 +5,13 @@ const passport = require('passport');
 const session = require('express-session');
 
 
-router.route('/').get((req, res) => {
-    User.find()
-        .then(users => res.json(users))
-        .catch(err => res.status(400).json('Error: ' + err));
-});
 
+// Handle Registration
+router.post('/add', (req, res) => {
 
-router.route('/add').post((req, res) => {
     const name = req.body.name;
     const email = req.body.email;
     const password = bcrypt.hashSync(req.body.password, 11);
-    // const password = req.body.password;
     
     const newUser = new User({
         name,
@@ -35,6 +30,7 @@ router.route('/add').post((req, res) => {
 // Saves the day, AlHamdulillah:
 // https://stackoverflow.com/questions/49529959/using-react-to-render-flash-messages-from-express
 router.post('/login', (req, res, next) => {
+
     passport.authenticate('local', (e, user, info) => {
         if(e) return next(e);
         if(info) return res.send(info);
@@ -48,20 +44,23 @@ router.post('/login', (req, res, next) => {
 
 // Dashboard for Logged in User
 router.get('/dashboard', (req, res) => {
+
+    if(!req.session.hasOwnProperty('passport')) {
+        res.json({"message": "unauthorized"});
+    }
+    
     var userId = req.session.passport.user;
     if(userId) {
         User.findById(userId, (err, user) => {
             res.json(user);
         })
     }
-    else {
-        res.json({"message": "Unauthorized"});
-    }
 })
 
 
 // Handle Lot Out
-router.route('/logout').get((req, res) => {
+router.get('/logout', (req, res) => {
+
     req.logOut();
     req.session.destroy();
     res.send('logged out');
