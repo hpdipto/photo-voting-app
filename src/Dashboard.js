@@ -19,6 +19,8 @@ function Dashboard({ loginStatus, setLoginStatus }) {
       history.push('/');
     }
 
+    // if user is logged in and unauthorized user doesn't tried to access dashboard
+    // we'll fetch the data
     if(loginStatus > 0 && loginStatus !== 3) {
       axios.get('http://localhost:5000/users/dashboard')
           .then(u => setUser(u.data));
@@ -48,10 +50,10 @@ function Dashboard({ loginStatus, setLoginStatus }) {
 
   return (
     <div className="card card-body">
-      <nav className="navbar navbar-expand navbar-light" style={{"backgroundColor": "#e3f2fd"}} >
-        <p className="navbar-brand"> {user.name}'s Dashboard </p>
+      <nav className="navbar navbar-light" style={{"backgroundColor": "#e3f2fd"}} >
+        <p className="navbar-brand"> Dashboard for {user.name} </p>
         <div className="btn-group">
-          <button onClick={viewUser} className="btn btn-outline-success">Data</button>
+          {/*<button onClick={viewUser} className="btn btn-outline-success">Data</button>*/}
           <button onClick={logOut} className="btn btn-outline-danger">Log Out</button>
         </div>
       </nav>

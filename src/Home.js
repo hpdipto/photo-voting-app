@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 // import 'bootswatch/dist/superhero/bootstrap.min.css';
 import 'bootstrap/dist/css/bootstrap.css';
 
@@ -9,13 +10,21 @@ import Vote from "./home.components/vote.component";
 
 function Home({ loginStatus, setLoginStatus }) {
 
+  // this states are used to toggle components
   const [login, setLogin] = useState(loginStatus);
   const [register, setRegister] = useState(false);
   const [vote, setVote] = useState(false);
 
+  const history = useHistory();
+
   useEffect(() => {
+    // value login is updated from loginStatus
+    // login == 2 denotes user logged in successfully
     if(login === 2) {
+      // now all page can understand, a user is logged in
       setLoginStatus(1);
+      // after a successful login, we set local state `login`'s value to 0
+      // so that the component will unmount
       setLogin(0);
     }
   }, [login]);   // need to track the changes of `login`
@@ -47,7 +56,7 @@ function Home({ loginStatus, setLoginStatus }) {
         </div>
         <br />
         {vote ? <Vote /> : null}
-        {login > 0 ? <Login login={login} setLogin={setLogin} register={register} setRegister={setRegister} /> : null}
+        {login ? <Login login={login} setLogin={setLogin} register={register} setRegister={setRegister} /> : null}
         {register ? <Register login={login} setLogin={setLogin} register={register} setRegister={setRegister} /> : null}
       </div>
     </div>
