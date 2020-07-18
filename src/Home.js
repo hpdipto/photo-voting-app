@@ -9,27 +9,22 @@ import Vote from "./home.components/vote.component";
 
 function Home({ loginStatus, setLoginStatus }) {
 
-  // login state will use 3 values: 
-  // 0 -> unmount
-  // 1 -> mount
-  // 2 -> mount if unauthorized user tried to access dashboard
-  // 3 -> after successfully registered
-  const [login, setLogin] = useState(0);
+  const [login, setLogin] = useState(loginStatus);
   const [register, setRegister] = useState(false);
   const [vote, setVote] = useState(false);
 
   useEffect(() => {
-    // unauthorized user tried to access dashboard
-    if(loginStatus === 2) {
-      setLogin(() => 2);
+    if(login === 2) {
+      setLoginStatus(1);
+      setLogin(0);
     }
-  }, []);
+  }, [login]);   // need to track the changes of `login`
 
 
   const arrangeVote = () => {
     setVote(!vote);
-    setLogin(0);
     setRegister(false);
+    setLogin(0);
   }
 
   const arrangeLogin = () => {
@@ -52,7 +47,7 @@ function Home({ loginStatus, setLoginStatus }) {
         </div>
         <br />
         {vote ? <Vote /> : null}
-        {login ? <Login login={login} setLogin={setLogin} register={register} setRegister={setRegister} loginStatus={loginStatus} setLoginStatus={setLoginStatus} /> : null}
+        {login > 0 ? <Login login={login} setLogin={setLogin} register={register} setRegister={setRegister} /> : null}
         {register ? <Register login={login} setLogin={setLogin} register={register} setRegister={setRegister} /> : null}
       </div>
     </div>

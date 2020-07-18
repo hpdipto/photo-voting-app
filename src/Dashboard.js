@@ -14,20 +14,17 @@ function Dashboard({ loginStatus, setLoginStatus }) {
   useEffect(() => {
     
     if(loginStatus === 0) {
-      setLoginStatus(2);
       // unauthorized user tried to access dashboard
-      history.push("/");
+      setLoginStatus(3);
+      history.push('/');
     }
 
-    axios.get('http://localhost:5000/users/dashboard')
-        .then(user => setUser(user.data));
+    if(loginStatus > 0 && loginStatus !== 3) {
+      axios.get('http://localhost:5000/users/dashboard')
+          .then(u => setUser(u.data));
+    }
 
-    // if(Object.keys(user).length === 0) {
-    //   setLoginStatus(2);
-    //   history.push("/");
-    // }
-
-  }, [loginStatus, setLoginStatus, history]);
+  }, []);   // included  values to avoid warning
 
 
   const viewUser = () => {
@@ -39,8 +36,9 @@ function Dashboard({ loginStatus, setLoginStatus }) {
     setUser({});
     axios.get('http://localhost:5000/users/logout')
         .then(res => {
-          setLoginStatus(() => 0);
-          history.push("/");
+          // after successful logout loginStatus become -1
+          setLoginStatus(-1);
+          history.push('/');
         })
         .catch(err => {
           console.log(err)

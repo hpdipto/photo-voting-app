@@ -9,14 +9,13 @@ import Dashboard from "./Dashboard";
 
 function App() {
 
-  const [loginStatus, setLoginStatus] = useState(0);
+  const [login, setLogin] = useState(0);
 
   return (
     <Router>
-      <Route path="/" exact component={() => <Home loginStatus={loginStatus} setLoginStatus={setLoginStatus} />} />
+      <Route path="/" exact component={() => <Home loginStatus={login} setLoginStatus={setLogin} />} />
       <Route path="/dashboard" exact 
-        component={() => <Dashboard loginStatus={loginStatus} setLoginStatus={setLoginStatus} />}
-      />
+        component={() => <Dashboard loginStatus={login} setLoginStatus={setLogin} />} />
     </Router>
   );
 }

@@ -35,7 +35,7 @@ function SuccessMessages({ messages }) {
 
 
 
-function Login({login, setLogin, register, setRegister, loginStatus, setLoginStatus}) {
+function Login({login, setLogin, register, setRegister}) {
 
     const [loginEmail, setLoginEmail] = useState('');
     const [loginPassword, setLoginPassword] = useState('');
@@ -45,15 +45,18 @@ function Login({login, setLogin, register, setRegister, loginStatus, setLoginSta
     const history = useHistory();
 
     useEffect(() => {
-        // user tried to access dashboard
-        if(login === 2) {
+        // unauthorized user tried to access dashboard
+        // login  value was set from Dashboard.js
+        if(login === 3) {
             setErrorMessages(errorMessages => [...errorMessages, 'Please login first']);
         }
 
-        if(login === 3) {
+        // user registered successfully
+        // login value was set from home.components/register.component.js
+        if(login === 4) {
             setSuccessMessages(successMessages => [...successMessages, 'Registered successfully']);
         }
-    }, []);
+    }, []);   // included values to avoid warning
 
 
     const onChangeEmail = (e) => {
@@ -87,15 +90,16 @@ function Login({login, setLogin, register, setRegister, loginStatus, setLoginSta
                     setErrorMessages(errorMessages => [...errorMessages, responseData['message']]);
                 }
                 else {
-                    setLoginStatus(1);
+                    // successful login
+                    setLogin(2);
                     history.push("/dashboard");
                 }
             })
     }
 
     const onClickRegister = () => {
-        setLogin(0);
         setRegister(true);
+        setLogin(0);
     }
 
     return (
