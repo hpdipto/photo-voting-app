@@ -83,7 +83,7 @@ function Login({login, setLogin, register, setRegister}) {
         };
 
 
-        axios.post('http://localhost:5000/users/login', user, {withCredentials: true})
+        axios.post('http://localhost:5000/user/login', user, {withCredentials: true})
             .then(res => {
                 let responseData = res.data;
                 if (responseData.hasOwnProperty('message')) {

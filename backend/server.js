@@ -5,9 +5,6 @@ const session = require('express-session');
 const passport = require('passport');
 const flash = require('connect-flash');
 const redis = require('redis');
-// const MongoDBStore = require('connect-mongodb-session')(session);
-
-const expressLayouts = require('express-ejs-layouts');
 
 
 require('dotenv').config();
@@ -21,6 +18,7 @@ require('./config/passport.config')(passport);
 const app = express();
 const port = process.env.PORT || 5000;
 
+// Cors setup
 app.use(cors({
     origin:['http://localhost:3000'],
     methods:['GET','POST'],
@@ -57,9 +55,11 @@ app.use(flash())
 
 
 // Routers
-const userRoute = require('./routes/users');
+const userRoutes = require('./routes/user');
+const pollRoutes = require('./routes/poll');
 
-app.use('/users', userRoute);
+app.use('/user', userRoutes);
+app.use('/poll', pollRoutes)
 
 
 

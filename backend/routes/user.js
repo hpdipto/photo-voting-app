@@ -20,7 +20,7 @@ router.post('/add', (req, res) => {
     });
 
     newUser.save()
-            .then(() => res.json('User added!'))
+            .then(() => res.json('User added!'))   // change after project completion
             .catch(err => res.status(400).json('Error: ' + err));
 });
 

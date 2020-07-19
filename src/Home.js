@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
 // import 'bootswatch/dist/superhero/bootstrap.min.css';
 import 'bootstrap/dist/css/bootstrap.css';
 
@@ -14,8 +13,6 @@ function Home({ loginStatus, setLoginStatus }) {
   const [login, setLogin] = useState(loginStatus);
   const [register, setRegister] = useState(false);
   const [vote, setVote] = useState(false);
-
-  const history = useHistory();
 
   useEffect(() => {
     // value login is updated from loginStatus
