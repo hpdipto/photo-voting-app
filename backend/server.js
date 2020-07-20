@@ -28,7 +28,8 @@ app.use(express.json());
 
 
 // DB config
-const uri = process.env.ATLAS_URI;
+// const uri = process.env.ATLAS_URI;
+const uri = 'mongodb://localhost/database';
 mongoose.connect(uri, { useNewUrlParser: true })
         .then(() => console.log("MongoDB Connected Successfully!"))
         .catch(err => console.log(err));

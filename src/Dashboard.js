@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
-// import 'bootswatch/dist/superhero/bootstrap.min.css';
 import 'bootstrap/dist/css/bootstrap.css';
+
+import CreatePoll from "./dashboard.components/create.component";
 
 
 function Dashboard({ loginStatus, setLoginStatus }) {
 
   const [user, setUser] = useState({});
+  const [poll, setPoll] = useState(false);
   const history = useHistory();
+
 
   useEffect(() => {
     
@@ -29,21 +32,22 @@ function Dashboard({ loginStatus, setLoginStatus }) {
 
 
   const createPoll = () => {
-    let data = {
-          "pollTitle": "Photo Contest 2",
-          "pollId": "abcd",
-          "pollPasscode": "1234",
-          "startDate": "07-21-2020",
-          "endDate": "07-27-2020",
-          "maxVoteLimit": 10,
-          "createdBy": user.id
-        };
+    // let data = {
+    //       "pollTitle": "Photo Contest 2",
+    //       "pollId": "abcd",
+    //       "pollPasscode": "1234",
+    //       "startDate": "07-21-2020",
+    //       "endDate": "07-27-2020",
+    //       "maxVoteLimit": 10,
+    //       "createdBy": user.id
+    //     };
 
-    axios.post('http://localhost:5000/poll/create', data)
-          .then(d => {
-            alert('Poll Created!')
-          })
-          .catch(e => console.log(e));
+    // axios.post('http://localhost:5000/poll/create', data)
+    //       .then(d => {
+    //         alert('Poll Created!')
+    //       })
+    //       .catch(e => console.log(e));
+    setPoll(true);
   }
 
 
@@ -62,15 +66,26 @@ function Dashboard({ loginStatus, setLoginStatus }) {
 
 
   return (
-    <div className="card card-body">
-      <nav className="navbar navbar-light" style={{"backgroundColor": "#e3f2fd"}} >
-        <p className="navbar-brand"> Dashboard for {user.name} </p>
-        <div className="btn-group">
-          <button onClick={createPoll} className="btn btn-outline-primary">Create Poll</button>
-          <button onClick={logOut} className="btn btn-outline-danger">Log Out</button>
-        </div>
-      </nav>
+
+    <div>
+      {/*nav bar*/}
+      <div className="card card-body">
+        <nav className="navbar navbar-light" style={{"backgroundColor": "#e3f2fd"}} >
+          <p className="navbar-brand"> Dashboard for {user.name} </p>
+          <div className="btn-group">
+            <button onClick={createPoll} className="btn btn-outline-primary">Create Poll</button>
+            <button onClick={logOut} className="btn btn-outline-danger">Log Out</button>
+          </div>
+        </nav>
+      </div>
+
+      <br />
+
+      <div>
+        {poll ? <CreatePoll poll={poll} setPoll={setPoll}/> : null}
+      </div>
     </div>
+    
   );
 }
 
