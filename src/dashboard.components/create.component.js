@@ -6,6 +6,10 @@ import "../styles/createPoll.css";
 
 import ErrorItem from "./error.component";
 
+
+// may could help
+// https://stackoverflow.com/questions/52271766/how-to-use-custom-input-with-formik-in-react
+
 function ErrorMessages({ messages }) {
 
     return(

@@ -5,7 +5,6 @@ import 'bootstrap/dist/css/bootstrap.css';
 
 import Home from "./Home";
 import Dashboard from "./Dashboard";
-import Test from "./test.component/test.component";
 
 
 function App() {
@@ -17,7 +16,6 @@ function App() {
       <Route path="/" exact component={() => <Home loginStatus={login} setLoginStatus={setLogin} />} />
       <Route path="/dashboard" exact 
         component={() => <Dashboard loginStatus={login} setLoginStatus={setLogin} />} />
-      <Route path="/test"   exact component={Test} />
     </Router>
   );
 }

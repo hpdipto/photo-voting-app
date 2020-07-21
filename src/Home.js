@@ -14,6 +14,8 @@ function Home({ loginStatus, setLoginStatus }) {
   const [register, setRegister] = useState(false);
   const [vote, setVote] = useState(false);
 
+  console.log(login);
+
   useEffect(() => {
     // value login is updated from loginStatus
     // login == 2 denotes user logged in successfully
@@ -53,7 +55,7 @@ function Home({ loginStatus, setLoginStatus }) {
         </div>
         <br />
         {vote ? <Vote /> : null}
-        {login ? <Login login={login} setLogin={setLogin} register={register} setRegister={setRegister} /> : null}
+        {login > 0 ? <Login login={login} setLogin={setLogin} register={register} setRegister={setRegister} /> : null}
         {register ? <Register login={login} setLogin={setLogin} register={register} setRegister={setRegister} /> : null}
       </div>
     </div>

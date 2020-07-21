@@ -55,13 +55,13 @@ function Register({ login, setLogin, register, setRegister }) {
         validateOnBlur: false,
         isValidating: true,
         onSubmit: values => {
-            // submit if there are no errors
+            // submit if there are no client side errors
             if(errorMessages.length === 0) {
                 let user = {
                     name: values.registerName,
                     email: values.registerEmail,
                     password: values.registerPassword
-                }
+                };
 
                 axios.post('http://localhost:5000/user/add', user)
                     .then(res => {
@@ -92,15 +92,15 @@ function Register({ login, setLogin, register, setRegister }) {
                     {errorMessages.length ? <ErrorMessages messages={errorMessages} /> : null}
                     <div className="form-group">
                         <label htmlFor="name">Name</label>
-                        <input type="text" id="registerName" className="form-control" onChange={formik.handleChange} value={formik.values.firstName}></input>
+                        <input type="text" id="registerName" className="form-control" onChange={formik.handleChange} value={formik.values.registerName}></input>
                     </div>
                     <div className="form-group">
                         <label htmlFor="email">Email</label>
-                        <input type="email" id="registerEmail" className="form-control" onChange={formik.handleChange} value={formik.values.firstName}></input>
+                        <input type="email" id="registerEmail" className="form-control" onChange={formik.handleChange} value={formik.values.registerEmail}></input>
                     </div>
                     <div className="form-group">
                         <label htmlFor="password">Password</label>
-                        <input type="password" id="registerPassword" className="form-control" onChange={formik.handleChange} value={formik.values.firstName}></input>
+                        <input type="password" id="registerPassword" className="form-control" onChange={formik.handleChange} value={formik.values.registerPassword}></input>
                     </div>
                     <div className="form-group">
                         <button type="submit" className="btn btn-primary btn-block">Register</button>

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useFormik } from "formik";
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 // import 'bootswatch/dist/superhero/bootstrap.min.css';
@@ -37,8 +38,6 @@ function SuccessMessages({ messages }) {
 
 function Login({login, setLogin, register, setRegister}) {
 
-    const [loginEmail, setLoginEmail] = useState('');
-    const [loginPassword, setLoginPassword] = useState('');
     const [errorMessages, setErrorMessages] = useState([]);
     const [successMessages, setSuccessMessages] = useState([]);
 
@@ -59,72 +58,85 @@ function Login({login, setLogin, register, setRegister}) {
     }, []);   // included values to avoid warning
 
 
-    const onChangeEmail = (e) => {
-        setLoginEmail(e.target.value);
-    }
-
-    const onChangePassword = (e) => {
-        setLoginPassword(e.target.value);
-    }
-
-    const onSubmit = () => {
-        // a crucial setup
+    // form validation
+    const validate = values => {
+        // initialize validation with empty array
         setErrorMessages(errorMessages => []);
-        
-        if(loginEmail === '') {
-            setErrorMessages(errorMessages => [...errorMessages, 'Please enter an email']);
+
+        if((!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email))) {
+           setErrorMessages(errorMessages => [...errorMessages, 'Please enter a valid email']); 
         }
-        if(loginPassword === '') {
+        if(!values.password) {
             setErrorMessages(errorMessages => [...errorMessages, 'Please enter a password']);
         }
-
-        // apply condition here for login
-        let user = {
-            "email": loginEmail,
-            "password": loginPassword
-        };
-
-
-        axios.post('http://localhost:5000/user/login', user, {withCredentials: true})
-            .then(res => {
-                let responseData = res.data;
-                if (responseData.hasOwnProperty('message')) {
-                    setErrorMessages(errorMessages => [...errorMessages, responseData['message']]);
-                }
-                else {
-                    // successful login
-                    setLogin(2);
-                    history.push("/dashboard");
-                }
-            })
     }
 
+
+    // formik setup
+    const formik = useFormik({
+        initialValues: {
+            email: '',
+            password: '',
+        },
+        validate,
+        // validation will be happened during submission
+        validateOnChange: false,
+        validateOnBlur: false,
+        isValidating: true,
+        onSubmit: values => {
+            // submit if there are no client side errors
+            if(errorMessages.length === 0) {
+                let user = {
+                    email: values.email,
+                    password: values.password
+                };
+
+                axios.post('http://localhost:5000/user/login', user, {withCredentials: true})
+                    .then(res => {
+                        let responseData = res.data;
+                        if (responseData.hasOwnProperty('message')) {
+                            setErrorMessages(errorMessages => [...errorMessages, responseData['message']]);
+                        }
+                        else {
+                            // successful login
+                            setLogin(2);
+                            history.push("/dashboard");
+                        }
+                    });
+            }
+        }
+
+    });
+    
+
+    // function for toggle register component
     const onClickRegister = () => {
         setRegister(true);
         setLogin(0);
     }
 
+
     return (
-        <div className="col-xs-6 m-auto">
-            <div className="card card-body">
-                {/* <form onSubmit={onSubmit}> */}
+        <form onSubmit={formik.handleSubmit}>
+            <div className="col-xs-6 m-auto">
+                <div className="card card-body">
                     {errorMessages.length ? <ErrorMessages messages={errorMessages} /> : null}
                     {successMessages.length ? <SuccessMessages messages={successMessages} /> : null}
                     <div className="form-group">
                         <label htmlFor="email">Email</label>
-                        <input type="email" className="form-control" onChange={onChangeEmail}></input>
+                        <input type="email" id="email" className="form-control" onChange={formik.handleChange} value={formik.values.email}></input>
                     </div>
                     <div className="form-group">
                         <label htmlFor="password">Password</label>
-                        <input type="password" className="form-control" onChange={onChangePassword}></input>
+                        <input type="password" id="password" className="form-control" onChange={formik.handleChange} value={formik.values.password}></input>
                     </div>
                     <div className="form-group">
-                        <button type="submit" className="btn btn-primary btn-block" onClick={onSubmit}>Login</button>
+                        <button type="submit" className="btn btn-primary btn-block">Login</button>
                     </div>
-                {/* </form> */}
                     <p>Don't have an account? <button className="btn btn-link" onClick={onClickRegister}>Register</button> </p>
+                </div>
             </div>
-        </div>
+        </form>
     );
 }
 
