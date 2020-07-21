@@ -13,8 +13,7 @@ function Home({ loginStatus, setLoginStatus }) {
   const [login, setLogin] = useState(loginStatus);
   const [register, setRegister] = useState(false);
   const [vote, setVote] = useState(false);
-
-  console.log(login);
+  
 
   useEffect(() => {
     // value login is updated from loginStatus
@@ -26,7 +25,14 @@ function Home({ loginStatus, setLoginStatus }) {
       // so that the component will unmount
       setLogin(0);
     }
-  }, [login]);   // need to track the changes of `login`
+
+    // login === -1 denotes, a user logged out successfully
+    // if a user logged out then we set the value of login to 0
+    // so that login component doesn't mount
+    if(login === -1) {
+      setLogin(0);
+    }
+  }, [login, setLoginStatus, setLogin]);   // need to track the changes of `login`
 
 
   const arrangeVote = () => {
@@ -55,7 +61,7 @@ function Home({ loginStatus, setLoginStatus }) {
         </div>
         <br />
         {vote ? <Vote /> : null}
-        {login > 0 ? <Login login={login} setLogin={setLogin} register={register} setRegister={setRegister} /> : null}
+        {login ? <Login login={login} setLogin={setLogin} register={register} setRegister={setRegister} /> : null}
         {register ? <Register login={login} setLogin={setLogin} register={register} setRegister={setRegister} /> : null}
       </div>
     </div>

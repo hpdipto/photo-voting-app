@@ -55,7 +55,7 @@ function Login({login, setLogin, register, setRegister}) {
         if(login === 4) {
             setSuccessMessages(successMessages => [...successMessages, 'Registered successfully']);
         }
-    }, []);   // included values to avoid warning
+    }, [login]);   // included values to avoid warning
 
 
     // form validation
@@ -91,7 +91,7 @@ function Login({login, setLogin, register, setRegister}) {
                     password: values.password
                 };
 
-                axios.post('http://localhost:5000/user/login', user, {withCredentials: true})
+                axios.post('/user/login', user, {withCredentials: true})
                     .then(res => {
                         let responseData = res.data;
                         if (responseData.hasOwnProperty('message')) {

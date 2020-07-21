@@ -24,11 +24,11 @@ function Dashboard({ loginStatus, setLoginStatus }) {
     // if user is logged in and unauthorized user doesn't tried to access dashboard
     // we'll fetch the data
     if(loginStatus > 0 && loginStatus !== 3) {
-      axios.get('http://localhost:5000/user/dashboard')
+      axios.get('/user/dashboard')
           .then(u => setUser(u.data));
     }
 
-  }, []);   // included  values to avoid warning
+  }, [loginStatus, setLoginStatus, history]);   // included  values to avoid warning
 
 
   const createPoll = () => {
@@ -53,7 +53,7 @@ function Dashboard({ loginStatus, setLoginStatus }) {
 
   const logOut = () => {
     setUser({});
-    axios.get('http://localhost:5000/user/logout')
+    axios.get('/user/logout')
         .then(res => {
           // after successful logout loginStatus become -1
           setLoginStatus(-1);
