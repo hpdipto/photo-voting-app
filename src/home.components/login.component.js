@@ -68,6 +68,7 @@ function Login({login, setLogin, register, setRegister}) {
     }
 
     const onSubmit = () => {
+        // a crucial setup
         setErrorMessages(errorMessages => []);
         
         if(loginEmail === '') {
@@ -77,6 +78,7 @@ function Login({login, setLogin, register, setRegister}) {
             setErrorMessages(errorMessages => [...errorMessages, 'Please enter a password']);
         }
 
+        // apply condition here for login
         let user = {
             "email": loginEmail,
             "password": loginPassword

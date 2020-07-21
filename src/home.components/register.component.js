@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState} from 'react';
 import axios from 'axios';
-// import 'bootswatch/dist/superhero/bootstrap.min.css';
+import { useFormik } from 'formik';
 import 'bootstrap/dist/css/bootstrap.css';
 
 import ErrorItem from "./error.component";
@@ -19,57 +19,62 @@ function ErrorMessages({ messages }) {
 
 function Register({ login, setLogin, register, setRegister }) {
 
-    const [registerName, setRegisterName] = useState('');
-    const [registerEmail, setRegisterEmail] = useState('');
-    const [registerPassword, setRegisterPassword] = useState('');
     const [errorMessages, setErrorMessages] = useState([]);
 
-    const onChangeName = (e) => {
-        setRegisterName(e.target.value);
-    }
 
-    const onChangeEmail = (e) => {
-        setRegisterEmail(e.target.value);
-    }
+    // form validation
+    const validate = values => {
+        // initialize validation with empty array
+        setErrorMessages(errorMessages => []);
 
-    const onChangePassword = (e) => {
-        setRegisterPassword(e.target.value);
-    }
-
-    const onSubmit = (e) => {
-        setErrorMessages(errorMessages => []);       
-
-        // Basic errors
-        if(registerName === '') {
+        if(!values.registerName) {
             setErrorMessages(errorMessages => [...errorMessages, 'Please enter a name']);
         }
-        if(registerEmail === '') {
-            setErrorMessages(errorMessages => [...errorMessages, 'Please enter an email']);
+        if((!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.registerEmail))) {
+           setErrorMessages(errorMessages => [...errorMessages, 'Please enter a valid email']); 
         }
-        if(registerPassword === '') {
+        if(!values.registerPassword) {
             setErrorMessages(errorMessages => [...errorMessages, 'Please enter a password']);
         }
-        if(registerPassword.length > 0 && registerPassword.length < 6) {
-            setErrorMessages(errorMessages => [...errorMessages, 'Password must be 6 characters or more']);
-        }
-
-        // If no errors had, procedding
-        if(errorMessages.length === 0) {
-            let user = {
-                name: registerName,
-                email: registerEmail,
-                password: registerPassword
-            }
-
-            axios.post('http://localhost:5000/user/add', user)
-                .then(res => {
-                    // user registered successfully
-                    onClickLogin(4);
-                })  
-                .catch(err => setErrorMessages(errorMessages => [...errorMessages, 'Email already used']));
+        if(values.registerPassword.length < 6) {
+            setErrorMessages(errorMessages => [...errorMessages, 'Password length should be at least 6']);
         }
     }
 
+
+    // formik setup
+    const formik = useFormik({
+        initialValues: {
+            registerName: '',
+            registerEmail: '',
+            registerPassword: '',
+        },
+        validate,
+        // validation will be happened during submission
+        validateOnChange: false,
+        validateOnBlur: false,
+        isValidating: true,
+        onSubmit: values => {
+            // submit if there are no errors
+            if(errorMessages.length === 0) {
+                let user = {
+                    name: values.registerName,
+                    email: values.registerEmail,
+                    password: values.registerPassword
+                }
+
+                axios.post('http://localhost:5000/user/add', user)
+                    .then(res => {
+                        // user registered successfully
+                        onClickLogin(4);
+                    })  
+                    .catch(err => setErrorMessages(errorMessages => [...errorMessages, 'Email already used']));
+            }
+        }
+
+    });
+
+    // function for toggle login component
     const onClickLogin = (registerStatus) => {
 
         if(isNaN(registerStatus))
@@ -79,30 +84,32 @@ function Register({ login, setLogin, register, setRegister }) {
         setRegister(false);
     }
 
+
     return (
-        <div className="col-xs-6 m-auto">
-            <div className="card card-body">
-                {/* <form onSubmit={onSubmit}> */}
+        <form onSubmit={formik.handleSubmit}>
+            <div className="col-xs-6 m-auto">
+                <div className="card card-body">
                     {errorMessages.length ? <ErrorMessages messages={errorMessages} /> : null}
                     <div className="form-group">
                         <label htmlFor="name">Name</label>
-                        <input type="text" className="form-control" onChange={onChangeName}></input>
+                        <input type="text" id="registerName" className="form-control" onChange={formik.handleChange} value={formik.values.firstName}></input>
                     </div>
                     <div className="form-group">
                         <label htmlFor="email">Email</label>
-                        <input type="email" className="form-control" onChange={onChangeEmail}></input>
+                        <input type="email" id="registerEmail" className="form-control" onChange={formik.handleChange} value={formik.values.firstName}></input>
                     </div>
                     <div className="form-group">
                         <label htmlFor="password">Password</label>
-                        <input type="password" className="form-control" onChange={onChangePassword}></input>
+                        <input type="password" id="registerPassword" className="form-control" onChange={formik.handleChange} value={formik.values.firstName}></input>
                     </div>
                     <div className="form-group">
-                        <button type="submit" className="btn btn-primary btn-block" onClick={onSubmit}>Register</button>
+                        <button type="submit" className="btn btn-primary btn-block">Register</button>
                     </div>
-                {/* </form> */}
+
                     <p>Have an account? <button className="btn btn-link" onClick={onClickLogin}>Login</button> </p>
+                </div>
             </div>
-        </div>
+        </form>
     );
 }
 
