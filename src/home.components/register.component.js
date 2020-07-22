@@ -86,30 +86,30 @@ function Register({ login, setLogin, register, setRegister }) {
 
 
     return (
-        <form onSubmit={formik.handleSubmit}>
-            <div className="col-xs-6 m-auto">
-                <div className="card card-body">
-                    {errorMessages.length ? <ErrorMessages messages={errorMessages} /> : null}
-                    <div className="form-group">
-                        <label htmlFor="name">Name</label>
-                        <input type="text" id="registerName" className="form-control" onChange={formik.handleChange} value={formik.values.registerName}></input>
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="email">Email</label>
-                        <input type="email" id="registerEmail" className="form-control" onChange={formik.handleChange} value={formik.values.registerEmail}></input>
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="password">Password</label>
-                        <input type="password" id="registerPassword" className="form-control" onChange={formik.handleChange} value={formik.values.registerPassword}></input>
-                    </div>
-                    <div className="form-group">
-                        <button type="submit" className="btn btn-primary btn-block">Register</button>
-                    </div>
+      <form onSubmit={formik.handleSubmit}>
+          <div className="col-xs-6 m-auto">
+              <div className="card card-body">
+                  {errorMessages.length ? <ErrorMessages messages={errorMessages} /> : null}
+                  <div className="form-group">
+                      <label htmlFor="name">Name</label>
+                      <input type="text" id="registerName" className="form-control" value={formik.values.registerName} onChange={formik.handleChange}></input>
+                  </div>
+                  <div className="form-group">
+                      <label htmlFor="email">Email</label>
+                      <input type="email" id="registerEmail" className="form-control" value={formik.values.registerEmail} onChange={formik.handleChange}></input>
+                  </div>
+                  <div className="form-group">
+                      <label htmlFor="password">Password</label>
+                      <input type="password" id="registerPassword" className="form-control" value={formik.values.registerPassword} onChange={formik.handleChange}></input>
+                  </div>
+                  <div className="form-group">
+                      <button type="submit" className="btn btn-primary btn-block">Register</button>
+                  </div>
 
-                    <p>Have an account? <button className="btn btn-link" onClick={onClickLogin}>Login</button> </p>
-                </div>
-            </div>
-        </form>
+                  <p>Have an account? <button className="btn btn-link" onClick={onClickLogin}>Login</button> </p>
+              </div>
+          </div>
+      </form>
     );
 }
 
