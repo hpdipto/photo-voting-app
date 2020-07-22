@@ -7,3 +7,11 @@
 .react-datepicker-wrapper {
   width: 100%;
 }
+
+
+.dnd {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    border-radius: 5px;
+}

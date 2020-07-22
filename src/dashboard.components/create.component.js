@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import { useFormik } from 'formik';
+import { useDropzone } from 'react-dropzone';
 import DatePicker from "react-datepicker";
 
 import 'bootstrap/dist/css/bootstrap.css';
@@ -10,7 +11,7 @@ import ErrorItem from "./error.component";
 
 
 // may could help
-// https://stackoverflow.com/questions/52271766/how-to-use-custom-input-with-formik-in-react
+// https://www.digitalocean.com/community/tutorials/react-react-dropzone
 
 function ErrorMessages({ messages }) {
 
@@ -27,7 +28,18 @@ function ErrorMessages({ messages }) {
 
 function CreatePoll({ poll, setPoll }) {
 
+
     const [errorMessages, setErrorMessages] = useState([]);
+
+
+
+    const onDrop = useCallback(acceptedFiles => {
+      console.log(acceptedFiles);
+    })
+
+    const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop});
+
+
 
     // form validation
     const validate = values => {
@@ -92,6 +104,7 @@ function CreatePoll({ poll, setPoll }) {
 
 
     return (
+      <div>
       <form onSubmit={formik.handleSubmit}>
         <div className="card card-body">
 
@@ -137,6 +150,22 @@ function CreatePoll({ poll, setPoll }) {
           </div>
         </div>
       </form>
+
+
+        <div className={"border dnd " + (isDragActive ? "border-primary" : "") } {...getRootProps()}>
+          <input {...getInputProps()} />
+          {
+            isDragActive ?
+              <p>Drop the files here ...</p> :
+              <p>Drag and drop some files here, or click to select files</p>
+          }
+        </div>
+
+        <br />
+        <br />
+
+
+      </div>
     );
 }
 
