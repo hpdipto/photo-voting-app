@@ -1,7 +1,6 @@
 import React, { useState, useCallback } from 'react'
 import { useFormik } from 'formik';
 import { useDropzone } from 'react-dropzone';
-// import Dropzone from 'react-dropzone';
 import DatePicker from "react-datepicker";
 
 import 'bootstrap/dist/css/bootstrap.css';
@@ -12,9 +11,9 @@ import "../styles/createPoll.css";
 
 import ErrorItem from "./error.component";
 
-
-// may could help
+// resource that helped a lot for react-dropzone
 // https://blog.logrocket.com/create-a-drag-and-drop-component-with-react-dropzone/
+
 
 function ErrorMessages({ messages }) {
 
@@ -37,18 +36,30 @@ function CreatePoll({ poll, setPoll }) {
     const [fileList, setFileList] = useState([]);
 
 
-
+    // On drop file in the field, we update fileList state
+    // and add files to formik "images" field
     const onDrop = useCallback(acceptedFiles => {
-      acceptedFiles.map(af => setFileList(fileList => [...fileList, af.name]));
-    })
+      acceptedFiles.map(af => setFileList(fileList => [...fileList, af]));
+      formik.setFieldValue("images", [...fileList, ...acceptedFiles]);
+    });
 
+    
+    // non images are bounced
+    const onDropRejected = useCallback(rejectedFiles => {
+      alert(`Non image files are ignored!`);
+    });
+
+
+    // on remove file we remove file from fileList state
+    // and also remove file from formik "images" field
     const removeFile = (fileIndex) => {
       var array = [...fileList];
       array.splice(fileIndex, 1);
       setFileList([...array]);
+      formik.setFieldValue("images", [...array]);
     }
 
-    const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop});
+    const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop, onDropRejected, accept: 'image/*'});
 
 
 
@@ -75,6 +86,9 @@ function CreatePoll({ poll, setPoll }) {
         if(values.startDate.getTime() > values.endDate.getTime()) {
             setErrorMessages(errorMessages => [...errorMessages, "Start Time can't be greater than End Time"]);
         }
+        if(values.images === null || values.images.length < 2) {
+          setErrorMessages(errorMessages => [...errorMessages, "Please upload 2 or more files"]);
+        }
     }
 
 
@@ -88,7 +102,8 @@ function CreatePoll({ poll, setPoll }) {
         // set to midnight
         // source: https://stackoverflow.com/a/30100627/9481106
         startDate: new Date(new Date().setHours(0,0,0,0)),
-        endDate: new Date(new Date().setHours(0,0,0,0))
+        endDate: new Date(new Date().setHours(0,0,0,0)),
+        images: null
       },
       validate,
       // validation will be happened during submission
@@ -103,7 +118,8 @@ function CreatePoll({ poll, setPoll }) {
             pollPasscode: values.pollPasscode,
             maxVoteLimit: values.maxVoteLimit,
             startDate: values.startDate,
-            endDate: values.endDate
+            endDate: values.endDate,
+            images: values.images
           };
 
           console.log(poll);
@@ -115,7 +131,6 @@ function CreatePoll({ poll, setPoll }) {
 
 
     return (
-      <div>
       <form onSubmit={formik.handleSubmit}>
         <div className="card card-body">
 
@@ -156,36 +171,38 @@ function CreatePoll({ poll, setPoll }) {
               </div>
           </div>
 
-          <div>
-            <button type="submit" className="btn btn-info btn-block" >Create Poll</button>
+          {/* Drag and Drop section */}
+          <div className="form-group">
+            <label htmlFor="images">Upload Images</label>
+            <div className={"form-control dnd " + (isDragActive ? "dnd-focus" : "") } {...getRootProps()}>
+              {/* source: https://stackoverflow.com/a/56161034/9481106 */}
+              <input {...getInputProps()} type="file" id="images" name="images" onChange={event => formik.setFieldValue("images", event.currentTarget.files)} multiple />
+              <div className="icon mt-4 mb-2">
+                <i className="fa fa-5x fa-align-justify fa-upload" aria-hidden="true"></i>
+              </div>
+              <p align="center">Drop images here or click to upload</p>
+            </div>
           </div>
+
+          {/* Display file list */}
+          <div className="form-group">
+            <ul className="list-group">
+              {fileList.length > 0 && fileList.map((file, index) => (
+                <li key={index} className="list-group-item list-group-item-success d-flex justify-content-between align-items-center">
+                  {file.name}
+                  <button className="btn btn-close" onClick={() => removeFile(index)}><i className="fa fa-trash-o" /></button>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+
+          <div className="form-row">
+            <button type="submit" className="btn btn-info btn-block">Create Poll</button>
+          </div>
+
         </div>
       </form>
-
-
-        <div className={"form-control dnd " + (isDragActive ? "dnd-focus" : "") } {...getRootProps()}>
-          <input {...getInputProps()} />
-            <div className="icon mt-4 mb-2">
-              <i className="fa fa-5x fa-align-justify fa-upload" aria-hidden="true"></i>
-            </div>
-            <p align="center">Drop images here or click to upload</p>
-        </div>
-        <ul className="list-group">
-          {fileList.length > 0 && fileList.map((file, index) => (
-            <li key={file.length} className="list-group-item list-group-item-success d-flex justify-content-between align-items-center">
-              {file}
-              <button className="btn btn-close" onClick={() => removeFile(index)}><i className="fa fa-trash-o" /></button>
-            </li>
-          ))}
-        </ul>
-        <button onClick={() => console.log(fileList)}>View Files</button>
-
-
-        <br />
-        <br />
-
-
-      </div>
     );
 }
 
