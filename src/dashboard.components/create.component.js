@@ -1,17 +1,20 @@
 import React, { useState, useCallback } from 'react'
 import { useFormik } from 'formik';
 import { useDropzone } from 'react-dropzone';
+// import Dropzone from 'react-dropzone';
 import DatePicker from "react-datepicker";
 
 import 'bootstrap/dist/css/bootstrap.css';
 import "react-datepicker/dist/react-datepicker.css";
+// font awesome source: https://stackoverflow.com/a/44985218/9481106
+import 'font-awesome/css/font-awesome.min.css';
 import "../styles/createPoll.css";
 
 import ErrorItem from "./error.component";
 
 
 // may could help
-// https://www.digitalocean.com/community/tutorials/react-react-dropzone
+// https://blog.logrocket.com/create-a-drag-and-drop-component-with-react-dropzone/
 
 function ErrorMessages({ messages }) {
 
@@ -26,16 +29,24 @@ function ErrorMessages({ messages }) {
 
 
 
+
 function CreatePoll({ poll, setPoll }) {
 
 
     const [errorMessages, setErrorMessages] = useState([]);
+    const [fileList, setFileList] = useState([]);
 
 
 
     const onDrop = useCallback(acceptedFiles => {
-      console.log(acceptedFiles);
+      acceptedFiles.map(af => setFileList(fileList => [...fileList, af.name]));
     })
+
+    const removeFile = (fileIndex) => {
+      var array = [...fileList];
+      array.splice(fileIndex, 1);
+      setFileList([...array]);
+    }
 
     const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop});
 
@@ -152,14 +163,23 @@ function CreatePoll({ poll, setPoll }) {
       </form>
 
 
-        <div className={"border dnd " + (isDragActive ? "border-primary" : "") } {...getRootProps()}>
+        <div className={"form-control dnd " + (isDragActive ? "dnd-focus" : "") } {...getRootProps()}>
           <input {...getInputProps()} />
-          {
-            isDragActive ?
-              <p>Drop the files here ...</p> :
-              <p>Drag and drop some files here, or click to select files</p>
-          }
+            <div className="icon mt-4 mb-2">
+              <i className="fa fa-5x fa-align-justify fa-upload" aria-hidden="true"></i>
+            </div>
+            <p align="center">Drop images here or click to upload</p>
         </div>
+        <ul className="list-group">
+          {fileList.length > 0 && fileList.map((file, index) => (
+            <li key={file.length} className="list-group-item list-group-item-success d-flex justify-content-between align-items-center">
+              {file}
+              <button className="btn btn-close" onClick={() => removeFile(index)}><i className="fa fa-trash-o" /></button>
+            </li>
+          ))}
+        </ul>
+        <button onClick={() => console.log(fileList)}>View Files</button>
+
 
         <br />
         <br />

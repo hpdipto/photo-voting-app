@@ -9,7 +9,7 @@ import Dashboard from "./Dashboard";
 
 function App() {
 
-  const [login, setLogin] = useState(0);
+  const [login, setLogin] = useState(1); // change state later
 
   return (
     <Router>
