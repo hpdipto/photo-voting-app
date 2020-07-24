@@ -30,8 +30,8 @@ router.post('/create', upload.any(), (req, res) => {
     });
 
     newPoll.save()
-            .then(() => res.json('Poll Created!'))
-            .catch(err => res.status(400).json('Error: ' + err));
+            .then(() => res.send('Poll Created!'))
+            .catch(err => res.status(400).send('Error: ' + err));
 });
 
 
