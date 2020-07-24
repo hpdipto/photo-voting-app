@@ -9,7 +9,7 @@ import CreatePoll from "./dashboard.components/create.component";
 function Dashboard({ loginStatus, setLoginStatus }) {
 
   const [user, setUser] = useState({});
-  const [poll, setPoll] = useState(false);
+  const [poll, setPoll] = useState(0);
   const history = useHistory();
 
 
@@ -28,26 +28,16 @@ function Dashboard({ loginStatus, setLoginStatus }) {
           .then(u => setUser(u.data));
     }
 
-  }, [loginStatus, setLoginStatus, history]);   // included  values to avoid warning
+    // after a poll successfully created, unmount create poll component
+    if(poll === 2) {
+      setPoll(0);
+    }
+
+  }, [loginStatus, setLoginStatus, history, poll]);   // included  values to avoid warning
 
 
   const createPoll = () => {
-    // let data = {
-    //       "pollTitle": "Photo Contest 2",
-    //       "pollId": "abcd",
-    //       "pollPasscode": "1234",
-    //       "startDate": "07-21-2020",
-    //       "endDate": "07-27-2020",
-    //       "maxVoteLimit": 10,
-    //       "createdBy": user.id
-    //     };
-
-    // axios.post('http://localhost:5000/poll/create', data)
-    //       .then(d => {
-    //         alert('Poll Created!')
-    //       })
-    //       .catch(e => console.log(e));
-    setPoll(true);
+    poll === 1 ? setPoll(0) : setPoll(1);
   }
 
 

@@ -6,8 +6,8 @@ const ObjectId = Schema.Types.ObjectId;
 const pollSchema = new Schema(
     {
         createdBy: {
-            type: ObjectId
-            // require: true
+            type: ObjectId,
+            require: true
         },
         pollTitle: {
             type: String,
@@ -15,10 +15,15 @@ const pollSchema = new Schema(
         },
         pollId: {
             type: String,
-            require: true
+            require: true,
+            unique: true
         },
         pollPasscode: {
             type: String,
+            require: true
+        },
+        maxVoteLimit: {
+            type: Number,
             require: true
         },
         startDate: {
@@ -29,16 +34,11 @@ const pollSchema = new Schema(
             type: Date,
             require: true
         },
-        maxVoteLimit: {
-            type: Number,
-            require: true
-        },
         imageList: {
             type: Array,
             require: true
         }
     },
-
     {
         timestamps: true
     }

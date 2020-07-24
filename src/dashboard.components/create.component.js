@@ -1,6 +1,5 @@
 import React, { useState, useCallback } from 'react';
 import axios from 'axios';
-import fs from 'fs';
 import { useFormik } from 'formik';
 import { useDropzone } from 'react-dropzone';
 import DatePicker from "react-datepicker";
@@ -114,18 +113,6 @@ function CreatePoll({ poll, setPoll }) {
       isValidating: true,
       onSubmit: values => {
         if(errorMessages.length === 0) {
-          let poll = {
-            pollTitle: values.pollTitle,
-            pollId: values.pollId,
-            pollPasscode: values.pollPasscode,
-            maxVoteLimit: values.maxVoteLimit,
-            startDate: values.startDate,
-            endDate: values.endDate,
-            images: values.images
-          };
-
-          // console.log(poll);
-
 
           var formData = new FormData();
           formData.append("pollTitle", values.pollTitle);
@@ -136,23 +123,17 @@ function CreatePoll({ poll, setPoll }) {
           formData.append("endDate", values.endDate);
           
           for(var i = 0; i < values.images.length; i++) {
-            console.log(values.images[i].name);
             formData.append(`images[${i}]`, values.images[i], values.images[i].name);
-          }
-
-          for (var pair of formData.entries()) {
-            console.log(pair[0]+ ', ' + pair[1]); 
           }
 
           // source: https://stackoverflow.com/a/43014086/9481106
           axios.post('/poll/create', formData, { headers: {'content-type': 'multipart/form-data'}})
-              .then(res => console.log("Poll created successfully!"))
-              .catch(err => console.log(err));
-
-
+              // poll created successfully
+              .then(res => setPoll(2))
+              .catch(err => setErrorMessages(errorMessages => [...errorMessages, 'Poll Id already taken, please use a new one']));
         }
       }
-    })
+    });
 
     
 

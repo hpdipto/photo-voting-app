@@ -25,7 +25,8 @@ const userSchema = new Schema({
             type: Array
         }
 
-    }, {
+    },
+    {
         timestamps: true
     }
 );

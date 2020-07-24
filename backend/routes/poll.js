@@ -1,40 +1,33 @@
 const router = require('express').Router();
-let Poll = require('../models/poll.model');
-const path = require('path');
 const multer = require('multer');
+let Poll = require('../models/poll.model');
 
 
-const upload = multer({dest: '../public/img/'});
-// const upload = multer();
+const upload = multer({dest: './public/img/'});
 
 
 // https://stackoverflow.com/a/44861809/9481106
 router.post('/create', upload.any(), (req, res) => {
 
     const { pollTitle, pollId, pollPasscode, startDate, endDate, maxVoteLimit } = req.body;
-    // const createdBy = req.user.id;
-    console.log("##############");
-    console.log(req.body);
-    console.log("**************");
-    console.log(req.files);
-    console.log("#############");
+    const createdBy = req.user.id;
+    
+    var imageList = [];
 
-    // further needed: https://stackoverflow.com/a/31532067/9481106
-    // https://expressjs.com/en/resources/middleware/multer.html
-
+    for(var i = 0; i < req.files.length; i++) {
+        imageList.push(req.files[i].path);
+    }
 
     const newPoll = new Poll({
+        createdBy,
         pollTitle,
         pollId,
         pollPasscode,
+        maxVoteLimit,
         startDate,
         endDate,
-        maxVoteLimit,
-        // createdBy,
         imageList
     });
-
-    console.log(newPoll);
 
     newPoll.save()
             .then(() => res.json('Poll Created!'))
