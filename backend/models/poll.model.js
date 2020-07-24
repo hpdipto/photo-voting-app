@@ -7,6 +7,7 @@ const pollSchema = new Schema(
     {
         createdBy: {
             type: ObjectId
+            // require: true
         },
         pollTitle: {
             type: String,
@@ -32,10 +33,10 @@ const pollSchema = new Schema(
             type: Number,
             require: true
         },
-        // images: {
-        //     type: Array,
-        //     require: true
-        // },
+        imageList: {
+            type: Array,
+            require: true
+        }
     },
 
     {

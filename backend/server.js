@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const session = require('express-session');
 const passport = require('passport');
 const flash = require('connect-flash');
-const redis = require('redis');
+const bodyParser = require('body-parser');
 
 
 require('dotenv').config();
@@ -18,6 +18,7 @@ require('./config/passport.config')(passport);
 const app = express();
 const port = process.env.PORT || 5000;
 
+
 // Cors setup
 app.use(cors({
     origin:['http://localhost:3000'],
@@ -25,6 +26,15 @@ app.use(cors({
     credentials: true // enable set cookie
 }));
 app.use(express.json());
+
+
+
+// // Body Parser setup
+// app.use(bodyParser.urlencoded({
+//         extended: false
+// }));
+// app.use(bodyParser.json());
+
 
 
 // DB config
@@ -43,6 +53,10 @@ app.use(session({
     cookie: { secure: false }   // anti-depressant line!!!
 }));
 
+
+// Default directory for static files
+// Uploaded images will inside public/img
+app.use(express.static('public'));
 
 
 // Passport middleware

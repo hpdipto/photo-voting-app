@@ -1,4 +1,6 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback } from 'react';
+import axios from 'axios';
+import fs from 'fs';
 import { useFormik } from 'formik';
 import { useDropzone } from 'react-dropzone';
 import DatePicker from "react-datepicker";
@@ -122,7 +124,32 @@ function CreatePoll({ poll, setPoll }) {
             images: values.images
           };
 
-          console.log(poll);
+          // console.log(poll);
+
+
+          var formData = new FormData();
+          formData.append("pollTitle", values.pollTitle);
+          formData.append("pollId", values.pollId);
+          formData.append("pollPasscode", values.pollPasscode);
+          formData.append("maxVoteLimit", values.maxVoteLimit);
+          formData.append("startDate", values.startDate);
+          formData.append("endDate", values.endDate);
+          
+          for(var i = 0; i < values.images.length; i++) {
+            console.log(values.images[i].name);
+            formData.append(`images[${i}]`, values.images[i], values.images[i].name);
+          }
+
+          for (var pair of formData.entries()) {
+            console.log(pair[0]+ ', ' + pair[1]); 
+          }
+
+          // source: https://stackoverflow.com/a/43014086/9481106
+          axios.post('/poll/create', formData, { headers: {'content-type': 'multipart/form-data'}})
+              .then(res => console.log("Poll created successfully!"))
+              .catch(err => console.log(err));
+
+
         }
       }
     })
