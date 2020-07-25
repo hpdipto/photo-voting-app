@@ -39,13 +39,25 @@ router.post('/create', upload.any(), (req, res) => {
             // in future findByIdAndUpdate should be replaced
             .then((poll) => {
                 User.findByIdAndUpdate(createdBy, 
-                            {$push: {"polls": ObjectId(poll.id)}},
+                            {$push: {"polls": poll}},
                             {new: true},
                             (error, user) => res.send('Poll created successfully!'));
             })
             .catch(err => res.status(400).send('Error: ' + err));
 });
 
+
+
+router.get('/polls', (req, res) => {
+    const userId = req.session.passport.user;
+
+    User.findById(userId)
+        .then(user => {
+            res.json(user.polls);
+        })
+        .catch(err => res.status(400).send('Error: ' + err));
+
+});
 
 
 module.exports = router;

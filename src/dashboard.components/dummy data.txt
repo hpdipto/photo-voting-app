@@ -1,0 +1,38 @@
+var polls = [
+        {
+            "pollTitle": "New Poll",
+            "pollId": "ABC",
+            "startDate": new Date(2020, 7, 2),
+            "endDate": new Date(2020, 10, 2)
+        },
+        {
+            "pollTitle": "Another Poll",
+            "pollId": "XYZ",
+            "startDate": new Date(2020, 5, 1),
+            "endDate": new Date(2020, 7, 10)
+        },
+        {
+            "pollTitle": "Poll Poll",
+            "pollId": "ABCD",
+            "startDate": new Date(2020, 8, 1),
+            "endDate": new Date(2020, 10, 15)
+        },
+        {
+            "pollTitle": "Meme Poll",
+            "pollId": "ABM",
+            "startDate": new Date(2020, 7, 5),
+            "endDate": new Date(2020, 11, 1)
+        },
+        {
+            "pollTitle": "Coffee Poll",
+            "pollId": "CPN",
+            "startDate": new Date(2020, 4, 10),
+            "endDate": new Date(2020, 10, 30)
+        },
+        {
+            "pollTitle": "Tea Poll",
+            "pollId": "TPN",
+            "startDate": new Date(2020, 4, 10),
+            "endDate": new Date(2020, 10, 30)
+        }
+    ];
