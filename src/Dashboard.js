@@ -4,6 +4,7 @@ import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.css';
 
 import CreatePoll from "./dashboard.components/create.component";
+import DashboardBody from "./dashboard.components/dashboard.component";
 
 
 function Dashboard({ loginStatus, setLoginStatus }) {
@@ -72,7 +73,11 @@ function Dashboard({ loginStatus, setLoginStatus }) {
       <br />
 
       <div>
-        {poll ? <CreatePoll poll={poll} setPoll={setPoll}/> : null}
+        {poll ? <CreatePoll poll={poll} setPoll={setPoll} /> : null}
+      </div>
+
+      <div>
+        <DashboardBody />
       </div>
     </div>
     
