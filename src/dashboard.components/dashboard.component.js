@@ -1,20 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React from 'react';
 
 import 'bootstrap/dist/css/bootstrap.css';
 
 import CardRow from './cards.component';
 
-function DashboardBody() {
-
-    const [polls, setPolls] = useState([]);
-
-    useEffect(() => {
-        axios.get('/poll/polls')
-                .then(res => {
-                    setPolls(data => [...data, res.data[0]]);
-                })
-    }, []);
+function DashboardBody({ polls }) {
 
 
     // passing 4 polls at a time
@@ -31,6 +21,7 @@ function DashboardBody() {
         }
 
         pollCards.push(<CardRow key={i} polls={polls.slice(start, end)} />);
+        // setPolls(poll => [...poll, <CardRow key={i} polls={polls.slice(start, end)} />]);
     }
 
     return (

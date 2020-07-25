@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.css';
+import 'font-awesome/css/font-awesome.min.css';
 
 import CreatePoll from "./dashboard.components/create.component";
 import DashboardBody from "./dashboard.components/dashboard.component";
@@ -76,8 +77,9 @@ function Dashboard({ loginStatus, setLoginStatus }) {
         {poll ? <CreatePoll poll={poll} setPoll={setPoll} /> : null}
       </div>
 
+
       <div>
-        <DashboardBody />
+        {user.polls ? <DashboardBody polls={user.polls} /> : null}
       </div>
     </div>
     
