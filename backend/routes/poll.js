@@ -1,7 +1,10 @@
 const router = require('express').Router();
 const multer = require('multer');
+const mongoose = require('mongoose');
 let Poll = require('../models/poll.model');
+let User = require('../models/user.model');
 
+const ObjectId = mongoose.Types.ObjectId;
 
 const upload = multer({dest: './public/img/'});
 
@@ -30,7 +33,16 @@ router.post('/create', upload.any(), (req, res) => {
     });
 
     newPoll.save()
-            .then(() => res.send('Poll Created!'))
+            // source: https://stackoverflow.com/a/23452838/9481106
+            // after a poll created successfully
+            // we update 'poll' field of corresponding user
+            // in future findByIdAndUpdate should be replaced
+            .then((poll) => {
+                User.findByIdAndUpdate(createdBy, 
+                            {$push: {"polls": ObjectId(poll.id)}},
+                            {new: true},
+                            (error, user) => res.send('Poll created successfully!'));
+            })
             .catch(err => res.status(400).send('Error: ' + err));
 });
 

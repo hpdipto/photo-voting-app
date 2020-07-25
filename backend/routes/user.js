@@ -54,7 +54,7 @@ router.get('/dashboard', (req, res) => {
     if(userId) {
         User.findById(userId, (err, user) => {
             res.json(user);
-        })
+        });
     }
 })
 

@@ -16,12 +16,7 @@ const userSchema = new Schema({
             type: String,
             required: true
         },
-        activePolls: {
-            // May be we will add activePolls type as Poll
-            type: Array 
-        },
-        archivedPolls: {
-            // May be we will add archivedPolls type as Poll
+        polls: {
             type: Array
         }
 
