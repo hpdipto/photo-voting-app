@@ -19,7 +19,7 @@ function Poll({ loginStatus, setLoginStatus, user, setUser }) {
   useEffect(() => {
     
     if(loginStatus === 0) {
-      // unauthorized user tried to access dashboard
+      // unauthorized user tried to access poll
       setLoginStatus(3);
       history.push('/');
     }
@@ -31,7 +31,7 @@ function Poll({ loginStatus, setLoginStatus, user, setUser }) {
             });
 
 
-  }, [loginStatus, setLoginStatus, history]);   // included  values to avoid warning
+  }, []);   // included  values to avoid warning
 
 
   const dashboard = () => {
@@ -40,11 +40,12 @@ function Poll({ loginStatus, setLoginStatus, user, setUser }) {
 
 
   const logOut = () => {
-    setUser({});
     axios.get('/user/logout')
         .then(res => {
           // after successful logout loginStatus become -1
+          // empty the user data
           setLoginStatus(-1);
+          setUser({});
           history.push('/');
         })
         .catch(err => {
@@ -69,7 +70,7 @@ function Poll({ loginStatus, setLoginStatus, user, setUser }) {
 
       <br />
 
-      <OpenPoll poll={poll} />
+      <OpenPoll poll={poll} images={poll.imageList} />
 
     </div>
     
