@@ -48,16 +48,15 @@ router.post('/create', upload.any(), (req, res) => {
 
 
 
-router.get('/polls', (req, res) => {
-    const userId = req.session.passport.user;
 
-    User.findById(userId)
-        .then(user => {
-            res.json(user.polls);
+router.get('/:id', (req, res) => {
+
+    Poll.findById(req.params.id)
+        .then(poll => {
+            res.json(poll);
         })
         .catch(err => res.status(400).send('Error: ' + err));
-
-});
+})
 
 
 module.exports = router;

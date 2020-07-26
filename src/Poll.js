@@ -1,13 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'font-awesome/css/font-awesome.min.css';
 
+import OpenPoll from './poll.components/open.component';
 
-function Poll({ loginStatus, setLoginStatus }) {
 
-  const [user, setUser] = useState({});
+function Poll({ loginStatus, setLoginStatus, user, setUser }) {
+
+  let urlId = useLocation().pathname.slice(useLocation().pathname.lastIndexOf("/")+1);
+
+  const [pollId, setPollId] = useState(urlId);
+  const [poll, setPoll] = useState({});
   const history = useHistory();
 
 
@@ -18,6 +23,12 @@ function Poll({ loginStatus, setLoginStatus }) {
       setLoginStatus(3);
       history.push('/');
     }
+
+    axios.get(`/poll/${pollId}`)
+            .then(res => {
+                console.log(res.data);
+                setPoll(res.data);
+            });
 
 
   }, [loginStatus, setLoginStatus, history]);   // included  values to avoid warning
@@ -48,7 +59,7 @@ function Poll({ loginStatus, setLoginStatus }) {
       {/*nav bar*/}
       <div className="card card-body">
         <nav className="navbar navbar-light" style={{"backgroundColor": "#e3f2fd"}} >
-          <p className="navbar-brand"> Title </p>
+          <h4 className="navbar-brand">{poll.pollTitle}</h4> 
           <div className="btn-group">
             <button onClick={dashboard} className="btn btn-outline-primary">Dashboard</button>
             <button onClick={logOut} className="btn btn-outline-danger">Log Out</button>
@@ -57,6 +68,8 @@ function Poll({ loginStatus, setLoginStatus }) {
       </div>
 
       <br />
+
+      <OpenPoll poll={poll} />
 
     </div>
     
