@@ -59,7 +59,7 @@ function Dashboard({ loginStatus, setLoginStatus }) {
 
   return (
 
-    <div>
+    <div className="container">
       {/*nav bar*/}
       <div className="card card-body">
         <nav className="navbar navbar-light" style={{"backgroundColor": "#e3f2fd"}} >

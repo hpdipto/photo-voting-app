@@ -6,7 +6,6 @@ import CardRow from './cards.component';
 
 function DashboardBody({ polls }) {
 
-
     // passing 4 polls at a time
     // CardRow will contain 4 polls in a row
     var pollCards = [];
@@ -21,7 +20,6 @@ function DashboardBody({ polls }) {
         }
 
         pollCards.push(<CardRow key={i} polls={polls.slice(start, end)} />);
-        // setPolls(poll => [...poll, <CardRow key={i} polls={polls.slice(start, end)} />]);
     }
 
     return (

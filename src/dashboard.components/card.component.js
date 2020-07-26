@@ -6,7 +6,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 function PollCard({pollTitle, pollId, startDate, endDate}) {
 
     return (
-        <div className="card" style={{"maxWidth": "14rem"}}>
+        <div className="card">
             <div className="card-header">
                 <h5 className="card-title">{pollTitle}</h5>
                 <h6 className="card-subtitle mb-2 text-muted">{pollId}</h6>
