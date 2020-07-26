@@ -36,7 +36,7 @@ function SuccessMessages({ messages }) {
 
 
 
-function Login({login, setLogin, register, setRegister}) {
+function Login({login, setLogin, register, setRegister, user, setUser}) {
 
     const [errorMessages, setErrorMessages] = useState([]);
     const [successMessages, setSuccessMessages] = useState([]);
@@ -94,12 +94,17 @@ function Login({login, setLogin, register, setRegister}) {
                 axios.post('/user/login', user, {withCredentials: true})
                     .then(res => {
                         let responseData = res.data;
+                        // if we had some error during login
+                        // from server we'll receive a json object with 'message' property
                         if (responseData.hasOwnProperty('message')) {
                             setErrorMessages(errorMessages => [...errorMessages, responseData['message']]);
                         }
+                        // other wise the login is successful
                         else {
                             // successful login
+                            // set user globally
                             setLogin(2);
+                            setUser(responseData);
                             history.push("/dashboard");
                         }
                     });

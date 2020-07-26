@@ -7,7 +7,7 @@ import Register from "./home.components/register.component";
 import Vote from "./home.components/vote.component";
 
 
-function Home({ loginStatus, setLoginStatus }) {
+function Home({ loginStatus, setLoginStatus, user, setUser }) {
 
   // this states are used to toggle components
   const [login, setLogin] = useState(loginStatus);
@@ -61,7 +61,7 @@ function Home({ loginStatus, setLoginStatus }) {
         </div>
         <br />
         {vote ? <Vote /> : null}
-        {login ? <Login login={login} setLogin={setLogin} register={register} setRegister={setRegister} /> : null}
+        {login ? <Login login={login} setLogin={setLogin} register={register} setRegister={setRegister} user={user} setUser={setUser} /> : null}
         {register ? <Register login={login} setLogin={setLogin} register={register} setRegister={setRegister} /> : null}
       </div>
     </div>

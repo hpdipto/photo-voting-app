@@ -4,13 +4,10 @@ import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'font-awesome/css/font-awesome.min.css';
 
-import CreatePoll from "./dashboard.components/create.component";
-import DashboardBody from "./dashboard.components/dashboard.component";
 
+function Poll({ loginStatus, setLoginStatus }) {
 
-function Dashboard({ loginStatus, setLoginStatus, user, setUser }) {
-
-  const [poll, setPoll] = useState(0);
+  const [user, setUser] = useState({});
   const history = useHistory();
 
 
@@ -22,16 +19,12 @@ function Dashboard({ loginStatus, setLoginStatus, user, setUser }) {
       history.push('/');
     }
 
-    // after a poll successfully created, unmount create poll component
-    if(poll === 2) {
-      setPoll(0);
-    }
 
-  }, [loginStatus, setLoginStatus, history, poll]);   // included  values to avoid warning
+  }, [loginStatus, setLoginStatus, history]);   // included  values to avoid warning
 
 
-  const createPoll = () => {
-    poll === 1 ? setPoll(0) : setPoll(1);
+  const dashboard = () => {
+    history.push("/dashboard");
   }
 
 
@@ -40,9 +33,7 @@ function Dashboard({ loginStatus, setLoginStatus, user, setUser }) {
     axios.get('/user/logout')
         .then(res => {
           // after successful logout loginStatus become -1
-          // also set user object to empty {}
           setLoginStatus(-1);
-          setUser({});
           history.push('/');
         })
         .catch(err => {
@@ -57,9 +48,9 @@ function Dashboard({ loginStatus, setLoginStatus, user, setUser }) {
       {/*nav bar*/}
       <div className="card card-body">
         <nav className="navbar navbar-light" style={{"backgroundColor": "#e3f2fd"}} >
-          <p className="navbar-brand"> Dashboard for {user.name} </p>
+          <p className="navbar-brand"> Title </p>
           <div className="btn-group">
-            <button onClick={createPoll} className="btn btn-outline-primary">Create Poll</button>
+            <button onClick={dashboard} className="btn btn-outline-primary">Dashboard</button>
             <button onClick={logOut} className="btn btn-outline-danger">Log Out</button>
           </div>
         </nav>
@@ -67,17 +58,9 @@ function Dashboard({ loginStatus, setLoginStatus, user, setUser }) {
 
       <br />
 
-      <div>
-        {poll ? <CreatePoll poll={poll} setPoll={setPoll} /> : null}
-      </div>
-
-
-      <div>
-        {user.polls ? <DashboardBody polls={user.polls} /> : null}
-      </div>
     </div>
     
   );
 }
 
-export default Dashboard;
+export default Poll;

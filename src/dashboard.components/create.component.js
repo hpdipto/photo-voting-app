@@ -140,7 +140,7 @@ function CreatePoll({ poll, setPoll }) {
 
     return (
       <form onSubmit={formik.handleSubmit}>
-        <div className="card card-body">
+        <div className="card card-body mb-4">
 
           {errorMessages.length ? <ErrorMessages messages={errorMessages} /> : null}
 
