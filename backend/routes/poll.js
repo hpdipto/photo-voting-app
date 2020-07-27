@@ -32,18 +32,28 @@ router.post('/create', upload.any(), (req, res) => {
         imageList
     });
 
-    newPoll.save()
-            // source: https://stackoverflow.com/a/23452838/9481106
-            // after a poll created successfully
-            // we update 'poll' field of corresponding user
-            // in future findByIdAndUpdate should be replaced
-            .then((poll) => {
-                User.findByIdAndUpdate(createdBy, 
-                            {$push: {"polls": poll}},
-                            {new: true},
-                            (error, user) => res.send('Poll created successfully!'));
-            })
-            .catch(err => res.status(400).send('Error: ' + err));
+    newPoll.save((err, poll) => {
+        // source: https://stackoverflow.com/a/23452838/9481106
+        // after a poll created successfully
+        // we update 'poll' field of corresponding user
+        // in future findByIdAndUpdate should be replaced
+        if(err) {
+            res.status(400).send('Error: ' + err);
+        }
+        else {
+            User.findByIdAndUpdate(createdBy, 
+                                {$push: {"polls": poll}},
+                                {new: true},
+                                (error, user) => {
+                                    if(err) {
+                                        res.status(400).send('Error: ' + err);
+                                    }
+                                    else {
+                                        res.send('Poll created successfully!');
+                                    }
+                                });
+        }
+    })
 });
 
 
@@ -51,12 +61,42 @@ router.post('/create', upload.any(), (req, res) => {
 
 router.get('/:id', (req, res) => {
 
-    Poll.findById(req.params.id)
-        .then(poll => {
+    Poll.findById(req.params.id, (err, poll) => {
+        if(err) {
+            res.status(400).send('Error: ' + err);
+        }
+        else {
             res.json(poll);
-        })
-        .catch(err => res.status(400).send('Error: ' + err));
-})
+        }
+    });
+});
+
+
+
+router.delete('/:id', (req, res) => {
+    console.log("Delete request for: ", req.params.id);
+    var userPolls = req.user.polls;
+    var deleteIndex = userPolls.find(element => element === req.params.id);
+    userPolls.splice(deleteIndex, 1);
+
+    User.findByIdAndUpdate(req.user.id, 
+                        {'polls': userPolls},
+                        {new: true},
+                        (err, user) => {
+                            // empty callback   
+                        });
+
+
+    Poll.findByIdAndDelete(req.params.id, (err, doc) => {
+        if(err) {
+            res.status(400).send('Error: ' + err);
+        }
+        else {
+            res.send('Poll deleted successfully!');
+        }
+    })
+
+});
 
 
 module.exports = router;

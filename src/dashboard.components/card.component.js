@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 
 import 'bootstrap/dist/css/bootstrap.css';
@@ -8,8 +9,13 @@ function PollCard({id, pollTitle, pollId, startDate, endDate}) {
 
     const history = useHistory();
 
-    const open = () => {
+    const openPoll = () => {
         history.push(`/poll/${id}`);
+    }
+
+    const deletePoll = () => {
+        axios.delete(`/poll/${id}`)
+                .then(res => {});
     }
 
     return (
@@ -23,8 +29,8 @@ function PollCard({id, pollTitle, pollId, startDate, endDate}) {
                 <p className="card-text">End: {endDate.toDateString()}</p>
             </div>
             <div className="card-footer text-center">
-                <button className="btn btn-sm" onClick={open}><i className="fa fa-external-link"></i> Open</button>
-                <button className="btn btn-sm"><i className="fa fa-trash-o" /> Delete</button>
+                <button className="btn btn-sm" onClick={openPoll}><i className="fa fa-external-link"></i> Open</button>
+                <button className="btn btn-sm" onClick={deletePoll}><i className="fa fa-trash-o" /> Delete</button>
             </div>
         </div>
     );
