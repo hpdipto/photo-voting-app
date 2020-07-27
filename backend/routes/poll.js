@@ -9,6 +9,17 @@ const ObjectId = mongoose.Types.ObjectId;
 const upload = multer({dest: './public/img/'});
 
 
+router.get('/', (req, res) => {
+
+    if(req.user) {
+        res.json(req.user.polls);
+    }
+    else {
+        res.status(400).send('Error!');
+    }
+})
+
+
 // https://stackoverflow.com/a/44861809/9481106
 router.post('/create', upload.any(), (req, res) => {
 
@@ -74,9 +85,9 @@ router.get('/:id', (req, res) => {
 
 
 router.delete('/:id', (req, res) => {
-    console.log("Delete request for: ", req.params.id);
+
     var userPolls = req.user.polls;
-    var deleteIndex = userPolls.find(element => element === req.params.id);
+    var deleteIndex = userPolls.findIndex(element => element._id === req.params.id);
     userPolls.splice(deleteIndex, 1);
 
     User.findByIdAndUpdate(req.user.id, 

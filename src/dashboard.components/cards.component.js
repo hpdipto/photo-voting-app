@@ -7,7 +7,7 @@ import PollCard from './card.component';
 
 // we will pass 4 polls to render in a row
 
-function CardRow({polls}) {
+function CardRow({ polls }) {
 
     return(
         <div className="row">

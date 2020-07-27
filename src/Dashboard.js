@@ -11,6 +11,7 @@ import DashboardBody from "./dashboard.components/dashboard.component";
 function Dashboard({ loginStatus, setLoginStatus, user, setUser }) {
 
   const [poll, setPoll] = useState(0);
+  const [polls, setPolls] = useState([]);
   const history = useHistory();
 
 
@@ -22,12 +23,18 @@ function Dashboard({ loginStatus, setLoginStatus, user, setUser }) {
       history.push('/');
     }
 
+    axios.get('/poll')
+          .then(res => {
+            setPolls(res.data);
+          });
+
+
     // after a poll successfully created, unmount create poll component
     if(poll === 2) {
       setPoll(0);
     }
 
-  }, [loginStatus, setLoginStatus, history, poll]);   // included  values to avoid warning
+  }, [loginStatus, setLoginStatus, history, poll, polls]);   // included  values to avoid warning
 
 
   const createPoll = () => {
@@ -36,7 +43,6 @@ function Dashboard({ loginStatus, setLoginStatus, user, setUser }) {
 
 
   const logOut = () => {
-    setUser({});
     axios.get('/user/logout')
         .then(res => {
           // after successful logout loginStatus become -1
@@ -73,7 +79,7 @@ function Dashboard({ loginStatus, setLoginStatus, user, setUser }) {
 
 
       <div>
-        {user.polls ? <DashboardBody polls={user.polls} /> : null}
+        {user.polls ? <DashboardBody polls={polls} /> : null}
       </div>
     </div>
     

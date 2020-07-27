@@ -15,7 +15,9 @@ function PollCard({id, pollTitle, pollId, startDate, endDate}) {
 
     const deletePoll = () => {
         axios.delete(`/poll/${id}`)
-                .then(res => {});
+                .then(res => {
+                    // empty callback
+                });
     }
 
     return (
