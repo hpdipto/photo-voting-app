@@ -3,15 +3,17 @@ import axios from 'axios';
 
 import 'bootstrap/dist/css/bootstrap.css';
 
+// loading proxy from package.json
+import proxy from '.././package.json';
+
 
 function ImageCard({ imagePath }) {
 
-    // need to change it
-    const proxy = 'http://localhost:5000';
-
     return (
         <div>
-            <img className="card-img" src={imagePath.slice(6)} />
+            {/*imagePath is store as /public/img/abcdefghijklmonp...
+            but we need /img/abcdefghijklmonp... so the path here*/}
+            <img className="card-img" src={proxy.proxy+imagePath.slice(6)} />
         </div>
     );
 }

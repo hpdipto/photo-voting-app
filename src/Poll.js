@@ -26,7 +26,6 @@ function Poll({ loginStatus, setLoginStatus, user, setUser }) {
 
     axios.get(`/poll/${pollId}`)
             .then(res => {
-                console.log(res.data);
                 setPoll(res.data);
             });
 
