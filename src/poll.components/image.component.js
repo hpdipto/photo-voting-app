@@ -13,7 +13,7 @@ function ImageCard({ imagePath }) {
         <div>
             {/*imagePath is store as /public/img/abcdefghijklmonp...
             but we need /img/abcdefghijklmonp... so the path here*/}
-            <img className="card-img" src={proxy.proxy+imagePath.slice(6)} />
+            <img className="img-fluid" src={proxy.proxy+imagePath.slice(6)} />
         </div>
     );
 }

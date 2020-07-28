@@ -75,22 +75,25 @@ function Poll({ loginStatus, setLoginStatus, user, setUser }) {
 
   return (
 
-    <div className="container">
-      {/*nav bar*/}
-      <div className="card card-body">
-        <nav className="navbar navbar-light" style={{"backgroundColor": "#e3f2fd"}} >
-          <h4 className="navbar-brand">{poll.pollTitle}</h4> 
-          <div className="btn-group">
-            <button onClick={dashboard} className="btn btn-outline-primary">Dashboard</button>
-            <button onClick={logOut} className="btn btn-outline-danger">Log Out</button>
+    <div>
+        <div className="container">
+          {/*nav bar*/}
+          <div className="card card-body">
+            <nav className="navbar navbar-light" style={{"backgroundColor": "#e3f2fd"}} >
+              <h4 className="navbar-brand">{poll.pollTitle}</h4> 
+              <div className="btn-group">
+                <button onClick={dashboard} className="btn btn-outline-primary">Dashboard</button>
+                <button onClick={logOut} className="btn btn-outline-danger">Log Out</button>
+              </div>
+            </nav>
           </div>
-        </nav>
-      </div>
 
-      <br />
+          <br />
+        </div>
 
-      <OpenPoll poll={poll} images={poll.imageList} />
-
+        <div className="container-fluid">
+          <OpenPoll poll={poll} images={poll.imageList} />
+        </div>
     </div>
     
   );
