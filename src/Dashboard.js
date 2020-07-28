@@ -6,6 +6,7 @@ import 'font-awesome/css/font-awesome.min.css';
 
 import CreatePoll from "./dashboard.components/create.component";
 import DashboardBody from "./dashboard.components/dashboard.component";
+import EmptyDashboard from "./dashboard.components/empty.component";
 
 
 function Dashboard({ loginStatus, setLoginStatus, user, setUser }) {
@@ -101,7 +102,10 @@ function Dashboard({ loginStatus, setLoginStatus, user, setUser }) {
 
 
       <div>
-        {user.polls ? <DashboardBody polls={polls} /> : null}
+        {polls.length ? 
+          <DashboardBody polls={polls} /> : 
+          <EmptyDashboard />
+        }
       </div>
     </div>
     
