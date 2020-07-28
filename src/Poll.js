@@ -25,14 +25,30 @@ function Poll({ loginStatus, setLoginStatus, user, setUser }) {
     }
 
 
-    axios.get(`/poll/${pollId}`)
-            .then(res => {
-              setPoll(res.data);
-            })
-            .catch(err => {
-              console.log(err);
-            });
+    // we'll use axios token cancelation because
+    // even after redirecting to some different location
+    // axios will try to set `polls` value that causes an error
+    // source: https://www.youtube.com/watch?v=_TleXX0mxaY
+    let source = axios.CancelToken.source();
 
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`/poll/${pollId}`, {
+          cancelToken: source.token
+        });
+        setPoll(response.data);
+      }
+      catch {
+        // empty
+      }
+    }
+
+    fetchData();
+
+    // clean up function for canceling axios request
+    return () => {
+      source.cancel();
+    }
 
   }, []);   // included  values to avoid warning
 
