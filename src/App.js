@@ -17,8 +17,8 @@ function App() {
     <Router>
       <Route path="/" exact component={() => <Home loginStatus={login} setLoginStatus={setLogin} user={user} setUser={setUser}/>} />
       <Route path="/dashboard" exact 
-        component={() => <Dashboard loginStatus={login} setLoginStatus={setLogin} user={user} setUser={setUser}/>} />
-    <Route path="/poll/:id" exact component={() => <Poll loginStatus={login} setLoginStatus={setLogin} user={user} setUser={setUser} />} />
+              component={() => <Dashboard loginStatus={login} setLoginStatus={setLogin} user={user} setUser={setUser}/>} />
+      <Route path="/poll/:id" exact component={() => <Poll loginStatus={login} setLoginStatus={setLogin} user={user} setUser={setUser} />} />
     </Router>
   );
 }

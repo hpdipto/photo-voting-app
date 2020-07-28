@@ -24,9 +24,13 @@ function Poll({ loginStatus, setLoginStatus, user, setUser }) {
       history.push('/');
     }
 
+
     axios.get(`/poll/${pollId}`)
             .then(res => {
-                setPoll(res.data);
+              setPoll(res.data);
+            })
+            .catch(err => {
+              console.log(err);
             });
 
 

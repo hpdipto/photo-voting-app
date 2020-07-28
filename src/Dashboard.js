@@ -23,15 +23,37 @@ function Dashboard({ loginStatus, setLoginStatus, user, setUser }) {
       history.push('/');
     }
 
-    axios.get('/poll')
-          .then(res => {
-            setPolls(res.data);
-          });
+
+    // we'll use axios token cancelation because
+    // even after redirecting to some different location
+    // axios will try to set `polls` value that causes an error
+    // source: https://www.youtube.com/watch?v=_TleXX0mxaY
+    let source = axios.CancelToken.source();
+
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('/poll', {
+          cancelToken: source.token
+        });
+        setPolls(response.data);
+      }
+      catch {
+        // empty 
+      }
+    }
+
+    fetchData();
 
 
     // after a poll successfully created, unmount create poll component
     if(poll === 2) {
       setPoll(0);
+    }
+
+
+    // clean up function for canceling axios request
+    return () => {
+      source.cancel();
     }
 
   }, [loginStatus, setLoginStatus, history, poll, polls]);   // included  values to avoid warning
