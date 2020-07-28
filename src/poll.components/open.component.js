@@ -5,32 +5,10 @@ import axios from 'axios';
 import dateformat from 'dateformat';
 import { useHistory } from 'react-router-dom';
 
-import ImageRow from './images.component';
-import ImageCard from "./image.component";
+import ImageViewer from "./viewer.component";
 
 
 function OpenPoll({ poll, images }) {
-
-
-
-    // passing 3 images at a time
-    // ImageRow will contain 3 images in a row
-    var imageCards = [];
-    // if images is loaded
-    if(images) {
-        for (var i = 0; i < images.length; i+=3) {
-            var start = i;
-            var end = i + 3;
-            end > images.length ? end = images.length : end = i + 3;
-
-            var key = [];
-            for(var j = start; j < end; j++) {
-                key.push(j);
-            }
-
-            imageCards.push(<ImageRow key={i} imageList={images.slice(start, end)} />);
-        }
-    }
 
 
     return (
@@ -38,7 +16,7 @@ function OpenPoll({ poll, images }) {
             <div className="card card-body">
                 {/*disable card border.
                 source: https://stackoverflow.com/a/53128227/9481106*/}
-                <div className="card border-0">
+                <div className="card border-0 ml-3">
                     <dl className="row">
                         <dt className="col-md-2"><span style={{"fontSize": "1.2rem"}}>Poll Id</span></dt>
                         <dd className="col-md-9"><span style={{"fontSize": "1.2rem"}}>{poll.pollId}</span></dd>
@@ -54,8 +32,7 @@ function OpenPoll({ poll, images }) {
                     </dl>
                 </div>
 
-                {/*images*/}
-                {imageCards}
+                {images ? <ImageViewer images={images} /> : null}
             </div>
         </div>
     );
