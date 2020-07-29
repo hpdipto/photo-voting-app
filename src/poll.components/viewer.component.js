@@ -3,8 +3,6 @@ import { Modal, Carousel } from 'react-bootstrap';
 
 import 'bootstrap/dist/css/bootstrap.css';
 
-import "../styles/imageViewer.css";
-
 
 // loading proxy from package.json
 import proxy from '.././package.json';
@@ -12,15 +10,15 @@ import proxy from '.././package.json';
 
 function ImageViewer({ show, setShow, images, index, setIndex }) {
 
-    /*carousel interval time*/
-    const inf = 100000000;
-
     return (
-        <div >
+        <div>
           {/*animation={false} for avoid a warning*/}
           <Modal show={show} onHide={() => setShow(!show)} animation={false} centered>
-            {/*<Modal.Header closeButton>
-            </Modal.Header>*/}
+
+            <Modal.Header closeButton>
+              {/*more buttons...*/}
+            </Modal.Header>
+
             <Modal.Body>
               <Carousel activeIndex={index} onSelect={(i, e) => setIndex(i)} slide={false} indicators={false} interval={null}>
                 { images.map((image, idx) => {
