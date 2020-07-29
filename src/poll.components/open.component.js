@@ -5,7 +5,7 @@ import axios from 'axios';
 import dateformat from 'dateformat';
 import { useHistory } from 'react-router-dom';
 
-import ImageViewer from "./viewer.component";
+import Gallery from "./gallery.component";
 
 
 function OpenPoll({ poll, images }) {
@@ -32,7 +32,7 @@ function OpenPoll({ poll, images }) {
                     </dl>
                 </div>
 
-                {images ? <ImageViewer images={images} /> : null}
+                {images ? <Gallery images={images} /> : null}
             </div>
         </div>
     );
