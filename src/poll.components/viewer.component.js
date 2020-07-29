@@ -1,29 +1,44 @@
-import React from 'react';
-import { ImageGroup, Image } from 'react-fullscreen-image';
+import React, { useState } from 'react';
+
+import 'bootstrap/dist/css/bootstrap.css';
 
 import "../styles/imageViewer.css";
 
 // loading proxy from package.json
 import proxy from '.././package.json';
 
+import ModalComponent from "./modal.component";
 
+
+
+// photo gallery source: https://mdbootstrap.com/plugins/jquery/gallery/#filter
 function ImageViewer({ images }) {
 
+    const [modal, setModal] = useState(false);
+    const [imgSrc, setImgSrc] = useState('');
+
+
+    const openModal = (src) => {
+        setModal(!modal);
+        setImgSrc(src);
+    }
+
     return (
-        <div className="container">
-          <ImageGroup>
-            <ul className="images">
-              {images.map(i => (
-                <li key={i}>
-                    {/*imagePath is store as /public/img/abcdefghijklmonp...
-                    but we need /img/abcdefghijklmonp... so the path here*/}
-                    <Image src={proxy.proxy+i.slice(6)} alt="mountains" />
-                </li>
-              ))}
-            </ul>
-          </ImageGroup>
+        <div>
+            <div className="gallery">
+                {images.map((img, index) => {
+                    return (
+                        <div key={index} className="mb-3 pics animation all 1" id="photo">
+                            <img className="img-fluid" onClick={() => openModal(proxy.proxy+img.slice(6))} src={proxy.proxy+img.slice(6)} />
+                        </div>
+                    );
+                })}
+            </div>
+
+            {modal ? <ModalComponent show={modal} setShow={setModal} imgSrc={imgSrc}/> : null}
+
         </div>
-  )
+    );
 }
 
 export default ImageViewer;
