@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import 'bootstrap/dist/css/bootstrap.css';
 
-import "../styles/imageViewer.css";
+import "../styles/imageGallery.css";
 
 // loading proxy from package.json
 import proxy from '.././package.json';
