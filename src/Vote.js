@@ -94,7 +94,7 @@ function Vote({ loginStatus, setLoginStatus, user, setUser }) {
         </div>
 
         <div className="container-fluid">
-          <OpenPoll poll={poll} images={poll.imageList} />
+          <OpenPoll poll={poll} imageList={poll.imageList} />
         </div>
     </div>
     

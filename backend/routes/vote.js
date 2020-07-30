@@ -9,6 +9,17 @@ router.post('/enter', (req, res) => {
 
     let {pollId, pollPasscode} = req.body;
 
+
+    // check if User already voted in this poll
+    const votedPolls = req.user.votedPolls;
+    let found = votedPolls.find(elm => elm === pollId);
+
+    if(found) {
+        res.json({'message': 'Already voted in this poll'});
+    }
+
+    // if the User not voted
+    // enter into the Poll
     Poll.findOne({pollId: pollId}, (err, poll) => {
         // if any error occurs
         if(err) {
@@ -30,6 +41,7 @@ router.post('/enter', (req, res) => {
         }
     })
 });
+
 
 
 // information about a poll

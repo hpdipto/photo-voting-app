@@ -29,7 +29,7 @@ app.use(express.json());
 
 // DB config
 // const uri = process.env.ATLAS_URI;
-const uri = 'mongodb://localhost/database';
+const uri = 'mongodb://localhost/photo_voting_app';
 mongoose.connect(uri, { useNewUrlParser: true })
         .then(() => console.log("MongoDB Connected Successfully!"))
         .catch(err => console.log(err));

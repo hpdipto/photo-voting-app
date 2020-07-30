@@ -18,6 +18,9 @@ const userSchema = new Schema({
         },
         polls: {
             type: Array
+        },
+        votedPolls: {
+            type: Array
         }
 
     },

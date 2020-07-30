@@ -12,10 +12,13 @@ import ImageViewer from "./viewer.component";
 
 
 // photo gallery source: https://mdbootstrap.com/plugins/jquery/gallery/#filter
-function Gallery({ images }) {
+function Gallery({ imageList }) {
 
     const [modal, setModal] = useState(false);
     const [index, setIndex] = useState(0);
+    const [images, setImages] = useState(imageList);
+    // array initialization with 0s: https://stackoverflow.com/a/34104348/9481106
+    const [votes, setVotes] = useState(Array(imageList.length).fill(0));
 
 
     const openModal = (idx) => {
@@ -35,7 +38,11 @@ function Gallery({ images }) {
                 })}
             </div>
 
-            {modal ? <ImageViewer show={modal} setShow={setModal} images={images} index={index} setIndex={setIndex} /> : null}
+            {modal ? <ImageViewer show={modal} setShow={setModal} 
+                                  index={index} setIndex={setIndex} 
+                                  images={images} setImages={setImages} 
+                                  votes={votes} setVotes={setVotes} /> 
+                    : null}
 
         </div>
     );

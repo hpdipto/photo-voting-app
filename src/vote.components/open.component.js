@@ -8,7 +8,7 @@ import { useHistory } from 'react-router-dom';
 import Gallery from "./gallery.component";
 
 
-function OpenPoll({ poll, images }) {
+function OpenPoll({ poll, imageList }) {
 
 
     return (
@@ -27,7 +27,7 @@ function OpenPoll({ poll, images }) {
                     </dl>
                 </div>
 
-                {images ? <Gallery images={images} /> : null}
+                {imageList ? <Gallery imageList={imageList} maxVoteLimit={poll.maxVoteLimit} /> : null}
             </div>
         </div>
     );
