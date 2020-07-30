@@ -32,4 +32,18 @@ router.post('/enter', (req, res) => {
 });
 
 
+// information about a poll
+router.get('/poll/:id', (req, res) => {
+
+    Poll.findById(req.params.id, (err, poll) => {
+        if(err) {
+            res.status(400).send('Error: ' + err);
+        }
+        else {
+            res.json(poll);
+        }
+    });
+});
+
+
 module.exports = router;

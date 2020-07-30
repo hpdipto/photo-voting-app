@@ -69,7 +69,6 @@ function VoteForm({ vote, setVote }) {
                         // other wise the entering is successful
                         else {
                             // successful entering
-                            console.log(responseData);
                             history.push(`/vote/${responseData._id}`);
                         }
                     })
