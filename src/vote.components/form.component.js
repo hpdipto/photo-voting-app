@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import { useFormik } from 'formik';
+import { useHistory } from 'react-router-dom';
 
 import 'bootstrap/dist/css/bootstrap.css';
 
@@ -21,6 +23,7 @@ function ErrorMessages({ messages }) {
 function VoteForm({ vote, setVote }) {
 
     const [errorMessages, setErrorMessages] = useState([]);
+    const history = useHistory();
 
     // form validation
     const validate = values => {
@@ -43,7 +46,7 @@ function VoteForm({ vote, setVote }) {
             pollId: '',
             pollPasscode: ''
         },
-        // validate,
+        validate,
         // validation will be happened during submission
         validateOnChange: false,
         validateOnBlur: false,
@@ -55,9 +58,21 @@ function VoteForm({ vote, setVote }) {
                     pollPasscode: values.pollPasscode
                 };
 
-                console.log(poll);
-
-                setVote(0);
+                axios.post('/vote/enter', poll)
+                    .then(res => {
+                        let responseData = res.data;
+                        // if we had some error during entering into a poll
+                        // from server we'll receive a json object with 'message' property
+                        if (responseData.hasOwnProperty('message')) {
+                            setErrorMessages(errorMessages => [...errorMessages, responseData['message']]);
+                        }
+                        // other wise the entering is successful
+                        else {
+                            // successful entering
+                            console.log(responseData);
+                            history.push(`/vote/${responseData._id}`);
+                        }
+                    })
             }
         }
     })

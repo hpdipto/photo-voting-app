@@ -62,9 +62,11 @@ app.use(flash())
 // Routers
 const userRoutes = require('./routes/user');
 const pollRoutes = require('./routes/poll');
+const voteRoutes = require('./routes/vote');
 
 app.use('/user', userRoutes);
-app.use('/poll', pollRoutes)
+app.use('/poll', pollRoutes);
+app.use('/vote', voteRoutes);
 
 
 
