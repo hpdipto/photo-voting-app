@@ -33,7 +33,12 @@ router.post('/create', upload.any(), (req, res) => {
     var imageList = [];
 
     for(var i = 0; i < req.files.length; i++) {
-        imageList.push(req.files[i].path);
+        // before: imageList.push(req.files[i].path);
+        var imageListObject = { 
+                                "src": req.files[i].path, 
+                                "votes": []
+                              };
+        imageList.push(imageListObject);
     }
 
     const newPoll = new Poll({
@@ -99,7 +104,7 @@ router.delete('/:id', (req, res) => {
         else {
             let imageList = poll.imageList;
             for(var i = 0; i < imageList.length; i++) {
-                fs.unlinkSync(imageList[i]);
+                fs.unlinkSync(imageList[i]["src"]);
             }
         }
     });
