@@ -1,14 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-// using dateformat to display nice format date
-// source: https://stackoverflow.com/a/3552496/9481106
 import dateformat from 'dateformat';
 import { useHistory } from 'react-router-dom';
+
+import 'bootstrap/dist/css/bootstrap.css';
 
 import Gallery from "./gallery.component";
 
 
-function OpenPoll({ poll, imageList }) {
+function OpenPoll({ poll, imageList, votes, setVotes, votesLeft, setVotesLeft }) {
+
+    const submitVotes = () => {
+        console.log(votes);
+
+        // add backend api
+    }
 
 
     return (
@@ -16,18 +22,33 @@ function OpenPoll({ poll, imageList }) {
             <div className="card card-body">
                 {/*disable card border.
                 source: https://stackoverflow.com/a/53128227/9481106*/}
-                <div className="card border-0 ml-3">
+                <div className="card border-0 mb-4">
                     <dl className="row">
-
                         <dt className="col-md-2"><span style={{"fontSize": "1.2rem"}}>Start Date</span></dt>
                         <dd className="col-md-9"><span style={{"fontSize": "1.2rem"}}>{dateformat(poll.startDate, "dddd, mmmm dS, yyyy, h:MM:ss TT")}</span></dd>
                         
                         <dt className="col-md-2"><span style={{"fontSize": "1.2rem"}}>End Date</span></dt>
                         <dd className="col-md-9"><span style={{"fontSize": "1.2rem"}}>{dateformat(poll.endDate, "dddd, mmmm dS, yyyy, h:MM:ss TT")}</span></dd>
-                    </dl>
-                </div>
 
-                {imageList ? <Gallery imageList={imageList} maxVoteLimit={poll.maxVoteLimit} /> : null}
+                        <dt className="col-md-2"><span style={{"fontSize": "1.2rem"}}>Votes Left</span></dt>
+                        <dd className="col-md-9"><span style={{"fontSize": "1.2rem"}}>{votesLeft}</span></dd>
+                    </dl>
+
+                    <div className="row">
+                        <div className="col">
+                            <button type="button" className="btn btn-primary btn-block" onClick={submitVotes}>Submit</button>
+                        </div>
+                    </div>
+                </div>            
+
+                {imageList ? 
+                            <Gallery imageList={imageList} maxVoteLimit={poll.maxVoteLimit}
+                                      votes={votes} setVotes={setVotes}
+                                      votesLeft={votesLeft} setVotesLeft={setVotesLeft} />
+                            :
+                            null
+                }
+
             </div>
         </div>
     );

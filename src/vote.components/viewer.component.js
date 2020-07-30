@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Modal, Carousel } from 'react-bootstrap';
 
 import 'bootstrap/dist/css/bootstrap.css';
@@ -8,13 +8,15 @@ import 'bootstrap/dist/css/bootstrap.css';
 import proxy from '.././package.json';
 
 
-function ImageViewer({ show, setShow, index, setIndex, images, setImages, votes, setVotes }) {
+function ImageViewer({ show, setShow, index, setIndex, images, setImages, votes, setVotes, votesLeft, setVotesLeft }) {
 
   const increaseVote = () => {
     var v = [...votes];
     v[index] = Math.max(...votes) + 1;
     setVotes(v);
+    setVotesLeft(votesLeft-1);
   }
+
 
   return (
       <div>

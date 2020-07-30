@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import axios from 'axios';
+
 import 'bootstrap/dist/css/bootstrap.css';
 import 'font-awesome/css/font-awesome.min.css';
 
@@ -13,6 +14,9 @@ function Vote({ loginStatus, setLoginStatus, user, setUser }) {
 
   const [pollId, setPollId] = useState(urlId);
   const [poll, setPoll] = useState({});
+  const [votes, setVotes] = useState([]);
+  const [votesLeft, setVotesLeft] = useState(0);
+
   const history = useHistory();
 
 
@@ -37,6 +41,9 @@ function Vote({ loginStatus, setLoginStatus, user, setUser }) {
           cancelToken: source.token
         });
         setPoll(response.data);
+        // array initialization with 0s: https://stackoverflow.com/a/34104348/9481106
+        setVotes(Array(response.data.maxVoteLimit).fill(0));
+        setVotesLeft(response.data.maxVoteLimit);
       }
       catch {
         // empty
@@ -93,8 +100,10 @@ function Vote({ loginStatus, setLoginStatus, user, setUser }) {
           <br />
         </div>
 
-        <div className="container-fluid">
-          <OpenPoll poll={poll} imageList={poll.imageList} />
+        <div className="container">
+          <OpenPoll poll={poll} imageList={poll.imageList} 
+                    votes={votes} setVotes={setVotes}
+                    votesLeft={votesLeft} setVotesLeft={setVotesLeft} />
         </div>
     </div>
     
