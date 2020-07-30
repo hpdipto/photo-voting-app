@@ -78,14 +78,17 @@ function CreatePoll({ poll, setPoll }) {
         if(values.pollPasscode.length < 3) {
             setErrorMessages(errorMessages => [...errorMessages, 'Poll Passcode should have at least 3 characters']);
         }
-        if(values.maxVoteLimit < 2) {
-            setErrorMessages(errorMessages => [...errorMessages, 'Maximum Vote Limit should at least 2']);
+        if(values.maxVoteLimit === 0) {
+            setErrorMessages(errorMessages => [...errorMessages, 'Maximum Vote Limit can not be 0']);
         }
         if(values.startDate.getTime() === values.endDate.getTime()) {
             setErrorMessages(errorMessages => [...errorMessages, "Start Date and End Date can't be equal"]);
         }
         if(values.startDate.getTime() > values.endDate.getTime()) {
             setErrorMessages(errorMessages => [...errorMessages, "Start Time can't be greater than End Time"]);
+        }
+        if(values.maxVoteLimit > values.images.length) {
+            setErrorMessages(errorMessages => [...errorMessages, 'Maximum Vote Limit can not be larger than uploaded images']);
         }
         if(values.images === null || values.images.length < 2) {
           setErrorMessages(errorMessages => [...errorMessages, "Please upload 2 or more files"]);

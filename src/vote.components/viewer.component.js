@@ -11,10 +11,12 @@ import proxy from '.././package.json';
 function ImageViewer({ show, setShow, index, setIndex, images, setImages, votes, setVotes, votesLeft, setVotesLeft }) {
 
   const increaseVote = () => {
-    var v = [...votes];
-    v[index] = Math.max(...votes) + 1;
-    setVotes(v);
-    setVotesLeft(votesLeft-1);
+    if(votesLeft > 0) {
+      var v = [...votes];
+      v[index] = Math.max(...votes) + 1;
+      setVotes(v);
+      setVotesLeft(votesLeft-1);
+    }
   }
 
 
@@ -26,11 +28,12 @@ function ImageViewer({ show, setShow, index, setIndex, images, setImages, votes,
           <Modal.Header closeButton>
             <button type="button"
                     className="btn btn-primary btn-block" 
-                    disabled={!votes[index] ? false : true}
+                    disabled={(votes[index] || !votesLeft) ? true : false}
                     onClick={increaseVote} >
-              {/*if the image is not voted, then vote value should be MaxVote+1
-              else currentVote*/}
-              {!votes[index] ? Math.max(...votes) + 1 : votes[index]}
+              {/*if the image is not voted and votes left still then button value should be MaxVote+1
+                 if the image is not voted and no votes left, buttion value should be 'No vote left'
+                 else button value currentVote*/}
+              {!votes[index] ? (votesLeft ? Math.max(...votes) + 1 : 'No vote left') : votes[index]}
             </button>
           </Modal.Header>
 

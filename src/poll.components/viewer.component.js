@@ -16,7 +16,8 @@ function ImageViewer({ show, setShow, images, index, setIndex }) {
           <Modal show={show} onHide={() => setShow(!show)} animation={false} centered>
 
             <Modal.Header closeButton>
-              {/*more buttons...*/}
+              {/*update from here*/}
+              {images[index].votes}
             </Modal.Header>
 
             <Modal.Body>

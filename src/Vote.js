@@ -101,7 +101,8 @@ function Vote({ loginStatus, setLoginStatus, user, setUser }) {
         </div>
 
         <div className="container">
-          <OpenPoll poll={poll} imageList={poll.imageList} 
+          <OpenPoll loginStatus={loginStatus} setLoginStatus={setLoginStatus}
+                    poll={poll} imageList={poll.imageList} 
                     votes={votes} setVotes={setVotes}
                     votesLeft={votesLeft} setVotesLeft={setVotesLeft} />
         </div>

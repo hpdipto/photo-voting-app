@@ -122,7 +122,7 @@ function Dashboard({ loginStatus, setLoginStatus, user, setUser }) {
 
       <div>
         {polls.length ? 
-          <DashboardBody polls={polls} /> : 
+          <DashboardBody loginStatus={loginStatus} setLoginStatus={setLoginStatus} polls={polls} /> : 
           <EmptyDashboard />
         }
       </div>

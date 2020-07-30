@@ -61,6 +61,7 @@ function VoteForm({ vote, setVote }) {
                 axios.post('/vote/enter', poll)
                     .then(res => {
                         let responseData = res.data;
+                        console.log(responseData);
                         // if we had some error during entering into a poll
                         // from server we'll receive a json object with 'message' property
                         if (responseData.hasOwnProperty('message')) {

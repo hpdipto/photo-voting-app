@@ -8,12 +8,22 @@ import 'bootstrap/dist/css/bootstrap.css';
 import Gallery from "./gallery.component";
 
 
-function OpenPoll({ poll, imageList, votes, setVotes, votesLeft, setVotesLeft }) {
+function OpenPoll({ loginStatus, setLoginStatus, poll, imageList, votes, setVotes, votesLeft, setVotesLeft }) {
+
+    const history = useHistory();
 
     const submitVotes = () => {
-        console.log(votes);
 
-        // add backend api
+        // vote backend
+        axios.post(`/vote/poll/${poll._id}`, votes)
+            .then(res => {
+                // loginStatus 4 denotes, a vote complete successfully
+                setLoginStatus(4);
+                history.push('/dashboard');
+            })
+            .catch(err => {
+                console.log(err);
+            });
     }
 
 

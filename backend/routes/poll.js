@@ -2,6 +2,7 @@ const router = require('express').Router();
 const multer = require('multer');
 const mongoose = require('mongoose');
 const fs = require('fs');
+
 let Poll = require('../models/poll.model');
 let User = require('../models/user.model');
 
@@ -14,7 +15,15 @@ const upload = multer({dest: './public/img/'});
 router.get('/', (req, res) => {
 
     if(req.user) {
-        res.json(req.user.polls);
+        // res.json(req.user.polls);
+        Poll.find({'createdBy': req.user.id}, (err, polls) => {
+            if(err) {
+                res.status(400).send('Error!');
+            }
+            else {
+                res.json(polls);
+            }
+        })
     }
     else {
         res.status(400).send('Error!');
@@ -62,7 +71,7 @@ router.post('/create', upload.any(), (req, res) => {
         }
         else {
             User.findByIdAndUpdate(createdBy, 
-                                {$push: {"polls": poll}},
+                                {$push: {"polls": poll.id}},
                                 {new: true},
                                 (error, user) => {
                                     if(err) {
