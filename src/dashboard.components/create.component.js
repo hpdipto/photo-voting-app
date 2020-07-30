@@ -205,7 +205,7 @@ function CreatePoll({ poll, setPoll }) {
           </div>
 
 
-          <div className="form-row">
+          <div className="form-group">
             <button type="submit" className="btn btn-info btn-block">Create Poll</button>
           </div>
 

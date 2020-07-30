@@ -4,6 +4,9 @@ import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'font-awesome/css/font-awesome.min.css';
 
+
+import VoteForm from "./vote.components/form.component";
+
 import CreatePoll from "./dashboard.components/create.component";
 import DashboardBody from "./dashboard.components/dashboard.component";
 import EmptyDashboard from "./dashboard.components/empty.component";
@@ -11,6 +14,7 @@ import EmptyDashboard from "./dashboard.components/empty.component";
 
 function Dashboard({ loginStatus, setLoginStatus, user, setUser }) {
 
+  const [vote, setVote] = useState(0);
   const [poll, setPoll] = useState(0);
   const [polls, setPolls] = useState([]);
   const history = useHistory();
@@ -60,9 +64,19 @@ function Dashboard({ loginStatus, setLoginStatus, user, setUser }) {
   }, [loginStatus, setLoginStatus, history, poll, polls]);   // included  values to avoid warning
 
 
+
+  const voteForm = () => {
+    vote === 1 ? setVote(0) : setVote(1);
+    setPoll(0);
+  }
+
+
+
   const createPoll = () => {
     poll === 1 ? setPoll(0) : setPoll(1);
+    setVote(0);
   }
+
 
 
   const logOut = () => {
@@ -88,13 +102,19 @@ function Dashboard({ loginStatus, setLoginStatus, user, setUser }) {
         <nav className="navbar navbar-light" style={{"backgroundColor": "#e3f2fd"}} >
           <p className="navbar-brand"> Dashboard for {user.name} </p>
           <div className="btn-group">
-            <button onClick={createPoll} className="btn btn-outline-primary">Create Poll</button>
+            <button onClick={voteForm} className="btn btn-outline-primary">Vote</button>
+            <button onClick={createPoll} className="btn btn-outline-info">Create Poll</button>
             <button onClick={logOut} className="btn btn-outline-danger">Log Out</button>
           </div>
         </nav>
       </div>
 
       <br />
+
+      <div>
+        {vote ? <VoteForm vote={vote} setVote={setVote} /> : null}
+      </div>
+
 
       <div>
         {poll ? <CreatePoll poll={poll} setPoll={setPoll} /> : null}

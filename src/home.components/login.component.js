@@ -64,10 +64,10 @@ function Login({login, setLogin, register, setRegister, user, setUser}) {
         setErrorMessages(errorMessages => []);
 
         if((!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email))) {
-           setErrorMessages(errorMessages => [...errorMessages, 'Please enter a valid email']); 
+           setErrorMessages(errorMessages => [...errorMessages, 'Please enter a valid Email']); 
         }
         if(!values.password) {
-            setErrorMessages(errorMessages => [...errorMessages, 'Please enter a password']);
+            setErrorMessages(errorMessages => [...errorMessages, 'Please enter a Password']);
         }
     }
 

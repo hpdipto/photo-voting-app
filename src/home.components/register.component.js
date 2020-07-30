@@ -28,13 +28,13 @@ function Register({ login, setLogin, register, setRegister }) {
         setErrorMessages(errorMessages => []);
 
         if(!values.registerName) {
-            setErrorMessages(errorMessages => [...errorMessages, 'Please enter a name']);
+            setErrorMessages(errorMessages => [...errorMessages, 'Please enter a Name']);
         }
         if((!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.registerEmail))) {
-           setErrorMessages(errorMessages => [...errorMessages, 'Please enter a valid email']); 
+           setErrorMessages(errorMessages => [...errorMessages, 'Please enter a valid Email']); 
         }
         if(!values.registerPassword) {
-            setErrorMessages(errorMessages => [...errorMessages, 'Please enter a password']);
+            setErrorMessages(errorMessages => [...errorMessages, 'Please enter a Password']);
         }
         if(values.registerPassword.length < 6) {
             setErrorMessages(errorMessages => [...errorMessages, 'Password length should be at least 6']);
