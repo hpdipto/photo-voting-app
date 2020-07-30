@@ -5,8 +5,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'font-awesome/css/font-awesome.min.css';
 
 
-import VoteForm from "./vote.components/form.component";
-
+import VoteForm from "./dashboard.components/vote.component";
 import CreatePoll from "./dashboard.components/create.component";
 import DashboardBody from "./dashboard.components/dashboard.component";
 import EmptyDashboard from "./dashboard.components/empty.component";
