@@ -6,6 +6,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import Home from "./Home";
 import Dashboard from "./Dashboard";
 import Poll from "./Poll";
+import Result from "./Result";
 import Vote from "./Vote";
 
 
@@ -20,6 +21,7 @@ function App() {
       <Route exact path="/dashboard" 
               component={() => <Dashboard loginStatus={login} setLoginStatus={setLogin} user={user} setUser={setUser}/>} />
       <Route exact path="/poll/:id" component={() => <Poll loginStatus={login} setLoginStatus={setLogin} user={user} setUser={setUser} />} />
+      <Route exact path="/poll/result/:id" component={() => <Result loginStatus={login} setLoginStatus={setLogin} user={user} setUser={setUser} />} />
       <Route exact path="/vote/:id" component={() => <Vote loginStatus={login} setLoginStatus={setLogin} user={user} setUser={setUser} />} />
     </Router>
   );

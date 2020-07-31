@@ -145,4 +145,55 @@ router.delete('/:id', (req, res) => {
 });
 
 
+// get poll result
+router.get('/result/:id', (req, res) => {
+
+    const calculatePoint = (arr, maxPoint) => {
+        var point = 0;
+
+        for(var i = 0; i < arr.length; i++) {
+            point += (maxPoint - arr[i] + 1);
+        }
+
+        return point;
+    }
+
+
+    Poll.findById(req.params.id, (err, poll) => {
+        if(err) {
+            res.status(400).send('Error: ' + err);
+        }
+        else {
+            var result = [];
+            var imageList = poll.imageList;
+
+            for(var i = 0; i < imageList.length; i++) {
+                result.push({ "src": imageList[i].src,
+                              "points": calculatePoint(imageList[i].votes, poll.maxVoteLimit),
+                              "votes": imageList[i].votes.length 
+                            });
+            }
+
+            // sort result by 'points' in descending order
+            result.sort((a, b) => {
+                return b['points'] - a['points'];
+            });
+            
+            let resultData = {
+                "_id": poll.id,
+                "pollTitle": poll.pollTitle,
+                "pollId": poll.pollId,
+                "pollPasscode": poll.pollPasscode,
+                "maxVoteLimit": poll.maxVoteLimit,
+                "startDate": poll.startDate,
+                "endDate": poll.endDate,
+                "result" : result
+            }
+            
+            res.send(resultData);
+        }
+    });
+})
+
+
 module.exports = router;
