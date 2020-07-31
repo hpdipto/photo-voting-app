@@ -26,7 +26,6 @@ function EmptyDashboard({ loginStatus, setLoginStatus }) {
         if(loginStatus === 4) {
             setSuccessMessage(successMessage => [...successMessage, 'Vote completed successfully']);
         }
-        console.log(successMessage);
 
     }, [loginStatus]);
 

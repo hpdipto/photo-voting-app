@@ -42,7 +42,7 @@ function Vote({ loginStatus, setLoginStatus, user, setUser }) {
         });
         setPoll(response.data);
         // array initialization with 0s: https://stackoverflow.com/a/34104348/9481106
-        setVotes(Array(response.data.maxVoteLimit).fill(0));
+        setVotes(Array(response.data.imageList.length).fill(0));
         setVotesLeft(response.data.maxVoteLimit);
       }
       catch {

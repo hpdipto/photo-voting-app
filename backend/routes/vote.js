@@ -19,12 +19,12 @@ router.post('/enter', (req, res) => {
         }
         else if(poll) {
             // check if User already voted in this poll or not
-            // let found = votedPolls.find(elm => elm == poll.id);
-            // if(found) {
-            //     res.json({'message': "Already voted in this poll"});
-            // }
+            let found = votedPolls.find(elm => elm == poll.id);
+            if(found) {
+                res.json({'message': "Already voted in this poll"});
+            }
             // if User not voted and pollPasscode match
-            if(poll.pollPasscode == pollPasscode) {
+            else if(poll.pollPasscode == pollPasscode) {
                 res.json(poll);
             }
             // poll found but pollPasscode dosen't match
