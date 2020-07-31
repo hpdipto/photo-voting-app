@@ -27,6 +27,18 @@ function EmptyDashboard({ loginStatus, setLoginStatus }) {
             setSuccessMessage(successMessage => [...successMessage, 'Vote completed successfully']);
         }
 
+        // loginStatus 5 denotes a poll successfully created
+        // this value was set in /dashboard.component/create.component
+        if(loginStatus === 5) {
+            setSuccessMessage(successMessage => [...successMessage, 'Poll created successfully']);
+        }
+
+        //loginStatus 6 denotes a poll successfully deleted
+        // this value was set in /dashboard.component/card.component
+        if(loginStatus === 6) {
+            setSuccessMessage(successMessage => [...successMessage, 'Poll deleted successfully']);
+        }
+
     }, [loginStatus]);
 
 

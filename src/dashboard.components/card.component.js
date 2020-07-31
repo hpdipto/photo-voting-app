@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.css';
 
 
-function PollCard({id, pollTitle, pollId, startDate, endDate}) {
+function PollCard({ loginStatus, setLoginStatus, id, pollTitle, pollId, startDate, endDate }) {
 
     const history = useHistory();
 
@@ -16,7 +16,9 @@ function PollCard({id, pollTitle, pollId, startDate, endDate}) {
     const deletePoll = () => {
         axios.delete(`/poll/${id}`)
                 .then(res => {
-                    // empty callback
+                    // after a poll deleted successfully
+                    // setLoginStatus = 6
+                    setLoginStatus(6);
                 });
     }
 

@@ -30,7 +30,7 @@ function ErrorMessages({ messages }) {
 
 
 
-function CreatePoll({ poll, setPoll }) {
+function CreatePoll({ loginStatus, setLoginStatus, poll, setPoll }) {
 
 
     const [errorMessages, setErrorMessages] = useState([]);
@@ -132,7 +132,13 @@ function CreatePoll({ poll, setPoll }) {
           // source: https://stackoverflow.com/a/43014086/9481106
           axios.post('/poll/create', formData, { headers: {'content-type': 'multipart/form-data'}})
               // poll created successfully
-              .then(res => setPoll(2))
+              .then(res => {
+                // after poll created successfully
+                // setPoll value to 2, to unmount createPoll component
+                // loginStatus to 5, to display flash message
+                setPoll(2);
+                setLoginStatus(5);
+              })
               .catch(err => setErrorMessages(errorMessages => [...errorMessages, 'Poll Id already taken, please use a new one']));
         }
       }

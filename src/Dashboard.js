@@ -116,7 +116,7 @@ function Dashboard({ loginStatus, setLoginStatus, user, setUser }) {
 
 
       <div>
-        {poll ? <CreatePoll poll={poll} setPoll={setPoll} /> : null}
+        {poll ? <CreatePoll loginStatus={loginStatus} setLoginStatus={setLoginStatus} poll={poll} setPoll={setPoll} /> : null}
       </div>
 
 

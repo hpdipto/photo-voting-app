@@ -29,6 +29,18 @@ function DashboardBody({ loginStatus, setLoginStatus, polls }) {
             setSuccessMessage(successMessage => [...successMessage, 'Vote completed successfully']);
         }
 
+        // loginStatus 5 denotes a poll successfully created
+        // this value was set in /dashboard.component/create.component
+        if(loginStatus === 5) {
+            setSuccessMessage(successMessage => [...successMessage, 'Poll created successfully']);
+        }
+
+        //loginStatus 6 denotes a poll successfully deleted
+        // this value was set in /dashboard.component/card.component
+        if(loginStatus === 6) {
+            setSuccessMessage(successMessage => [...successMessage, 'Poll deleted successfully']);
+        }
+
     }, []);
 
     // passing 4 polls at a time
@@ -44,7 +56,7 @@ function DashboardBody({ loginStatus, setLoginStatus, polls }) {
             key.push(j);
         }
 
-        pollCards.push(<CardRow key={i} polls={polls.slice(start, end)} />);
+        pollCards.push(<CardRow loginStatus={loginStatus} setLoginStatus={setLoginStatus} key={i} polls={polls.slice(start, end)} />);
     }
 
     return (
