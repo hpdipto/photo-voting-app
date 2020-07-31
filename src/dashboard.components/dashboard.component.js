@@ -27,8 +27,6 @@ function DashboardBody({ loginStatus, setLoginStatus, polls }) {
         // this value was set in /vote.component/open.component
         if(loginStatus === 4) {
             setSuccessMessage(successMessage => [...successMessage, 'Vote completed successfully']);
-            // back to normal loginStatus
-            setLoginStatus(2);
         }
 
     }, []);

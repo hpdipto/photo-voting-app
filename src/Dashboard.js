@@ -102,7 +102,7 @@ function Dashboard({ loginStatus, setLoginStatus, user, setUser }) {
           <p className="navbar-brand"> Dashboard for {user.name} </p>
           <div className="btn-group">
             <button onClick={voteForm} className="btn btn-outline-primary">Vote</button>
-            <button onClick={createPoll} className="btn btn-outline-info">Create Poll</button>
+            <button onClick={createPoll} className="btn btn-outline-info">Create</button>
             <button onClick={logOut} className="btn btn-outline-danger">Log Out</button>
           </div>
         </nav>
@@ -123,7 +123,7 @@ function Dashboard({ loginStatus, setLoginStatus, user, setUser }) {
       <div>
         {polls.length ? 
           <DashboardBody loginStatus={loginStatus} setLoginStatus={setLoginStatus} polls={polls} /> : 
-          <EmptyDashboard />
+          <EmptyDashboard loginStatus={loginStatus} setLoginStatus={setLoginStatus} />
         }
       </div>
     </div>

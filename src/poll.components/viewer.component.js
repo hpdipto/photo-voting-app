@@ -17,7 +17,7 @@ function ImageViewer({ show, setShow, images, index, setIndex }) {
 
             <Modal.Header closeButton>
               {/*update from here*/}
-              {images[index].votes}
+              {"Vote Recived: " + images[index].votes.length}
             </Modal.Header>
 
             <Modal.Body>
