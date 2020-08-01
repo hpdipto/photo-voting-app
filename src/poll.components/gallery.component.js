@@ -4,10 +4,10 @@ import 'bootstrap/dist/css/bootstrap.css';
 
 import "../styles/imageGallery.css";
 
+import ImageViewer from "./viewer.component";
+
 // loading proxy from package.json
 import proxy from '.././package.json';
-
-import ImageViewer from "./viewer.component";
 
 
 

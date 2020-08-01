@@ -34,7 +34,6 @@ function Result({ loginStatus, setLoginStatus, user, setUser }) {
         const response = await axios.get(`/poll/result/${pollId}`, {
           cancelToken: source.token
         });
-        console.log(response.data);
         setPoll(response.data);
       }
       catch {
@@ -91,7 +90,7 @@ function Result({ loginStatus, setLoginStatus, user, setUser }) {
         </div>
 
         <div className="container-fluid">
-          <ResultPoll poll={poll} images={poll.imageList} />
+          <ResultPoll poll={poll} result={poll.result} />
         </div>
     </div>
     

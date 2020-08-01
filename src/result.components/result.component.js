@@ -5,8 +5,10 @@ import axios from 'axios';
 import dateformat from 'dateformat';
 import { useHistory } from 'react-router-dom';
 
+import ResultGallery from "./gallery.component";
 
-function ResultPoll({ poll, images }) {
+
+function ResultPoll({ poll, result }) {
 
     const history = useHistory();
 
@@ -42,6 +44,11 @@ function ResultPoll({ poll, images }) {
                     </div>
                 </div>
 
+                
+                <div className="container">
+                    {result ? <ResultGallery result={result} /> : null}
+                </div>
+                
             </div>
         </div>
     );
