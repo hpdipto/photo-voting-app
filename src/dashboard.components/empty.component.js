@@ -5,16 +5,17 @@ import 'bootstrap/dist/css/bootstrap.css';
 import SuccessItem from './success.component';
 
 
-function SuccessMessages({ messages }) {
+function SuccessMessages({ loginStatus, setLoginStatus, messages, setMessages }) {
 
     return(
         <div>
-            {messages.map((em, index) => {
-                return <SuccessItem key={index} message={em} />;
+            {messages.map((msg, index) => {
+                return <SuccessItem key={index} loginStatus={loginStatus} setLoginStatus={setLoginStatus} messages={msg} setMessages={setMessages} />;
             })}
         </div>
     );
 }
+
 
 function EmptyDashboard({ loginStatus, setLoginStatus }) {
 
@@ -44,7 +45,7 @@ function EmptyDashboard({ loginStatus, setLoginStatus }) {
 
     return (
         <div className="card card-body text-center">
-            {successMessage.length ? <SuccessMessages messages={successMessage} /> : null}
+            {successMessage.length ? <SuccessMessages loginStatus={loginStatus} setLoginStatus={setLoginStatus} messages={successMessage} setMessages={setSuccessMessage} /> : null}
             <h4>No polls to display!</h4>
         </div>
     );

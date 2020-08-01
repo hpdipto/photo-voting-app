@@ -31,7 +31,7 @@ function Vote({ loginStatus, setLoginStatus, user, setUser }) {
 
     // we'll use axios token cancelation because
     // even after redirecting to some different location
-    // axios will try to set `polls` value that causes an error
+    // axios will try to set `response` value that causes an error
     // source: https://www.youtube.com/watch?v=_TleXX0mxaY
     let source = axios.CancelToken.source();
 

@@ -6,16 +6,17 @@ import CardRow from './cards.component';
 import SuccessItem from './success.component';
 
 
-function SuccessMessages({ messages }) {
+function SuccessMessages({ loginStatus, setLoginStatus, messages, setMessages }) {
 
     return(
         <div>
-            {messages.map((em, index) => {
-                return <SuccessItem key={index} message={em} />;
+            {messages.map((msg, index) => {
+                return <SuccessItem key={index} loginStatus={loginStatus} setLoginStatus={setLoginStatus} messages={msg} setMessages={setMessages} />;
             })}
         </div>
     );
 }
+
 
 
 function DashboardBody({ loginStatus, setLoginStatus, polls }) {
@@ -23,6 +24,7 @@ function DashboardBody({ loginStatus, setLoginStatus, polls }) {
     const [successMessage, setSuccessMessage] = useState([]);
 
     useEffect(() => {
+
         // loginStatus 4 denotes vote successfully completed
         // this value was set in /vote.component/open.component
         if(loginStatus === 4) {
@@ -42,6 +44,7 @@ function DashboardBody({ loginStatus, setLoginStatus, polls }) {
         }
 
     }, []);
+    
 
     // passing 4 polls at a time
     // CardRow will contain 4 polls in a row
@@ -61,7 +64,7 @@ function DashboardBody({ loginStatus, setLoginStatus, polls }) {
 
     return (
         <div className="card card-body">
-            {successMessage.length ? <SuccessMessages messages={successMessage} /> : null}
+            {successMessage.length ? <SuccessMessages loginStatus={loginStatus} setLoginStatus={setLoginStatus} messages={successMessage} setMessages={setSuccessMessage} /> : null}
             {pollCards}
         </div>
     );
