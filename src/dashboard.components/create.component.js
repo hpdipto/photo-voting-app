@@ -2,6 +2,7 @@ import React, { useState, useCallback } from 'react';
 import axios from 'axios';
 import { useFormik } from 'formik';
 import { useDropzone } from 'react-dropzone';
+import { Modal } from 'react-bootstrap';
 import DatePicker from "react-datepicker";
 
 import 'bootstrap/dist/css/bootstrap.css';
@@ -11,6 +12,7 @@ import 'font-awesome/css/font-awesome.min.css';
 import "../styles/createPoll.css";
 
 import ErrorItem from "./error.component";
+import ShowFiles from "./files.component";
 
 // resource that helped a lot for react-dropzone
 // https://blog.logrocket.com/create-a-drag-and-drop-component-with-react-dropzone/
@@ -29,20 +31,28 @@ function ErrorMessages({ messages }) {
 
 
 
-
 function CreatePoll({ loginStatus, setLoginStatus, poll, setPoll }) {
 
 
     const [errorMessages, setErrorMessages] = useState([]);
-    const [fileList, setFileList] = useState([]);
+    // const [fileList, setFileList] = useState([]);
+    const [files, setFiles] = useState([]);
+    const [showModal, setShowModal] = useState(false);
 
 
     // On drop file in the field, we update fileList state
     // and add files to formik "images" field
     const onDrop = useCallback(acceptedFiles => {
-      acceptedFiles.map(af => setFileList(fileList => [...fileList, af]));
-      formik.setFieldValue("images", [...fileList, ...acceptedFiles]);
+      // file preview source: https://github.com/react-dropzone/react-dropzone/tree/master/examples/previews
+      acceptedFiles.map(file => {
+        Object.assign(file, {preview: URL.createObjectURL(file)});
+        setFiles(files => [...files, file]);
+      });
+
+      formik.setFieldValue("images", [...files, ...acceptedFiles]);
     });
+
+    // console.log(files);
 
     
     // non images are bounced
@@ -53,12 +63,12 @@ function CreatePoll({ loginStatus, setLoginStatus, poll, setPoll }) {
 
     // on remove file we remove file from fileList state
     // and also remove file from formik "images" field
-    const removeFile = (fileIndex) => {
-      var array = [...fileList];
-      array.splice(fileIndex, 1);
-      setFileList([...array]);
-      formik.setFieldValue("images", [...array]);
-    }
+    // const removeFile = (fileIndex) => {
+    //   var array = [...files];
+    //   array.splice(fileIndex, 1);
+    //   setFileList([...array]);
+    //   formik.setFieldValue("images", [...array]);
+    // }
 
     const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop, onDropRejected, accept: 'image/*'});
 
@@ -202,7 +212,7 @@ function CreatePoll({ loginStatus, setLoginStatus, poll, setPoll }) {
           </div>
 
           {/* Display file list */}
-          <div className="form-group">
+          {/*<div className="form-group">
             <ul className="list-group">
               {fileList.length > 0 && fileList.map((file, index) => (
                 <li key={index} className="list-group-item list-group-item-success d-flex justify-content-between align-items-center">
@@ -211,11 +221,14 @@ function CreatePoll({ loginStatus, setLoginStatus, poll, setPoll }) {
                 </li>
               ))}
             </ul>
+          </div>*/}
+          <div className="form-group">
+            <button type="button" className="btn btn-link" onClick={() => setShowModal(!showModal)}>{files.length} items added</button>
+            {showModal ? <ShowFiles files={files} setFiles={setFiles} showModal={showModal} setShowModal={setShowModal} formik={formik} /> : null}
           </div>
 
-
           <div className="form-group">
-            <button type="submit" className="btn btn-info btn-block">Create Poll</button>
+            <button type="submit" className="btn btn-info btn-block" onClick={formik.handleSubmit} >Create Poll</button>
           </div>
 
         </div>
