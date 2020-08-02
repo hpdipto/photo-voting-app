@@ -15,7 +15,6 @@ const upload = multer({dest: './public/img/'});
 router.get('/', (req, res) => {
 
     if(req.user) {
-        // res.json(req.user.polls);
         Poll.find({'createdBy': req.user.id}, (err, polls) => {
             if(err) {
                 res.status(400).send('Error!');
@@ -26,7 +25,7 @@ router.get('/', (req, res) => {
         })
     }
     else {
-        res.status(400).send('Error!');
+        res.send('User not logged in');
     }
 })
 

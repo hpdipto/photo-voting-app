@@ -4,7 +4,6 @@ import 'bootstrap/dist/css/bootstrap.css';
 
 import Login from "./home.components/login.component";
 import Register from "./home.components/register.component";
-import Vote from "./home.components/vote.component";
 
 
 function Home({ loginStatus, setLoginStatus, user, setUser }) {
@@ -12,7 +11,6 @@ function Home({ loginStatus, setLoginStatus, user, setUser }) {
   // this states are used to toggle components
   const [login, setLogin] = useState(loginStatus);
   const [register, setRegister] = useState(false);
-  const [vote, setVote] = useState(false);
   
 
   useEffect(() => {
@@ -32,20 +30,18 @@ function Home({ loginStatus, setLoginStatus, user, setUser }) {
     if(login === -1) {
       setLogin(0);
     }
-  }, [login, setLoginStatus, setLogin]);   // need to track the changes of `login`
+  }, [login, setLoginStatus, setLogin]);
 
 
-  const arrangeVote = () => {
-    setVote(!vote);
-    setRegister(false);
-    setLogin(0);
-  }
-
-  const arrangeLogin = () => {
-    setVote(false);
+  const loginClicked = () => {
     setRegister(false);
     // conditional toggling
     login ? setLogin(0) : setLogin(1);
+  }
+
+  const registerClicked = () => {
+    setRegister(true);
+    setLogin(0);
   }
 
   return (
@@ -55,12 +51,11 @@ function Home({ loginStatus, setLoginStatus, user, setUser }) {
         <div className="card card-body text-center">
           <p>Welcome to My Photo Voting App</p>
           <div className="btn-group">
-            <button className="btn btn-primary" onClick={arrangeVote}>Vote</button>
-            <button className="btn btn-secondary" onClick={arrangeLogin}>Arrange</button>
+            <button className="btn btn-primary" onClick={loginClicked}>Log In</button>
+            <button className="btn btn-secondary" onClick={registerClicked}>Register</button>
           </div>
         </div>
         <br />
-        {vote ? <Vote /> : null}
         {login ? <Login login={login} setLogin={setLogin} register={register} setRegister={setRegister} user={user} setUser={setUser} /> : null}
         {register ? <Register login={login} setLogin={setLogin} register={register} setRegister={setRegister} /> : null}
       </div>

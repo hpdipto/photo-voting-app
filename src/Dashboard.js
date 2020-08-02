@@ -41,9 +41,15 @@ function Dashboard({ loginStatus, setLoginStatus, user, setUser }) {
         });
         setPolls(response.data);
       }
-      catch {
-        // empty 
+      catch (error) {
+        if(axios.isCancel(error)) {
+          // console.log('caught cancel');
+        }
+        else {
+          throw error;
+        }
       }
+      
     }
 
     fetchData();

@@ -38,9 +38,15 @@ function Poll({ loginStatus, setLoginStatus, user, setUser }) {
         });
         setPoll(response.data);
       }
-      catch {
-        // empty
+      catch (error) {
+        if(axios.isCancel(error)) {
+          // console.log('caught cancel');
+        }
+        else {
+          throw error;
+        }
       }
+      
     }
 
     fetchData();

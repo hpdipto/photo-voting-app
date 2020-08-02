@@ -45,9 +45,15 @@ function Vote({ loginStatus, setLoginStatus, user, setUser }) {
         setVotes(Array(response.data.imageList.length).fill(0));
         setVotesLeft(response.data.maxVoteLimit);
       }
-      catch {
-        // empty
+      catch (error) {
+        if(axios.isCancel(error)) {
+          // console.log('caught cancel');
+        }
+        else {
+          throw error;
+        }
       }
+      
     }
 
     fetchData();

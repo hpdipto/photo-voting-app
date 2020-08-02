@@ -40,7 +40,7 @@ app.use(session({
     secret: 'keyboard cat',
     saveUninitialized: true,
     resave: false,
-    cookie: { secure: false }   // anti-depressant line!!!
+    cookie: { sameSite: 'strict', secure: false }   // anti-depressant line!!!
 }));
 
 
