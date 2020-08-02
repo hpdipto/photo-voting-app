@@ -33,8 +33,14 @@ function PollCard({ loginStatus, setLoginStatus, id, pollTitle, pollId, startDat
                 <p className="card-text">End: {endDate.toDateString()}</p>
             </div>
             <div className="card-footer text-center">
-                <button className="btn btn-sm" onClick={openPoll}><i className="fa fa-external-link"></i> Open</button>
-                <button className="btn btn-sm" onClick={deletePoll}><i className="fa fa-trash-o" /> Delete</button>
+                <div className="row">
+                    <div className="col">
+                        <button className="btn btn-sm" onClick={openPoll}><i className="fa fa-external-link"></i> Open</button>
+                    </div>
+                    <div className="col">
+                        <button className="btn btn-sm" onClick={deletePoll}><i className="fa fa-trash-o" /> Delete</button>
+                    </div>
+                </div>
             </div>
         </div>
     );
