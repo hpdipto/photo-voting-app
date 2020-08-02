@@ -79,7 +79,7 @@ function VoteForm({ vote, setVote }) {
 
     return (
         <form onSubmit={formik.handleSubmit}>
-            <div className="card card-body mb-4">
+            <div className="card card-body mb-4" style={{backgroundColor: "transparent"}}>
 
                 {errorMessages.length ? <ErrorMessages messages={errorMessages} /> : null}
                 <div className="form-group">

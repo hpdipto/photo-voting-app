@@ -124,7 +124,7 @@ function Login({login, setLogin, register, setRegister, user, setUser}) {
     return (
         <form onSubmit={formik.handleSubmit}>
             <div className="col-xs-6 m-auto">
-                <div className="card card-body">
+                <div className="card card-body" style={{backgroundColor: "transparent"}}>
                     {errorMessages.length ? <ErrorMessages messages={errorMessages} /> : null}
                     {successMessages.length ? <SuccessMessages messages={successMessages} /> : null}
                     <div className="form-group">

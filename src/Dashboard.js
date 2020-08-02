@@ -103,7 +103,7 @@ function Dashboard({ loginStatus, setLoginStatus, user, setUser }) {
 
     <div className="container">
       {/*nav bar*/}
-      <div className="card card-body">
+      <div className="card card-body" style={{backgroundColor: "transparent"}}>
         <nav className="navbar navbar-light" style={{"backgroundColor": "#e3f2fd"}} >
           <p className="navbar-brand"> Dashboard for {user.name} </p>
           <div className="btn-group">

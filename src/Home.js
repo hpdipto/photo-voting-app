@@ -6,6 +6,7 @@ import Login from "./home.components/login.component";
 import Register from "./home.components/register.component";
 
 
+
 function Home({ loginStatus, setLoginStatus, user, setUser }) {
 
   // this states are used to toggle components
@@ -40,16 +41,20 @@ function Home({ loginStatus, setLoginStatus, user, setUser }) {
   }
 
   const registerClicked = () => {
-    setRegister(true);
     setLogin(0);
+    register ? setRegister(false) : setRegister(true);
   }
 
   return (
     <div className="row mt-5">
-      <div className="col-md-6 m-auto">
+      <div className="col-md-6">
         <br />
-        <div className="card card-body text-center">
-          <p>Welcome to My Photo Voting App</p>
+        <h1>Photo Poll</h1>
+      </div>
+
+      <div className="col-md-6">
+        <br />
+        <div className="card card-body text-center" style={{backgroundColor: "transparent"}}>
           <div className="btn-group">
             <button className="btn btn-primary" onClick={loginClicked}>Log In</button>
             <button className="btn btn-info" onClick={registerClicked}>Register</button>

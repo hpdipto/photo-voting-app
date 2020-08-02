@@ -84,7 +84,7 @@ function Poll({ loginStatus, setLoginStatus, user, setUser }) {
     <div>
         <div className="container">
           {/*nav bar*/}
-          <div className="card card-body">
+          <div className="card card-body" style={{backgroundColor: "transparent"}}>
             <nav className="navbar navbar-light" style={{"backgroundColor": "#e3f2fd"}} >
               <h4 className="navbar-brand">{poll.pollTitle}</h4> 
               <div className="btn-group">

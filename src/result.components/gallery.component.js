@@ -22,7 +22,7 @@ function ResultGallery({ result }) {
         <div>
             {result.map((image, index) => {
                 return (
-                    <div className="card mb-3" onClick={() => openModal(index)} key={index}>
+                    <div className="card mb-3" onClick={() => openModal(index)} style={{backgroundColor: "transparent"}} key={index}>
                         <div className="row d-flex">
                             <div className="col-sm-6">
                                 <img className="img-fluid" src={proxy.proxy+image.src.slice(6)} alt={`image_${index}`}/>

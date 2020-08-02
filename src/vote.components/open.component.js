@@ -29,10 +29,10 @@ function OpenPoll({ loginStatus, setLoginStatus, poll, imageList, votes, setVote
 
     return (
         <div>
-            <div className="card card-body">
+            <div className="card card-body" style={{backgroundColor: "transparent"}}>
                 {/*disable card border.
                 source: https://stackoverflow.com/a/53128227/9481106*/}
-                <div className="card border-0 mb-4">
+                <div className="card border-0 mb-4" style={{backgroundColor: "transparent"}}>
                     <dl className="row">
                         <dt className="col-md-2"><span style={{"fontSize": "1.2rem"}}>Start Date</span></dt>
                         <dd className="col-md-9"><span style={{"fontSize": "1.2rem"}}>{dateformat(poll.startDate, "dddd, mmmm dS, yyyy, h:MM:ss TT")}</span></dd>

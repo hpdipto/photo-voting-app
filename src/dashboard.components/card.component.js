@@ -23,7 +23,7 @@ function PollCard({ loginStatus, setLoginStatus, id, pollTitle, pollId, startDat
     }
 
     return (
-        <div className="card">
+        <div className="card" style={{backgroundColor: "transparent"}}>
             <div className="card-header">
                 <h5 className="card-title">{pollTitle}</h5>
                 <h6 className="card-subtitle mb-2 text-muted">{pollId}</h6>

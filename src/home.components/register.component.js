@@ -88,7 +88,7 @@ function Register({ login, setLogin, register, setRegister }) {
     return (
       <form onSubmit={formik.handleSubmit}>
           <div className="col-xs-6 m-auto">
-              <div className="card card-body">
+              <div className="card card-body" style={{backgroundColor: "transparent"}}>
                   {errorMessages.length ? <ErrorMessages messages={errorMessages} /> : null}
                   <div className="form-group">
                       <label htmlFor="name">Name</label>

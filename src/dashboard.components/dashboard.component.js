@@ -79,7 +79,7 @@ function DashboardBody({ loginStatus, setLoginStatus, polls }) {
     }
 
     return (
-        <div className="card card-body">
+        <div className="card card-body" style={{backgroundColor: "transparent"}}>
             {successMessage.length ? <SuccessMessages loginStatus={loginStatus} setLoginStatus={setLoginStatus} messages={successMessage} setMessages={setSuccessMessage} /> : null}
             {warningMessage.length ? <WarningMessages loginStatus={loginStatus} setLoginStatus={setLoginStatus} messages={warningMessage} setMessages={setWarningMessage} /> : null}
             {pollCards}

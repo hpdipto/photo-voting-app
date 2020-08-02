@@ -9,6 +9,8 @@ import Poll from "./Poll";
 import Result from "./Result";
 import Vote from "./Vote";
 
+import "./App.css";
+
 
 function App() {
 
