@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 
 import CardRow from './cards.component';
 import SuccessItem from './success.component';
+import WarningItem from './warning.component';
 
 
 function SuccessMessages({ loginStatus, setLoginStatus, messages, setMessages }) {
@@ -18,10 +19,25 @@ function SuccessMessages({ loginStatus, setLoginStatus, messages, setMessages })
 }
 
 
+function WarningMessages({ loginStatus, setLoginStatus, messages, setMessages }) {
+
+    return(
+        <div>
+            {messages.map((msg, index) => {
+                return <WarningItem key={index} loginStatus={loginStatus} setLoginStatus={setLoginStatus} messages={msg} setMessages={setMessages} />;
+            })}
+        </div>
+    );
+}
+
+
+
+
 
 function DashboardBody({ loginStatus, setLoginStatus, polls }) {
 
     const [successMessage, setSuccessMessage] = useState([]);
+    const [warningMessage, setWarningMessage] = useState([]);
 
     useEffect(() => {
 
@@ -40,7 +56,7 @@ function DashboardBody({ loginStatus, setLoginStatus, polls }) {
         //loginStatus 6 denotes a poll successfully deleted
         // this value was set in /dashboard.component/card.component
         if(loginStatus === 6) {
-            setSuccessMessage(successMessage => [...successMessage, 'Poll deleted successfully']);
+            setWarningMessage(warningMessage => [...warningMessage, 'Poll deleted successfully']);
         }
 
     }, []);
@@ -65,6 +81,7 @@ function DashboardBody({ loginStatus, setLoginStatus, polls }) {
     return (
         <div className="card card-body">
             {successMessage.length ? <SuccessMessages loginStatus={loginStatus} setLoginStatus={setLoginStatus} messages={successMessage} setMessages={setSuccessMessage} /> : null}
+            {warningMessage.length ? <WarningMessages loginStatus={loginStatus} setLoginStatus={setLoginStatus} messages={warningMessage} setMessages={setWarningMessage} /> : null}
             {pollCards}
         </div>
     );

@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 
 import SuccessItem from './success.component';
+import WarningItem from './warning.component';
 
 
 function SuccessMessages({ loginStatus, setLoginStatus, messages, setMessages }) {
@@ -16,10 +17,23 @@ function SuccessMessages({ loginStatus, setLoginStatus, messages, setMessages })
     );
 }
 
+function WarningMessages({ loginStatus, setLoginStatus, messages, setMessages }) {
+
+    return(
+        <div>
+            {messages.map((msg, index) => {
+                return <WarningItem key={index} loginStatus={loginStatus} setLoginStatus={setLoginStatus} messages={msg} setMessages={setMessages} />;
+            })}
+        </div>
+    );
+}
+
+
 
 function EmptyDashboard({ loginStatus, setLoginStatus }) {
 
     const [successMessage, setSuccessMessage] = useState([]);
+    const [warningMessage, setWarningMessage] = useState([]);
 
     useEffect(() => {
         // loginStatus 4 denotes vote successfully completed
@@ -37,7 +51,7 @@ function EmptyDashboard({ loginStatus, setLoginStatus }) {
         //loginStatus 6 denotes a poll successfully deleted
         // this value was set in /dashboard.component/card.component
         if(loginStatus === 6) {
-            setSuccessMessage(successMessage => [...successMessage, 'Poll deleted successfully']);
+            setWarningMessage(warningMessage => [...warningMessage, 'Poll deleted successfully']);
         }
 
     }, [loginStatus]);
@@ -46,7 +60,8 @@ function EmptyDashboard({ loginStatus, setLoginStatus }) {
     return (
         <div className="card card-body text-center">
             {successMessage.length ? <SuccessMessages loginStatus={loginStatus} setLoginStatus={setLoginStatus} messages={successMessage} setMessages={setSuccessMessage} /> : null}
-            <h4>No polls to display!</h4>
+            {warningMessage.length ? <WarningMessages loginStatus={loginStatus} setLoginStatus={setLoginStatus} messages={warningMessage} setMessages={setWarningMessage} /> : null}
+            <h4 style={{color: "#B2BEB5"}}>No polls to display!</h4>
         </div>
     );
 
