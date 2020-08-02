@@ -1,2 +1,5 @@
 /node_modules
-.env
+
+# for local development
+# .env
+# Procfile
