@@ -103,7 +103,7 @@ function Register({ login, setLogin, register, setRegister }) {
                       <input type="password" id="registerPassword" className="form-control" value={formik.values.registerPassword} onChange={formik.handleChange}></input>
                   </div>
                   <div className="form-group">
-                      <button type="submit" className="btn btn-primary btn-block">Register</button>
+                      <button type="submit" className="btn btn-info btn-block">Register</button>
                   </div>
 
                   <p>Have an account? <button className="btn btn-link" onClick={onClickLogin}>Login</button> </p>

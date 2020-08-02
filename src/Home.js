@@ -52,7 +52,7 @@ function Home({ loginStatus, setLoginStatus, user, setUser }) {
           <p>Welcome to My Photo Voting App</p>
           <div className="btn-group">
             <button className="btn btn-primary" onClick={loginClicked}>Log In</button>
-            <button className="btn btn-secondary" onClick={registerClicked}>Register</button>
+            <button className="btn btn-info" onClick={registerClicked}>Register</button>
           </div>
         </div>
         <br />
