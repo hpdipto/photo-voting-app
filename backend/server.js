@@ -37,7 +37,7 @@ mongoose.connect(uri, { useNewUrlParser: true })
 
 // Express session
 app.use(session({
-    secret: 'keyboard cat',
+    secret: process.env.KEYBOARD_SECRET,
     saveUninitialized: true,
     resave: false,
     cookie: { sameSite: 'strict', secure: false }   // anti-depressant line!!!
