@@ -1,11 +1,5 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-# for development
-/backend
-
-# for deployment
-# Procfile
-
 # dependencies
 /node_modules
 /.pnp

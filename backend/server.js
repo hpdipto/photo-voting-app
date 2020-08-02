@@ -1,5 +1,6 @@
 const express  = require('express');
 const cors = require('cors');
+const path = require('path');
 const mongoose = require('mongoose');
 const session = require('express-session');
 const passport = require('passport');
@@ -48,7 +49,15 @@ app.use(session({
 
 // Default directory for static files
 // Uploaded images will inside public/img
-app.use(express.static('public'));
+// For development
+// app.use(express.static('public'));
+
+
+// Deployment
+app.use(express.static(path.join(__dirname, 'build')));
+app.get('/', function(req, res) {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
 
 
 // Passport middleware
