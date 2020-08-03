@@ -30,7 +30,7 @@ function Gallery({ imageList, maxVoteLimit, votes, setVotes, votesLeft, setVotes
             <div className="gallery">
                 {images.map((image, index) => {
                     return (
-                        <div key={index} className="mb-3 pics animation all 1" id="photo">
+                        <div key={index} className="mb-3" id="photo">
                             <img className="img-fluid" onClick={() => openModal(index)} src={ImageSource.src+image['src']} alt={`image_${index}`} />
                         </div>
                     );

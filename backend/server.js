@@ -28,6 +28,13 @@ app.use(cors({
 app.use(express.json());
 
 
+// Deployment
+app.use(express.static(path.join(__dirname, 'build')));
+app.get('/*', function(req, res) {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
+
+
 // DB config
 // For deployment
 // const uri = process.env.ATLAS_URI;
@@ -51,13 +58,6 @@ app.use(session({
 // Uploaded images will inside public/img
 // For development
 // app.use(express.static('public'));
-
-
-// Deployment
-app.use(express.static(path.join(__dirname, 'build')));
-app.get('/', function(req, res) {
-  res.sendFile(path.join(__dirname, 'build', 'index.html'));
-});
 
 
 // Passport middleware

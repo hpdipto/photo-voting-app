@@ -1,3 +1,4 @@
 {
-    "src": "http://localhost:5000"
+    "src": "",
+    "__comment__": "during devlopment use 'http://localhost:5000'; during deploymnt use ''"
 }

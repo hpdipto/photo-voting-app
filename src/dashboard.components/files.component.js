@@ -30,7 +30,7 @@ function ShowFiles({ files, setFiles, showModal, setShowModal, formik }) {
               <div className="gallery">
                     {files.map((file, index) => {
                         return (
-                            <div key={index} className="mb-3 pics animation all 2" id="photo">
+                            <div key={index} className="mb-3" id="photo">
                                 <div className="card">
                                     <img className="img-fluid" src={file.preview} alt={`image_${index}`} />
                                     <button className="btn" onClick={() => removeFile(index)}><i className="fa fa-trash-o" /> Remove</button>

@@ -11,7 +11,6 @@ import ImageViewer from "./viewer.component";
 import ImageSource from "../ImageSource.json";
 
 
-
 // photo gallery source: https://mdbootstrap.com/plugins/jquery/gallery/#filter
 function Gallery({ images }) {
 
@@ -29,7 +28,7 @@ function Gallery({ images }) {
             <div className="gallery">
                 {images.map((image, index) => {
                     return (
-                        <div key={index} className="mb-3 pics animation all 1" id="photo">
+                        <div key={index} className="mb-3" id="photo">
                             <img className="img-fluid" onClick={() => openModal(index)} src={ImageSource.src+image['src']} alt={`image_${index}`} />
                         </div>
                     );
