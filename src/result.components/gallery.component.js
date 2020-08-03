@@ -25,7 +25,7 @@ function ResultGallery({ result }) {
                     <div className="card mb-3" onClick={() => openModal(index)} style={{backgroundColor: "transparent"}} key={index}>
                         <div className="row d-flex">
                             <div className="col-sm-6">
-                                <img className="img-fluid" src={proxy.proxy+image.src.slice(6)} alt={`image_${index}`}/>
+                                <img className="img-fluid" src={proxy.proxy+image.src} alt={`image_${index}`}/>
                             </div>
                             <div className="col-sm-6 align-self-center">
                                 <h5>Points: {image.points}</h5>

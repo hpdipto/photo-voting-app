@@ -25,7 +25,7 @@ function ImageViewer({ show, setShow, images, index, setIndex }) {
                 { images.map((image, idx) => {
                   return (
                     <Carousel.Item key={idx}>
-                      <img className='img-fluid' src={proxy.proxy+image['src'].slice(6)} alt={`image_${idx}`}/>
+                      <img className='img-fluid' src={proxy.proxy+image['src']} alt={`image_${idx}`}/>
                     </Carousel.Item>
                   );
                 }) }

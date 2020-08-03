@@ -8,7 +8,8 @@ let User = require('../models/user.model');
 
 const ObjectId = mongoose.Types.ObjectId;
 
-const upload = multer({dest: './public/img/'});
+// upload destination
+const upload = multer({dest: './build/img/'});
 
 
 // get polls of current user
@@ -41,9 +42,9 @@ router.post('/create', upload.any(), (req, res) => {
     var imageList = [];
 
     for(var i = 0; i < req.files.length; i++) {
-        // before: imageList.push(req.files[i].path);
         var imageListObject = { 
-                                "src": req.files[i].path, 
+                                // excluding 'build' part from file path
+                                "src": req.files[i].path.slice(5), 
                                 "votes": []
                               };
         imageList.push(imageListObject);

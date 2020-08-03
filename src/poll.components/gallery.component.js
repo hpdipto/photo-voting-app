@@ -29,7 +29,7 @@ function Gallery({ images }) {
                 {images.map((image, index) => {
                     return (
                         <div key={index} className="mb-3 pics animation all 1" id="photo">
-                            <img className="img-fluid" onClick={() => openModal(index)} src={proxy.proxy+image['src'].slice(6)} alt={`image_${index}`} />
+                            <img className="img-fluid" onClick={() => openModal(index)} src={proxy.proxy+image['src']} alt={`image_${index}`} />
                         </div>
                     );
                 })}
