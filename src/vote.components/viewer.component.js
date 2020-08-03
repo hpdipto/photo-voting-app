@@ -4,8 +4,8 @@ import { Modal, Carousel } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 
 
-// loading proxy from package.json
-import proxy from '.././package.json';
+// loading backend source
+import ImageSource from "../ImageSource.json";
 
 
 function ImageViewer({ show, setShow, index, setIndex, images, setImages, votes, setVotes, votesLeft, setVotesLeft }) {
@@ -42,7 +42,7 @@ function ImageViewer({ show, setShow, index, setIndex, images, setImages, votes,
               { images.map((image, idx) => {
                 return (
                   <Carousel.Item key={idx}>
-                    <img className='img-fluid' src={proxy.proxy+image['src'].slice(6)} alt={`image_${idx}`}/>
+                    <img className='img-fluid' src={ImageSource.src+image['src']} alt={`image_${idx}`}/>
                   </Carousel.Item>
                 );
               }) }

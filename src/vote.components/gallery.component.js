@@ -4,8 +4,9 @@ import 'bootstrap/dist/css/bootstrap.css';
 
 import "../styles/imageGallery.css";
 
-// loading proxy from package.json
-import proxy from '.././package.json';
+// loading backend source
+import ImageSource from "../ImageSource.json";
+
 
 import ImageViewer from "./viewer.component";
 
@@ -30,7 +31,7 @@ function Gallery({ imageList, maxVoteLimit, votes, setVotes, votesLeft, setVotes
                 {images.map((image, index) => {
                     return (
                         <div key={index} className="mb-3 pics animation all 1" id="photo">
-                            <img className="img-fluid" onClick={() => openModal(index)} src={proxy.proxy+image['src'].slice(6)} alt={`image_${index}`} />
+                            <img className="img-fluid" onClick={() => openModal(index)} src={ImageSource.src+image['src']} alt={`image_${index}`} />
                         </div>
                     );
                 })}

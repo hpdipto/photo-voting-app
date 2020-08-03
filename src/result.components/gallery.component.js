@@ -3,8 +3,8 @@ import React, { useState } from 'react';
 
 import ImageViewer from "./viewer.component";
 
-// loading proxy from package.json
-import proxy from '.././package.json';
+// loading backend source
+import ImageSource from "../ImageSource.json";
 
 
 // result image and text display source: https://stackoverflow.com/a/42252877/9481106
@@ -25,7 +25,7 @@ function ResultGallery({ result }) {
                     <div className="card mb-3" onClick={() => openModal(index)} style={{backgroundColor: "transparent"}} key={index}>
                         <div className="row d-flex">
                             <div className="col-sm-6">
-                                <img className="img-fluid" src={proxy.proxy+image.src} alt={`image_${index}`}/>
+                                <img className="img-fluid" src={ImageSource.src+image.src} alt={`image_${index}`}/>
                             </div>
                             <div className="col-sm-6 align-self-center">
                                 <h5>Points: {image.points}</h5>
