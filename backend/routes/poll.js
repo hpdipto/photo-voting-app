@@ -113,7 +113,9 @@ router.delete('/:id', (req, res) => {
         else {
             let imageList = poll.imageList;
             for(var i = 0; i < imageList.length; i++) {
-                fs.unlinkSync(imageList[i]["src"]);
+                // add "build" part again in file path
+                // as we removed it during upload
+                fs.unlinkSync("build" + imageList[i]["src"]);
             }
         }
     });
