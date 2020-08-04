@@ -2,7 +2,7 @@ import React, { useState, useCallback } from 'react';
 import axios from 'axios';
 import { useFormik } from 'formik';
 import { useDropzone } from 'react-dropzone';
-import { Modal } from 'react-bootstrap';
+import { ProgressBar } from 'react-bootstrap';
 import DatePicker from "react-datepicker";
 
 import 'bootstrap/dist/css/bootstrap.css';
@@ -35,9 +35,10 @@ function CreatePoll({ loginStatus, setLoginStatus, poll, setPoll }) {
 
 
     const [errorMessages, setErrorMessages] = useState([]);
-    // const [fileList, setFileList] = useState([]);
     const [files, setFiles] = useState([]);
+    const [uploadProgress, setUploadProgress] = useState(0);
     const [showModal, setShowModal] = useState(false);
+    const [submit, setSubmit] = useState(false);
 
 
     // On drop file in the field, we update fileList state
@@ -52,23 +53,11 @@ function CreatePoll({ loginStatus, setLoginStatus, poll, setPoll }) {
       formik.setFieldValue("images", [...files, ...acceptedFiles]);
     });
 
-    // console.log(files);
-
     
     // non images are bounced
     const onDropRejected = useCallback(rejectedFiles => {
       alert(`Non image files are ignored!`);
     });
-
-
-    // on remove file we remove file from fileList state
-    // and also remove file from formik "images" field
-    // const removeFile = (fileIndex) => {
-    //   var array = [...files];
-    //   array.splice(fileIndex, 1);
-    //   setFileList([...array]);
-    //   formik.setFieldValue("images", [...array]);
-    // }
 
     const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop, onDropRejected, accept: 'image/*'});
 
@@ -81,27 +70,35 @@ function CreatePoll({ loginStatus, setLoginStatus, poll, setPoll }) {
 
         if(!values.pollTitle) {
             setErrorMessages(errorMessages => [...errorMessages, 'Please enter a Poll Title']);
+            setSubmit(false);
         }
         if(values.pollId.length < 3) {
             setErrorMessages(errorMessages => [...errorMessages, 'Poll Id should have at least 3 characters']);
+            setSubmit(false);
         }
         if(values.pollPasscode.length < 3) {
             setErrorMessages(errorMessages => [...errorMessages, 'Poll Passcode should have at least 3 characters']);
+            setSubmit(false);
         }
         if(values.maxVoteLimit === 0) {
             setErrorMessages(errorMessages => [...errorMessages, 'Maximum Vote Limit can not be 0']);
+            setSubmit(false);
         }
         if(values.startDate.getTime() === values.endDate.getTime()) {
             setErrorMessages(errorMessages => [...errorMessages, "Start Date and End Date can't be equal"]);
+            setSubmit(false);
         }
         if(values.startDate.getTime() > values.endDate.getTime()) {
             setErrorMessages(errorMessages => [...errorMessages, "Start Time can't be greater than End Time"]);
+            setSubmit(false);
         }
         if(values.maxVoteLimit > values.images.length) {
             setErrorMessages(errorMessages => [...errorMessages, 'Maximum Vote Limit can not be larger than uploaded images']);
+            setSubmit(false);
         }
         if(values.images === null || values.images.length < 2) {
           setErrorMessages(errorMessages => [...errorMessages, "Please upload 2 or more files"]);
+          setSubmit(false);
         }
     }
 
@@ -127,6 +124,8 @@ function CreatePoll({ loginStatus, setLoginStatus, poll, setPoll }) {
       onSubmit: values => {
         if(errorMessages.length === 0) {
 
+          setSubmit(true);
+
           var formData = new FormData();
           formData.append("pollTitle", values.pollTitle);
           formData.append("pollId", values.pollId);
@@ -140,7 +139,15 @@ function CreatePoll({ loginStatus, setLoginStatus, poll, setPoll }) {
           }
 
           // source: https://stackoverflow.com/a/43014086/9481106
-          axios.post('/api/poll/create', formData, { headers: {'content-type': 'multipart/form-data'}})
+          axios.post('/api/poll/create', formData, 
+                          { 
+                            headers: {'content-type': 'multipart/form-data'},
+                            // calculating upload progress
+                            onUploadProgress: (progressEvent) => {
+                              const uploadPercentage = Math.floor((progressEvent.loaded / progressEvent.total) * 100);
+                              setUploadProgress(uploadPercentage);
+                            }
+                          })
               // poll created successfully
               .then(res => {
                 // after poll created successfully
@@ -189,7 +196,7 @@ function CreatePoll({ loginStatus, setLoginStatus, poll, setPoll }) {
                 <br />
                 {/*handling DatePicker with Formik*/}
                 {/* source: https://stackoverflow.com/a/52273407/9481106*/}
-                <DatePicker id="startDate" className="form-control" value={formik.values.startDate} selected={formik.values.startDate} onChange={date => formik.setFieldValue("startDate", date)} showTimeSelect={true} />
+                <DatePicker id="startDate" className="form-control" value={formik.values.startDate} selected={formik.values.startDate} onChange={date => formik.setFieldValue("startDate", date)} showTimeSelect />
               </div>
               <div className="form-group col-md-6">
                 <label htmlFor="endDate">End Date</label>
@@ -203,7 +210,18 @@ function CreatePoll({ loginStatus, setLoginStatus, poll, setPoll }) {
             <label htmlFor="images">Upload Images</label>
             <div className={"form-control dnd " + (isDragActive ? "dnd-focus" : "") } {...getRootProps()}>
               {/* source: https://stackoverflow.com/a/56161034/9481106 */}
-              <input {...getInputProps()} type="file" id="images" name="images" onChange={event => formik.setFieldValue("images", event.currentTarget.files)} multiple />
+              <input {...getInputProps()} type="file" id="images" name="images" 
+                     onChange={event => {
+                                  formik.setFieldValue("images", event.currentTarget.files);
+                                  {/*also update the 'files' state*/}
+                                  var acceptedFiles = Array.from(event.currentTarget.files);
+                                  acceptedFiles.map(file => {
+                                    Object.assign(file, {preview: URL.createObjectURL(file)});
+                                    setFiles(files => [...files, file]);
+                                  });
+                                }
+                              } 
+                      multiple />
               <div className="icon mt-4 mb-2">
                 <i className="fa fa-5x fa-align-justify fa-upload" aria-hidden="true"></i>
               </div>
@@ -211,24 +229,22 @@ function CreatePoll({ loginStatus, setLoginStatus, poll, setPoll }) {
             </div>
           </div>
 
-          {/* Display file list */}
-          {/*<div className="form-group">
-            <ul className="list-group">
-              {fileList.length > 0 && fileList.map((file, index) => (
-                <li key={index} className="list-group-item list-group-item-success d-flex justify-content-between align-items-center">
-                  {file.name}
-                  <button className="btn btn-close" onClick={() => removeFile(index)}><i className="fa fa-trash-o" /></button>
-                </li>
-              ))}
-            </ul>
-          </div>*/}
+          
           <div className="form-group">
             <button type="button" className="btn btn-link" onClick={() => setShowModal(!showModal)}>{files.length} items added</button>
             {showModal ? <ShowFiles files={files} setFiles={setFiles} showModal={showModal} setShowModal={setShowModal} formik={formik} /> : null}
           </div>
 
+          {uploadProgress ?
+              <div className="form-group">
+                  <ProgressBar now={uploadProgress} label={`${uploadProgress}%`} variant={"info"}/>
+              </div>
+                      :
+              null
+          }
+
           <div className="form-group">
-            <button type="submit" className="btn btn-info btn-block" onClick={formik.handleSubmit} >Create Poll</button>
+            <button type="submit" className="btn btn-info btn-block" onClick={formik.handleSubmit} disabled={submit} >Create Poll</button>
           </div>
 
         </div>

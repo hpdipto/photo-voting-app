@@ -36,3 +36,8 @@
     justify-content: center;
 }
 
+
+.progress {
+    height: calc(1.5em + 0.75rem + 2px);
+}
+
