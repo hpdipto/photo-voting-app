@@ -222,7 +222,7 @@ function CreatePoll({ loginStatus, setLoginStatus, poll, setPoll }) {
                                 }
                               } 
                       multiple />
-              <div className="icon mt-4 mb-2">
+              <div className="icon mt-2 mb-2">
                 <i className="fa fa-5x fa-align-justify fa-upload" aria-hidden="true"></i>
               </div>
               <p align="center">Drop images here or click to upload</p>
@@ -231,8 +231,15 @@ function CreatePoll({ loginStatus, setLoginStatus, poll, setPoll }) {
 
           
           <div className="form-group">
-            <button type="button" className="btn btn-link" onClick={() => setShowModal(!showModal)}>{files.length} items added</button>
-            {showModal ? <ShowFiles files={files} setFiles={setFiles} showModal={showModal} setShowModal={setShowModal} formik={formik} /> : null}
+            <div className="row">
+              <div className="col">
+                <button type="button" className="btn btn-link" onClick={() => setShowModal(!showModal)} style={{color: "#212529"}}>{files.length} files added</button>
+                {showModal ? <ShowFiles files={files} setFiles={setFiles} showModal={showModal} setShowModal={setShowModal} formik={formik} /> : null}
+              </div>
+              <div className="col" align="right">
+                <button type="button" className="btn btn-link" onClick={() => {setFiles([]); formik.setFieldValue("images", []);}} style={{color: "#212529"}}>Clear files</button>
+              </div>
+            </div>
           </div>
 
           {uploadProgress ?

@@ -39,6 +39,7 @@ function ShowFiles({ files, setFiles, showModal, setShowModal, formik }) {
                         );
                     })}
                 </div>
+                {files.length == 0 ? <h6>No files added yet</h6> : null}
               </Modal.Body>
             </Modal>
         </div>
