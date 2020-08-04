@@ -58,7 +58,7 @@ function VoteForm({ vote, setVote }) {
                     pollPasscode: values.pollPasscode
                 };
 
-                axios.post('/vote/enter', poll)
+                axios.post('/api/vote/enter', poll)
                     .then(res => {
                         let responseData = res.data;
                         // if we had some error during entering into a poll

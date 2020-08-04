@@ -36,7 +36,7 @@ function Dashboard({ loginStatus, setLoginStatus, user, setUser }) {
 
     const fetchData = async () => {
       try {
-        const response = await axios.get('/poll', {
+        const response = await axios.get('/api/poll', {
           cancelToken: source.token
         });
         setPolls(response.data);
@@ -85,7 +85,7 @@ function Dashboard({ loginStatus, setLoginStatus, user, setUser }) {
 
 
   const logOut = () => {
-    axios.get('/user/logout')
+    axios.get('/api/user/logout')
         .then(res => {
           // after successful logout loginStatus become -1
           // also set user object to empty {}

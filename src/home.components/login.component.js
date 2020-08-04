@@ -91,7 +91,7 @@ function Login({login, setLogin, register, setRegister, user, setUser}) {
                     password: values.password
                 };
 
-                axios.post('/user/login', user, {withCredentials: true})
+                axios.post('/api/user/login', user, {withCredentials: true})
                     .then(res => {
                         let responseData = res.data;
                         // if we had some error during login

@@ -15,7 +15,7 @@ function OpenPoll({ loginStatus, setLoginStatus, poll, imageList, votes, setVote
     const submitVotes = () => {
 
         // vote backend
-        axios.post(`/vote/poll/${poll._id}`, votes)
+        axios.post(`/api/vote/poll/${poll._id}`, votes)
             .then(res => {
                 // loginStatus 4 denotes, a vote complete successfully
                 setLoginStatus(4);

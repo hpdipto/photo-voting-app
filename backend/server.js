@@ -28,12 +28,6 @@ app.use(cors({
 app.use(express.json());
 
 
-// Deployment
-app.use(express.static(path.join(__dirname, 'build')));
-app.get('/', function(req, res) {
-  res.sendFile(path.join(__dirname, 'build', 'index.html'));
-});
-
 
 // DB config
 // For deployment
@@ -54,11 +48,6 @@ app.use(session({
 }));
 
 
-// Default directory for static files
-// Uploaded images will inside public/img
-// For development
-// app.use(express.static('public'));
-
 
 // Passport middleware
 app.use(passport.initialize());
@@ -75,9 +64,21 @@ const userRoutes = require('./routes/user');
 const pollRoutes = require('./routes/poll');
 const voteRoutes = require('./routes/vote');
 
-app.use('/user', userRoutes);
-app.use('/poll', pollRoutes);
-app.use('/vote', voteRoutes);
+app.use('/api/user', userRoutes);
+app.use('/api/poll', pollRoutes);
+app.use('/api/vote', voteRoutes);
+
+
+// Default directory for static files
+// Uploaded images will inside public/img
+// For development
+// app.use(express.static('public'));
+
+// For deployment
+app.use(express.static(path.join(__dirname, 'build')));
+app.get('/*', function(req, res) {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
 
 
 

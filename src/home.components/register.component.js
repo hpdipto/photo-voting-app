@@ -63,7 +63,7 @@ function Register({ login, setLogin, register, setRegister }) {
                     password: values.registerPassword
                 };
 
-                axios.post('/user/add', user)
+                axios.post('/api/user/add', user)
                     .then(res => {
                         // user registered successfully
                         onClickLogin(4);

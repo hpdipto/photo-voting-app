@@ -31,7 +31,7 @@ function Result({ loginStatus, setLoginStatus, user, setUser }) {
 
     const fetchData = async () => {
       try {
-        const response = await axios.get(`/poll/result/${pollId}`, {
+        const response = await axios.get(`/api/poll/result/${pollId}`, {
           cancelToken: source.token
         });
         setPoll(response.data);
@@ -63,7 +63,7 @@ function Result({ loginStatus, setLoginStatus, user, setUser }) {
 
 
   const logOut = () => {
-    axios.get('/user/logout')
+    axios.get('/api/user/logout')
         .then(res => {
           // after successful logout loginStatus become -1
           // empty the user data

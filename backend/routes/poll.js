@@ -113,9 +113,16 @@ router.delete('/:id', (req, res) => {
         else {
             let imageList = poll.imageList;
             for(var i = 0; i < imageList.length; i++) {
-                // add "build" part again in file path
-                // as we removed it during upload
-                fs.unlinkSync("build" + imageList[i]["src"]);
+                // using try-catch block if files not found
+                // an error will arise
+                try {
+                    // add "build" part again in file path
+                    // as we removed it during upload
+                    fs.unlinkSync("build" + imageList[i]["src"]);
+                }
+                catch {
+                    // unhandled error
+                }
             }
         }
     });

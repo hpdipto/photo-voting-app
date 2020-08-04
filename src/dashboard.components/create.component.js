@@ -140,7 +140,7 @@ function CreatePoll({ loginStatus, setLoginStatus, poll, setPoll }) {
           }
 
           // source: https://stackoverflow.com/a/43014086/9481106
-          axios.post('/poll/create', formData, { headers: {'content-type': 'multipart/form-data'}})
+          axios.post('/api/poll/create', formData, { headers: {'content-type': 'multipart/form-data'}})
               // poll created successfully
               .then(res => {
                 // after poll created successfully

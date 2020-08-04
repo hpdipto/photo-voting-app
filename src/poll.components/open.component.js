@@ -13,7 +13,7 @@ function OpenPoll({ poll, images }) {
     const history = useHistory();
 
     const getResult = () => {
-        history.push(`/poll/result/${poll._id}`);
+        history.push(`/api/poll/result/${poll._id}`);
     }
 
 
