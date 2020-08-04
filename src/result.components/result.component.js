@@ -45,9 +45,7 @@ function ResultPoll({ poll, result }) {
                 </div>
 
                 
-                <div className="container">
-                    {result ? <ResultGallery result={result} /> : null}
-                </div>
+                {result ? <ResultGallery result={result} /> : null}
                 
             </div>
         </div>
