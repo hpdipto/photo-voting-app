@@ -108,7 +108,7 @@ router.delete('/:id', (req, res) => {
     // source: https://flaviocopes.com/how-to-remove-file-node/
     Poll.findById(req.params.id, (err, poll) => {
         if(err) {
-            res.status(400).send('Error at file deleting: ' + err);
+            res.send('Error at file deleting: ' + err);
         }
         else {
             let imageList = poll.imageList;
@@ -134,7 +134,7 @@ router.delete('/:id', (req, res) => {
             res.status(400).send('Error: ' + err);
         }
         else {
-            res.send('Poll deleted successfully!');
+            res.send('Poll deleted');
         }
     });
 

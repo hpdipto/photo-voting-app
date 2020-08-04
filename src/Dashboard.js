@@ -46,7 +46,7 @@ function Dashboard({ loginStatus, setLoginStatus, user, setUser }) {
           // console.log('caught cancel');
         }
         else {
-          throw error;
+          // do nothing
         }
       }
       

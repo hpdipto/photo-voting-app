@@ -16,9 +16,12 @@ function PollCard({ loginStatus, setLoginStatus, id, pollTitle, pollId, startDat
     const deletePoll = () => {
         axios.delete(`/api/poll/${id}`)
                 .then(res => {
-                    // after a poll deleted successfully
-                    // setLoginStatus = 6
-                    setLoginStatus(6);
+                    // if got 'Poll deleted' server response
+                    if(res.data == 'Poll deleted') {
+                        // after a poll deleted successfully
+                        // setLoginStatus = 6
+                        setLoginStatus(6);
+                    }
                 });
     }
 
