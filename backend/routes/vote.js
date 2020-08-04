@@ -25,7 +25,15 @@ router.post('/enter', (req, res) => {
             }
             // if User not voted and pollPasscode match
             else if(poll.pollPasscode == pollPasscode) {
-                res.json(poll);
+                if(poll.startDate > new Date()) {
+                    res.json({'message': "Poll is not started yet"});
+                }
+                else if(poll.endDate < new Date()) {
+                    res.json({'message': "Poll ended"});
+                }
+                else {
+                    res.json(poll);
+                }
             }
             // poll found but pollPasscode dosen't match
             else {
