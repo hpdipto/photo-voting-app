@@ -58,10 +58,10 @@ function EmptyDashboard({ loginStatus, setLoginStatus }) {
 
 
     return (
-        <div className="card card-body text-center" style={{backgroundColor: "transparent"}}>
+        <div className="card card-body mh-100 text-center" style={{backgroundColor: "transparent"}}>
             {successMessage.length ? <SuccessMessages loginStatus={loginStatus} setLoginStatus={setLoginStatus} messages={successMessage} setMessages={setSuccessMessage} /> : null}
             {warningMessage.length ? <WarningMessages loginStatus={loginStatus} setLoginStatus={setLoginStatus} messages={warningMessage} setMessages={setWarningMessage} /> : null}
-            <h4 style={{color: "#385482"}}>No polls to display!</h4>
+            <h4 style={{color: "#385482"}} className="mt-5 mb-5">No polls to display!</h4>
         </div>
     );
 

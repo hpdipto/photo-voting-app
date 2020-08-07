@@ -113,6 +113,20 @@ function Vote({ loginStatus, setLoginStatus, user, setUser }) {
                     votes={votes} setVotes={setVotes}
                     votesLeft={votesLeft} setVotesLeft={setVotesLeft} />
         </div>
+
+        <div className="card card-body bottom mt-5" style={{backgroundColor: "transparent"}}>
+          <div className="navbar navbar-light" style={{"backgroundColor": "#e3f2fd"}}>
+            <div>
+              <p>© 2020 Copyright: Haris Development</p>
+            </div>
+            <div>
+              <button className="btn btn-link btn-lg" type="button"><i class="fa fa-facebook-f"></i></button>
+              <button className="btn btn-link btn-lg" type="button"><i class="fa fa-twitter"></i></button>
+              <button className="btn btn-link btn-lg" type="button"><i class="fa fa-linkedin"></i></button>
+              <button className="btn btn-link btn-lg" type="button"><i class="fa fa-instagram"></i></button>
+            </div>
+          </div>
+      </div>
     </div>
     
   );

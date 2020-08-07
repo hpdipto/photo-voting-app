@@ -133,7 +133,7 @@ function Dashboard({ loginStatus, setLoginStatus, user, setUser }) {
       </div>
 
 
-      <div className="card card-body fixed-bottom" style={{backgroundColor: "transparent"}}>
+      <div className="card card-body bottom mt-5" style={{backgroundColor: "transparent"}}>
         <div className="navbar navbar-light" style={{"backgroundColor": "#e3f2fd"}}>
           <div>
             <p>© 2020 Copyright: Haris Development</p>

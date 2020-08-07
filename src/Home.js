@@ -47,7 +47,7 @@ function Home({ loginStatus, setLoginStatus, user, setUser }) {
   }
 
   return (
-    <div>
+    <div style={{marginTop: "10vh", marginBottom: "10vh"}}>
         <div className="row mt-5">
           <div className="col-md-6">
             <br />
