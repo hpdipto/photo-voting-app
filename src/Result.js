@@ -10,9 +10,9 @@ function Result({ loginStatus, setLoginStatus, user, setUser }) {
 
   let urlId = useLocation().pathname.slice(useLocation().pathname.lastIndexOf("/")+1);
 
-  const [pollId, setPollId] = useState(urlId);
   const [poll, setPoll] = useState({});
   const history = useHistory();
+  const pollId = urlId;
 
 
   useEffect(() => {

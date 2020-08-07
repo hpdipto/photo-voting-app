@@ -50,6 +50,7 @@ function Home({ loginStatus, setLoginStatus, user, setUser }) {
       <div className="col-md-6">
         <br />
         <h1>Photo Poll</h1>
+        <br />
       </div>
 
       <div className="col-md-6">

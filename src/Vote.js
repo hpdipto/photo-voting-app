@@ -12,12 +12,13 @@ function Vote({ loginStatus, setLoginStatus, user, setUser }) {
 
   let urlId = useLocation().pathname.slice(useLocation().pathname.lastIndexOf("/")+1);
 
-  const [pollId, setPollId] = useState(urlId);
   const [poll, setPoll] = useState({});
   const [votes, setVotes] = useState([]);
   const [votesLeft, setVotesLeft] = useState(0);
 
   const history = useHistory();
+
+  const pollId = urlId;
 
 
   useEffect(() => {
@@ -63,7 +64,7 @@ function Vote({ loginStatus, setLoginStatus, user, setUser }) {
       source.cancel();
     }
 
-  }, []);   // included  values to avoid warning
+  }, [history, loginStatus, pollId, loginStatus]);   // included  values to avoid warning
 
 
 

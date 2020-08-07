@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React from 'react';
 // using dateformat to display nice format date
 // source: https://stackoverflow.com/a/3552496/9481106
 import dateformat from 'dateformat';
