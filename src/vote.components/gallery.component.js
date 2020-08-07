@@ -4,9 +4,6 @@ import 'bootstrap/dist/css/bootstrap.css';
 
 import "../styles/imageGallery.css";
 
-// loading backend source
-import ImageSource from "../ImageSource.json";
-
 
 import ImageViewer from "./viewer.component";
 
@@ -31,7 +28,7 @@ function Gallery({ imageList, maxVoteLimit, votes, setVotes, votesLeft, setVotes
                 {images.map((image, index) => {
                     return (
                         <div key={index} className="mb-3" id="photo">
-                            <img className="img-fluid" onClick={() => openModal(index)} src={ImageSource.src+image['src']} alt={`image_${index}`} />
+                            <img className="img-fluid" onClick={() => openModal(index)} src={image['src']} alt={`image_${index}`} />
                         </div>
                     );
                 })}

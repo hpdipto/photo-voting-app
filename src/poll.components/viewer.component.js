@@ -4,10 +4,6 @@ import { Modal, Carousel } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 
 
-// loading backend source
-import ImageSource from "../ImageSource.json";
-
-
 function ImageViewer({ show, setShow, images, index, setIndex }) {
 
     return (
@@ -25,7 +21,7 @@ function ImageViewer({ show, setShow, images, index, setIndex }) {
                 { images.map((image, idx) => {
                   return (
                     <Carousel.Item key={idx}>
-                      <img className='img-fluid' src={ImageSource.src+image['src']} alt={`image_${idx}`}/>
+                      <img className='img-fluid' src={image['src']} alt={`image_${idx}`}/>
                     </Carousel.Item>
                   );
                 }) }

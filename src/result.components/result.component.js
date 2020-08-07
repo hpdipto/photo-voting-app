@@ -12,7 +12,7 @@ function ResultPoll({ poll, result }) {
     const history = useHistory();
 
     const getPoll = () => {
-        history.push(`/api/poll/${poll._id}`);
+        history.push(`/poll/${poll._id}`);
     }
 
 

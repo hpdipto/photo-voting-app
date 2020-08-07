@@ -4,6 +4,8 @@ import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'font-awesome/css/font-awesome.min.css';
 
+import "./styles/dashboard.css";
+
 
 import VoteForm from "./dashboard.components/vote.component";
 import CreatePoll from "./dashboard.components/create.component";
@@ -100,8 +102,7 @@ function Dashboard({ loginStatus, setLoginStatus, user, setUser }) {
 
 
   return (
-
-    <div className="container">
+    <div className="container h-100">
       {/*nav bar*/}
       <div className="card card-body" style={{backgroundColor: "transparent"}}>
         <nav className="navbar navbar-light" style={{"backgroundColor": "#e3f2fd"}} >
@@ -132,8 +133,23 @@ function Dashboard({ loginStatus, setLoginStatus, user, setUser }) {
           <EmptyDashboard loginStatus={loginStatus} setLoginStatus={setLoginStatus} />
         }
       </div>
-    </div>
-    
+
+
+      <div className="card card-body footer" style={{backgroundColor: "transparent"}}>
+        <div className="navbar navbar-light" style={{"backgroundColor": "#e3f2fd"}}>
+          <div>
+            <p>© 2020 Copyright: Haris Development</p>
+          </div>
+          <div>
+            <a className="btn-floating btn-lg" type="button" role="button"><i class="fa fa-facebook-f"></i></a>
+            <a className="btn-floating btn-lg" type="button" role="button"><i class="fa fa-twitter"></i></a>
+            <a className="btn-floating btn-lg" type="button" role="button"><i class="fa fa-linkedin"></i></a>
+            <a className="btn-floating btn-lg" type="button" role="button"><i class="fa fa-instagram"></i></a>
+          </div>
+        </div>
+      </div>
+
+    </div>    
   );
 }
 

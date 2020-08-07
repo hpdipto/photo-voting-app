@@ -7,10 +7,6 @@ import "../styles/imageGallery.css";
 import ImageViewer from "./viewer.component";
 
 
-// loading backend source
-import ImageSource from "../ImageSource.json";
-
-
 // photo gallery source: https://mdbootstrap.com/plugins/jquery/gallery/#filter
 function Gallery({ images }) {
 
@@ -29,7 +25,7 @@ function Gallery({ images }) {
                 {images.map((image, index) => {
                     return (
                         <div key={index} className="mb-3" id="photo">
-                            <img className="img-fluid" onClick={() => openModal(index)} src={ImageSource.src+image['src']} alt={`image_${index}`} />
+                            <img className="img-fluid" onClick={() => openModal(index)} src={image['src']} alt={`image_${index}`} />
                         </div>
                     );
                 })}
