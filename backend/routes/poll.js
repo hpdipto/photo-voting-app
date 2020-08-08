@@ -134,7 +134,7 @@ router.get('/image/:filename', (req, res) => {
 });
 
 
-// ***** NEED UPATE HERE *****
+
 // delete a particular poll by id
 router.delete('/:id', (req, res) => {
 
@@ -146,11 +146,16 @@ router.delete('/:id', (req, res) => {
         else {
             let imageList = poll.imageList;
             for(var i = 0; i < imageList.length; i++) {
-                req.gfs.remove({filename: imageList[i]['src'], root: 'uploads'}, (err, gridStore) => {
-                    if(err) {
-                        return res.status(400).json({err: err});
-                    }
-                });
+                try {
+                    req.gfs.remove({filename: imageList[i]['src'], root: 'uploads'}, (err, gridStore) => {
+                        if(err) {
+                            return res.status(400).json({err: err});
+                        }
+                    });
+                }
+                catch(e) {
+                    return res.status(400).json({err: err});
+                }
             }
         }
     });
