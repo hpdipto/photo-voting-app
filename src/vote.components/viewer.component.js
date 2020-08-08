@@ -39,7 +39,7 @@ function ImageViewer({ show, setShow, index, setIndex, images, setImages, votes,
               { images.map((image, idx) => {
                 return (
                   <Carousel.Item key={idx}>
-                    <img className='img-fluid' src={image['src']} alt={`image_${idx}`}/>
+                    <img className='img-fluid' src={`/api/poll/image/${image['src']}`} alt={`image_${idx}`}/>
                   </Carousel.Item>
                 );
               }) }
