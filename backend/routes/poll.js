@@ -2,14 +2,32 @@ const router = require('express').Router();
 const multer = require('multer');
 const mongoose = require('mongoose');
 const fs = require('fs');
+const GridFsStorage = require('multer-gridfs-storage');
 
 let Poll = require('../models/poll.model');
 let User = require('../models/user.model');
 
 const ObjectId = mongoose.Types.ObjectId;
 
+
 // upload destination
-const upload = multer({dest: './build/img/'});
+// const upload = multer({dest: './build/img/'});
+
+
+// Create storage engine
+const storage = new GridFsStorage({
+  url: 'mongodb://localhost/photo_voting_app',
+  // url: process.env.ATLAS_URI,
+  file: (req, file) => {
+    return {
+        bucketName: 'uploads'
+    }
+  }
+});
+const upload = multer({ storage });
+
+
+
 
 
 // get polls of current user
@@ -44,7 +62,7 @@ router.post('/create', upload.any(), (req, res) => {
     for(var i = 0; i < req.files.length; i++) {
         var imageListObject = { 
                                 // excluding 'build' part from file path
-                                "src": req.files[i].path.slice(5), 
+                                "src": req.files[i].filename, 
                                 "votes": []
                               };
         imageList.push(imageListObject);
@@ -101,6 +119,22 @@ router.get('/:id', (req, res) => {
 });
 
 
+// get an image
+router.get('/image/:filename', (req, res) => {
+    req.gfs.files.findOne({filename: req.params.filename}, (err, file) => {
+        // Check if file exist
+        if(!file || file.length === 0) {
+            return res.status(400).json({err: 'No such file exists'});
+        }
+
+        // Return file
+        const readStream = req.gfs.createReadStream(file.filename)
+        readStream.pipe(res);
+    })
+});
+
+
+// ***** NEED UPATE HERE *****
 // delete a particular poll by id
 router.delete('/:id', (req, res) => {
 

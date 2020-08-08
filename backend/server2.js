@@ -35,20 +35,13 @@ app.use(express.json());
 // const uri = process.env.ATLAS_URI;
 // For local development
 const uri = 'mongodb://localhost/photo_voting_app';
-mongoose.connect(uri, { useNewUrlParser: true })
-        .then(() => console.log("MongoDB Connected Successfully!"))
-        .catch(err => console.log(err));
-
-// Init GFS
-let gfs;
-// Mongoose event handler, after connection
-// Source: https://stackoverflow.com/a/20360815/9481106
-const conn = mongoose.connection;
-conn.once('open', () => {
-    // Init stream
-    gfs = Grid(conn.db, mongoose.mongo);
+const conn = mongoose.createConnection(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+conn.once("open", () => {
+    // Init Grid
+    var gfs = Grid(conn.db, mongoose.mongo);
     gfs.collection('uploads');
-})
+    console.log('MongoDB connected successfully!');
+});
 
 
 // Express session
@@ -77,8 +70,8 @@ const pollRoutes = require('./routes/poll');
 const voteRoutes = require('./routes/vote');
 
 app.use('/api/user', userRoutes);
-// Source: https://stackoverflow.com/a/30234851/9481106
-app.use('/api/poll', (req, res, next) => {req.gfs = gfs; next();}, pollRoutes);
+// passing parameters to router; source: https://stackoverflow.com/a/30234851/9481106
+app.use('/api/poll', (req, res, next) => {req.gfs = gfs; next();},  pollRoutes);
 app.use('/api/vote', voteRoutes);
 
 

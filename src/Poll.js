@@ -107,10 +107,10 @@ function Poll({ loginStatus, setLoginStatus, user, setUser }) {
               <p>© 2020 Copyright: Haris Development</p>
             </div>
             <div>
-              <button className="btn btn-link btn-lg" type="button"><i class="fa fa-facebook-f"></i></button>
-              <button className="btn btn-link btn-lg" type="button"><i class="fa fa-twitter"></i></button>
-              <button className="btn btn-link btn-lg" type="button"><i class="fa fa-linkedin"></i></button>
-              <button className="btn btn-link btn-lg" type="button"><i class="fa fa-instagram"></i></button>
+              <button className="btn btn-link btn-lg" type="button"><i className="fa fa-facebook-f"></i></button>
+              <button className="btn btn-link btn-lg" type="button"><i className="fa fa-twitter"></i></button>
+              <button className="btn btn-link btn-lg" type="button"><i className="fa fa-linkedin"></i></button>
+              <button className="btn btn-link btn-lg" type="button"><i className="fa fa-instagram"></i></button>
             </div>
           </div>
       </div>

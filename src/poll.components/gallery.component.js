@@ -25,7 +25,7 @@ function Gallery({ images }) {
                 {images.map((image, index) => {
                     return (
                         <div key={index} className="mb-3" id="photo">
-                            <img className="img-fluid" onClick={() => openModal(index)} src={image['src']} alt={`image_${index}`} />
+                            <img className="img-fluid" onClick={() => openModal(index)} src={`/api/poll/image/${image['src']}`} alt={`image_${index}`} />
                         </div>
                     );
                 })}
