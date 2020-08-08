@@ -70,8 +70,9 @@ function Home({ loginStatus, setLoginStatus, user, setUser }) {
                 <img src={pic} alt="homepage" style={{width: "100%", height: "100%"}} />
             </div>
             <div className="col-md-6 mt-2">
-            {login ? <Login login={login} setLogin={setLogin} register={register} setRegister={setRegister} user={user} setUser={setUser} /> : null}
-            {register ? <Register login={login} setLogin={setLogin} register={register} setRegister={setRegister} /> : null}
+              <div></div>
+              {login ? <Login login={login} setLogin={setLogin} register={register} setRegister={setRegister} user={user} setUser={setUser} /> : null}
+              {register ? <Register login={login} setLogin={setLogin} register={register} setRegister={setRegister} /> : null}
             </div>
         </div>
     </div>

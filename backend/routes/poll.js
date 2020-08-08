@@ -119,7 +119,7 @@ router.get('/:id', (req, res) => {
 });
 
 
-// get an image
+// get an image by filename
 router.get('/image/:filename', (req, res) => {
     req.gfs.files.findOne({filename: req.params.filename}, (err, file) => {
         // Check if file exist
@@ -138,8 +138,7 @@ router.get('/image/:filename', (req, res) => {
 // delete a particular poll by id
 router.delete('/:id', (req, res) => {
 
-    // delete file from server
-    // source: https://flaviocopes.com/how-to-remove-file-node/
+    // first, delete images from DB
     Poll.findById(req.params.id, (err, poll) => {
         if(err) {
             res.send('Error at file deleting: ' + err);
@@ -147,22 +146,17 @@ router.delete('/:id', (req, res) => {
         else {
             let imageList = poll.imageList;
             for(var i = 0; i < imageList.length; i++) {
-                // using try-catch block if files not found
-                // an error will arise
-                try {
-                    // add "build" part again in file path
-                    // as we removed it during upload
-                    fs.unlinkSync("build" + imageList[i]["src"]);
-                }
-                catch {
-                    // unhandled error
-                }
+                req.gfs.remove({filename: imageList[i]['src'], root: 'uploads'}, (err, gridStore) => {
+                    if(err) {
+                        return res.status(400).json({err: err});
+                    }
+                });
             }
         }
     });
 
 
-    // remove Poll entry from database
+    // then remove Poll entry from database
     Poll.findByIdAndDelete(req.params.id, (err, doc) => {
         if(err) {
             res.status(400).send('Error: ' + err);
@@ -173,7 +167,7 @@ router.delete('/:id', (req, res) => {
     });
 
 
-    // delete poll from User data
+    // lastly delete poll from User data
     var userPolls = req.user.polls;
     var deleteIndex = userPolls.findIndex(element => element._id == req.params.id);
     userPolls.splice(deleteIndex, 1);
@@ -186,6 +180,7 @@ router.delete('/:id', (req, res) => {
                         });
 
 });
+
 
 
 // get poll result
