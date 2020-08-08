@@ -41,27 +41,6 @@ function CreatePoll({ loginStatus, setLoginStatus, poll, setPoll }) {
     const [submit, setSubmit] = useState(false);
 
 
-    // On drop file in the field, we update fileList state
-    // and add files to formik "images" field
-    const onDrop = useCallback(acceptedFiles => {
-      // file preview source: https://github.com/react-dropzone/react-dropzone/tree/master/examples/previews
-      acceptedFiles.map(file => {
-        Object.assign(file, {preview: URL.createObjectURL(file)});
-        setFiles(files => [...files, file]);
-      });
-
-      formik.setFieldValue("images", [...files, ...acceptedFiles]);
-    });
-
-    
-    // non images are bounced
-    const onDropRejected = useCallback(rejectedFiles => {
-      alert(`Non image files are ignored!`);
-    });
-
-    const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop, onDropRejected, accept: 'image/*'});
-
-
 
     // form validation
     const validate = values => {
@@ -161,6 +140,29 @@ function CreatePoll({ loginStatus, setLoginStatus, poll, setPoll }) {
       }
     });
 
+
+    // react-dropzone setup
+
+    // On drop file in the field, we update fileList state
+    // and add files to formik "images" field
+    const onDrop = useCallback(acceptedFiles => {
+      // file preview source: https://github.com/react-dropzone/react-dropzone/tree/master/examples/previews
+      acceptedFiles.forEach(file => {
+        Object.assign(file, {preview: URL.createObjectURL(file)});
+        setFiles(files => [...files, file]);
+      });
+
+      formik.setFieldValue("images", [...files, ...acceptedFiles]);
+    }, [files, formik]);
+
+    
+    // non images are bounced
+    const onDropRejected = useCallback(rejectedFiles => {
+      alert(`Non image files are ignored!`);
+    }, []);
+
+    const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop, onDropRejected, accept: 'image/*'});
+
     
 
 
@@ -213,9 +215,8 @@ function CreatePoll({ loginStatus, setLoginStatus, poll, setPoll }) {
               <input {...getInputProps()} type="file" id="images" name="images" 
                      onChange={event => {
                                   formik.setFieldValue("images", event.currentTarget.files);
-                                  {/*also update the 'files' state*/}
                                   var acceptedFiles = Array.from(event.currentTarget.files);
-                                  acceptedFiles.map(file => {
+                                  acceptedFiles.forEach(file => {
                                     Object.assign(file, {preview: URL.createObjectURL(file)});
                                     setFiles(files => [...files, file]);
                                   });
