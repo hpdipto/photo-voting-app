@@ -54,7 +54,7 @@ function Result({ loginStatus, setLoginStatus, user, setUser }) {
       source.cancel();
     }
 
-  }, []);   // included  values to avoid warning
+  }, [history, loginStatus, pollId, setLoginStatus]);   // included  values to avoid warning
 
 
   const dashboard = () => {

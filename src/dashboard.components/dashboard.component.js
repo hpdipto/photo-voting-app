@@ -59,7 +59,7 @@ function DashboardBody({ loginStatus, setLoginStatus, polls }) {
             setWarningMessage(warningMessage => [...warningMessage, 'Poll deleted successfully']);
         }
 
-    }, []);
+    }, [loginStatus]);
     
 
     // passing 4 polls at a time

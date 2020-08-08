@@ -64,7 +64,7 @@ function Vote({ loginStatus, setLoginStatus, user, setUser }) {
       source.cancel();
     }
 
-  }, [history, loginStatus, pollId, loginStatus]);   // included  values to avoid warning
+  }, [history, pollId, loginStatus, setLoginStatus]);   // included  values to avoid warning
 
 
 
