@@ -14,7 +14,11 @@ function Vote({ loginStatus, setLoginStatus, user, setUser }) {
 
   const [poll, setPoll] = useState({});
   const [votes, setVotes] = useState([]);
+  const [reset, setReset] = useState(false);
   const [votesLeft, setVotesLeft] = useState(0);
+
+  const [maxVoteLimit, setMaxVoteLimit] = useState(0);
+  const [imageListLength, setImageListLength] = useState(0);
 
   const history = useHistory();
 
@@ -45,6 +49,8 @@ function Vote({ loginStatus, setLoginStatus, user, setUser }) {
         // array initialization with 0s: https://stackoverflow.com/a/34104348/9481106
         setVotes(Array(response.data.imageList.length).fill(0));
         setVotesLeft(response.data.maxVoteLimit);
+        setMaxVoteLimit (response.data.maxVoteLimit);
+        setImageListLength(response.data.imageList.length);
       }
       catch (error) {
         if(axios.isCancel(error)) {
@@ -59,12 +65,23 @@ function Vote({ loginStatus, setLoginStatus, user, setUser }) {
 
     fetchData();
 
+
+    // if user reset given votes
+    // this option is updated in open.component.js
+    if(reset) {
+      setReset(false);
+      setVotesLeft(maxVoteLimit);
+      setVotes(Array(imageListLength));
+    }
+
+
+
     // clean up function for canceling axios request
     return () => {
       source.cancel();
     }
 
-  }, [history, pollId, loginStatus, setLoginStatus]);   // included  values to avoid warning
+  }, [history, pollId, loginStatus, setLoginStatus, reset, setReset, maxVoteLimit, imageListLength]);   // included  values to avoid warning
 
 
 
@@ -111,6 +128,7 @@ function Vote({ loginStatus, setLoginStatus, user, setUser }) {
           <OpenPoll loginStatus={loginStatus} setLoginStatus={setLoginStatus}
                     poll={poll} imageList={poll.imageList} 
                     votes={votes} setVotes={setVotes}
+                    reset={reset} setReset={setReset}
                     votesLeft={votesLeft} setVotesLeft={setVotesLeft} />
         </div>
 
@@ -120,10 +138,10 @@ function Vote({ loginStatus, setLoginStatus, user, setUser }) {
               <p>© 2020 Copyright: Haris Development</p>
             </div>
             <div>
-              <button className="btn btn-link btn-lg" type="button"><i class="fa fa-facebook-f"></i></button>
-              <button className="btn btn-link btn-lg" type="button"><i class="fa fa-twitter"></i></button>
-              <button className="btn btn-link btn-lg" type="button"><i class="fa fa-linkedin"></i></button>
-              <button className="btn btn-link btn-lg" type="button"><i class="fa fa-instagram"></i></button>
+              <button className="btn btn-link btn-lg" type="button"><i className="fa fa-facebook-f"></i></button>
+              <button className="btn btn-link btn-lg" type="button"><i className="fa fa-twitter"></i></button>
+              <button className="btn btn-link btn-lg" type="button"><i className="fa fa-linkedin"></i></button>
+              <button className="btn btn-link btn-lg" type="button"><i className="fa fa-instagram"></i></button>
             </div>
           </div>
       </div>

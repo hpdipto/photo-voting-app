@@ -8,7 +8,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import Gallery from "./gallery.component";
 
 
-function OpenPoll({ loginStatus, setLoginStatus, poll, imageList, votes, setVotes, votesLeft, setVotesLeft }) {
+function OpenPoll({ loginStatus, setLoginStatus, poll, imageList, votes, setVotes, reset, setReset, votesLeft, setVotesLeft }) {
 
     const history = useHistory();
 
@@ -44,9 +44,15 @@ function OpenPoll({ loginStatus, setLoginStatus, poll, imageList, votes, setVote
                         <dd className="col-md-9"><span style={{"fontSize": "1.2rem"}}>{votesLeft}</span></dd>
                     </dl>
 
-                    <div className="row">
+                    <div className="row mb-2">
                         <div className="col">
                             <button type="button" className="btn btn-primary btn-block" onClick={submitVotes}>Submit</button>
+                        </div>
+                    </div>
+
+                    <div className="row">
+                        <div className="col">
+                            <button type="button" className="btn btn-secondary btn-block" onClick={() => setReset(true)}>Reset</button>
                         </div>
                     </div>
                 </div>            
