@@ -47,14 +47,25 @@ function Home({ loginStatus, setLoginStatus, user, setUser }) {
   }
 
   return (
-    <div style={{marginTop: "10vh", marginBottom: "10vh"}}>
-        <div className="row mt-5">
+    <div className="container">
+      
+        <div className="row homepage">
+
           <div className="col-md-6">
-            <br />
-            <h1>Photo Poll</h1>
+            <div className="row">
+              <div className="col-12">
+                <h1>Photo Poll</h1>
+              </div>
+            </div>
+
+            <div className="row">
+              <div className="col-md-12">
+                <img src={pic} alt="homepage" style={{width: "100%", height: "100%"}} />
+              </div>
+            </div>
           </div>
+
           <div className="col-md-6">
-            <br />
             <div className="card card-body text-center" style={{backgroundColor: "transparent"}}>
               <div className="btn-group">
                 <button className="btn btn-primary" onClick={loginClicked}>Log In</button>
@@ -62,19 +73,15 @@ function Home({ loginStatus, setLoginStatus, user, setUser }) {
               </div>
               <br />
             </div>
-          </div>
-        </div>
 
-        <div className="row">
-            <div className="col-md-6 mt-3">
-                <img src={pic} alt="homepage" style={{width: "100%", height: "100%"}} />
-            </div>
-            <div className="col-md-6 mt-2">
-              <div></div>
+            <div className="mt-4">
               {login ? <Login login={login} setLogin={setLogin} register={register} setRegister={setRegister} user={user} setUser={setUser} /> : null}
               {register ? <Register login={login} setLogin={setLogin} register={register} setRegister={setRegister} /> : null}
             </div>
+          </div>
+
         </div>
+      
 
     </div>
   );

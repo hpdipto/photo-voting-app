@@ -15,13 +15,12 @@ code {
 }
 
 
-/* Footer Source: https://css-tricks.com/couple-takes-sticky-footer/#there-is-calc-reduced-height-wrappers; */
-
-html, body {
-  height: 100%;
-  margin: 0;
+.homepage {
+    margin-top: 10%;
 }
 
+
+/* Source: https://css-tricks.com/couple-takes-sticky-footer/#there-is-calc-reduced-height-wrappers; */
 .content-body {
     min-height: calc(100vh - 269px);
 }
