@@ -20,3 +20,8 @@
     column-width: 100%;
   }
 }
+
+
+/*
+.gallery {column-count: 3;column-width: 33%;} @media(max-width: 900px){.gallery {column-count: 2;column-width: 50%;}} @media(max-width: 500px){.gallery {column-count: 1;column-width: 100%;}}
+*/

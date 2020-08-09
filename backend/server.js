@@ -32,12 +32,15 @@ app.use(express.json());
 
 // DB config
 // For deployment
+// Also change uri in routes/poll.js
 // const uri = process.env.ATLAS_URI;
+
 // For local development
 const uri = 'mongodb://localhost/photo_voting_app';
-mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(uri, { useNewUrlParser: true })
         .then(() => console.log("MongoDB Connected Successfully!"))
         .catch(err => console.log(err));
+
 
 // Init GFS
 let gfs;
