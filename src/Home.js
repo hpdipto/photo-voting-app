@@ -75,6 +75,7 @@ function Home({ loginStatus, setLoginStatus, user, setUser }) {
               {register ? <Register login={login} setLogin={setLogin} register={register} setRegister={setRegister} /> : null}
             </div>
         </div>
+
     </div>
   );
 }

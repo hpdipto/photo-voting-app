@@ -81,39 +81,37 @@ function Poll({ loginStatus, setLoginStatus, user, setUser }) {
 
   return (
 
-    <div>
-        <div className="container">
-          {/*nav bar*/}
-          <div className="card card-body" style={{backgroundColor: "transparent"}}>
-            <nav className="navbar navbar-light" style={{"backgroundColor": "#e3f2fd"}} >
-              <h4 className="navbar-brand">{poll.pollTitle}</h4> 
-              <div className="btn-group">
-                <button onClick={dashboard} className="btn btn-outline-primary">Dashboard</button>
-                <button onClick={logOut} className="btn btn-outline-danger">Log Out</button>
-              </div>
-            </nav>
-          </div>
-
-          <br />
+    <div className="container">
+        {/*nav bar*/}
+        <div className="card card-body mb-4" style={{backgroundColor: "transparent"}}>
+          <nav className="navbar navbar-light" style={{"backgroundColor": "#e3f2fd"}} >
+            <h4 className="navbar-brand">{poll.pollTitle}</h4> 
+            <div className="btn-group">
+              <button onClick={dashboard} className="btn btn-outline-primary">Dashboard</button>
+              <button onClick={logOut} className="btn btn-outline-danger">Log Out</button>
+            </div>
+          </nav>
         </div>
 
-        <div className="container-fluid">
+        <div className="content-body mb-4">
           <OpenPoll poll={poll} images={poll.imageList} />
         </div>
 
-        <div className="card card-body bottom mt-5" style={{backgroundColor: "transparent"}}>
-          <div className="navbar navbar-light" style={{"backgroundColor": "#e3f2fd"}}>
-            <div>
-              <p>© 2020 Copyright: Haris Development</p>
-            </div>
-            <div>
-              <button className="btn btn-link btn-lg" type="button"><i className="fa fa-facebook-f"></i></button>
-              <button className="btn btn-link btn-lg" type="button"><i className="fa fa-twitter"></i></button>
-              <button className="btn btn-link btn-lg" type="button"><i className="fa fa-linkedin"></i></button>
-              <button className="btn btn-link btn-lg" type="button"><i className="fa fa-instagram"></i></button>
+        <footer>
+          <div className="card card-body" style={{backgroundColor: "transparent"}}>
+            <div className="navbar navbar-light" style={{"backgroundColor": "#e3f2fd"}}>
+              <div>
+                <p>© 2020 Copyright: Haris Development</p>
+              </div>
+              <div>
+                <button className="btn btn-link btn-lg" type="button"><i className="fa fa-facebook-f"></i></button>
+                <button className="btn btn-link btn-lg" type="button"><i className="fa fa-twitter"></i></button>
+                <button className="btn btn-link btn-lg" type="button"><i className="fa fa-linkedin"></i></button>
+                <button className="btn btn-link btn-lg" type="button"><i className="fa fa-instagram"></i></button>
+              </div>
             </div>
           </div>
-      </div>
+        </footer>
       
     </div>
     
