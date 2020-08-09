@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&display=swap');
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -15,14 +17,20 @@ code {
 }
 
 
+
+/* Vertically centerning all items of `homepage`
+   Source: https://stackoverflow.com/a/22196760/9481106 */
 .homepage {
-    margin-top: 10%;
+    min-height: 100%;  /*may be this line is redundant*/
+    min-height: 100vh;
+
+    display: flex;
+    align-items: center;
 }
 
 
-/* Source: https://css-tricks.com/couple-takes-sticky-footer/#there-is-calc-reduced-height-wrappers; */
+/* Sticking footer in bottom
+   Source: https://css-tricks.com/couple-takes-sticky-footer/#there-is-calc-reduced-height-wrappers; */
 .content-body {
     min-height: calc(100vh - 269px);
 }
-
-

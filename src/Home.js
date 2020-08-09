@@ -47,18 +47,18 @@ function Home({ loginStatus, setLoginStatus, user, setUser }) {
   }
 
   return (
-    <div className="container">
+    <div className="homepage">
       
-        <div className="row homepage">
+        <div className="row">
 
           <div className="col-md-6">
             <div className="row">
               <div className="col-12">
-                <h1>Photo Poll</h1>
+                <h1 style={{fontFamily: "Noto Serif"}}>Photo Poll</h1>
               </div>
             </div>
 
-            <div className="row">
+            <div className="row" style={{marginTop: "10%"}}>
               <div className="col-md-12">
                 <img src={pic} alt="homepage" style={{width: "100%", height: "100%"}} />
               </div>
@@ -82,7 +82,6 @@ function Home({ loginStatus, setLoginStatus, user, setUser }) {
 
         </div>
       
-
     </div>
   );
 }
