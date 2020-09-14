@@ -1,5 +1,5 @@
 This project is currently live at:
-https://photopoll.herokuapp.com/
+[photopoll.herokuapp.com](https://photopoll.herokuapp.com/)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
